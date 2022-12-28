@@ -1,0 +1,132 @@
+{% include 'adminheader.html' %}
+<center>
+
+    {% if data['raw'] %}
+
+    <h3>Update rawMaterials</h3>
+
+    <form action="" method="post">
+
+        <div>
+                <div>
+                    <input type="text" value="{{ data['raw'][0]['raw_mat'] }}" required placeholder="Raw Material" name="raw" id="">
+                </div>
+        </div>
+      
+        
+         <div>
+            <input type="submit" value="Update" name="update">
+         </div>
+
+    </form>
+    
+
+    {% else %}
+    <h3>Manage RawMaterials</h3>
+
+    <form action="" method="post">
+
+        <div>
+                <div>
+                    <label for="">Select Vendor: </label>
+                    <select required name="ven_id" id="">
+
+                        {% for row in data['ven'] %}
+                        <option value="{{ row['vendor_id'] }}">{{ row['vendor_name'] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            
+        </div>
+        <div>
+                <div>
+                    <input type="text" required placeholder="Raw material" name="raw" id="">
+                </div>
+         
+        </div>
+        
+        
+         
+         <div>
+            <input type="submit" value="submit" name="submit">
+         </div>
+
+    </form>
+
+    {% endif %}
+
+    <br><br>
+
+    <h5>View Available Raw Materials</h5>
+    <table>
+        <tr>
+            <th>index</th>
+            <th>Raw Material</th>
+            
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ row['raw_mat'] }}</td>
+           
+            <td><a href="?action=update&rawid={{ row['raw_mat_id'] }}">Update</a></td>
+            <td><a onclick="return confirm('Are you sure, delete this item ! ')" href="?action=delete&rawid={{ row['raw_mat_id'] }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+<script src="
+https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+<script>
+    $(function() {
+        $("input[name='fname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        $("input[name='lname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        // $("input[name='dob']").on('input', function(e) {
+        //     $(this).val($(this).val().replace(/[^0-9/]/g, ''));
+
+        // });
+        
+        $("input[name='phone']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='pin']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='email']").on('input', function(e) {
+              var re = /([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{1,}/.test(this.value);
+                if(!re) {
+                    $('#eerror').show();
+                } else {
+                    $('#eerror').hide();
+                }
+
+        });
+        $("input[name='address']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z0-9()/. ]/g, ''));
+
+        });
+        $("input[name='place']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+            
+        $("input[name='pwd']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9A-Za-z@/. ]/g, ''));
+            
+        });
+    });
+
+
+</script>
+
+{% include 'footer.html' %}
