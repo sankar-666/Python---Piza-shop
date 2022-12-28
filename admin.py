@@ -1,5 +1,6 @@
 from flask import *
 from database import *
+import uuid
 
 admin=Blueprint('admin',__name__)
 
@@ -388,3 +389,69 @@ def adminmanagesubcategory():
             update(q)
             return redirect(url_for("admin.adminmanagesubcategory"))
     return render_template('adminmanagesubcategory.html',data=data) 
+
+
+
+@admin.route('/adminmanageitems',methods=['get','post'])
+def adminmanageitems():
+    data={}
+
+    q="select * from subcategory"
+    data['sub']=select(q)
+
+    if 'submit' in request.form:
+        subid=request.form['subid']
+        name=request.form['name']
+        desc=request.form['desc']
+        price=request.form['price']
+        image=request.files['image']
+        path="static/uploads/"+str(uuid.uuid4())+image.filename
+        image.save(path)
+    
+        q="insert into product values (null,'%s','%s','%s','%s','%s','inactive')"%(subid,name,desc,path,price)
+        insert(q)
+        return redirect(url_for("admin.adminmanageitems"))
+
+
+    q="select * from product"
+    data['res']=select(q)
+
+
+    if 'action' in request.args:
+        action=request.args['action']
+        pid=request.args['pid']
+
+      
+    else:
+        action=None
+
+    if action == "active":
+        q="update product set status='active' where product_id='%s' "%(pid)
+        update(q) 
+        return redirect(url_for("admin.adminmanageitems"))
+    if action == "inactive":
+        q="update product set status='inactive' where product_id='%s' "%(pid)
+        update(q)
+        return redirect(url_for("admin.adminmanageitems"))
+
+    if action == "update":
+        q="select * from product where product_id='%s'"%(pid)
+        val=select(q)
+        data['raw']=val
+
+        if 'update' in request.form:
+            name=request.form['name']
+            desc=request.form['desc']
+            price=request.form['price']
+            image=request.files['image']
+            path="static/uploads/"+str(uuid.uuid4())+image.filename
+            image.save(path)
+            print(image.filename)
+            if image.filename == "":
+                q="update product set product_name='%s', product_desc='%s' , product_price='%s' where product_id='%s' "%(name,desc,price,pid)
+                update(q)
+            else:
+                q="update product set product_name='%s', product_desc='%s' , product_image='%s', product_price='%s' where product_id='%s' "%(name,desc,path,price,pid)
+                update(q)
+            return redirect(url_for("admin.adminmanageitems"))
+    return render_template('adminmanageitems.html',data=data) 
