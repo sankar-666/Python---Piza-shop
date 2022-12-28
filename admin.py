@@ -205,3 +205,186 @@ def adminmanagerawmaterials():
             update(q)
             return redirect(url_for("admin.adminmanagerawmaterials"))
     return render_template('adminmanagerawmaterials.html',data=data) 
+
+
+
+@admin.route('/adminmanagecourier',methods=['get','post'])
+def adminmanagecourier():
+    data={}
+    if 'submit' in request.form:
+        email=request.form['email']
+        password=request.form['password']
+        fname=request.form['fname']
+        lname=request.form['lname']
+        desig=request.form['desig']
+        street=request.form['street']
+        city=request.form['city']
+        district=request.form['district']
+        state=request.form['state']
+        pin=request.form['pin']
+        phone=request.form['phone']
+        gender=request.form['gender']
+        dob=request.form['dob']
+
+        q="select * from login where username='%s'"%(email)
+        res=select(q)
+        if res:
+            flash("Username Already Exist!")
+        else:
+            q="insert into login values ('%s','%s','courier','inactive')"%(email,password)
+            insert(q)
+            q="insert into courier values (null,'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s',curdate(),'inactive')"%(email,fname,lname,desig,street,city,district,state,pin,phone,gender,dob)
+            insert(q)
+            return redirect(url_for("admin.adminmanagecourier"))
+
+    data={}
+    q="select * from courier"
+    data['res']=select(q)
+
+
+    if 'action' in request.args:
+        action=request.args['action']
+        uname=request.args['uname']
+        corid=request.args['corid']
+      
+    else:
+        action=None
+
+    if action == "active":
+        q="update login set status='active' where username='%s' "%(uname)
+        update(q)
+        q="update courier set courier_status='active' where courier_id='%s' "%(corid)
+        update(q)
+        return redirect(url_for("admin.adminmanagecourier"))
+    if action == "inactive":
+        q="update login set status='inactive' where username='%s' "%(uname)
+        update(q)
+        q="update courier set courier_status='inactive' where courier_id='%s' "%(corid)
+        update(q)
+        return redirect(url_for("admin.adminmanagecourier"))
+
+    if action == "update":
+        q="select * from courier where courier_id='%s'"%(corid)
+        val=select(q)
+        data['courier']=val
+
+        if 'update' in request.form:
+            fname=request.form['fname']
+            lname=request.form['lname']
+            desig=request.form['desig']
+            street=request.form['street']
+            city=request.form['city']
+            district=request.form['district']
+            state=request.form['state']
+            pin=request.form['pin']
+            phone=request.form['phone']
+            gender=request.form['gender']
+            dob=request.form['dob']
+
+            q="update courier set courier_fname='%s', courier_lname='%s', courier_desig='%s', courier_street='%s', courier_city='%s', courier_dist='%s', courier_state='%s', courier_pincode='%s', courier_phone='%s', courier_gender='%s', courier_dob='%s' where courier_id='%s' "%(fname,lname,desig,street,city,district,state,pin,phone,gender,dob,corid)
+            update(q)
+            return redirect(url_for("admin.adminmanagecourier"))
+    return render_template('adminmanagecourier.html',data=data) 
+
+
+
+
+@admin.route('/adminmanagecaterogy',methods=['get','post'])
+def adminmanagecaterogy():
+    data={}
+    if 'submit' in request.form:
+        name=request.form['name']
+        desc=request.form['desc']
+    
+        q="insert into category values (null,'%s','%s','inactive')"%(name,desc)
+        insert(q)
+        return redirect(url_for("admin.adminmanagecaterogy"))
+
+    data={}
+    q="select * from category"
+    data['res']=select(q)
+
+
+    if 'action' in request.args:
+        action=request.args['action']
+        cat_id=request.args['cat_id']
+
+      
+    else:
+        action=None
+
+    if action == "active":
+        q="update category set status='active' where category_id='%s' "%(cat_id)
+        update(q) 
+        return redirect(url_for("admin.adminmanagecaterogy"))
+    if action == "inactive":
+        q="update category set status='inactive' where category_id='%s' "%(cat_id)
+        update(q)
+        return redirect(url_for("admin.adminmanagecaterogy"))
+
+    if action == "update":
+        q="select * from category where category_id='%s'"%(cat_id)
+        val=select(q)
+        data['raw']=val
+
+        if 'update' in request.form:
+            name=request.form['name']
+            desc=request.form['desc']
+
+            q="update category set category_name='%s', category_desc='%s' where category_id='%s' "%(name,desc,cat_id)
+            update(q)
+            return redirect(url_for("admin.adminmanagecaterogy"))
+    return render_template('adminmanagecaterogy.html',data=data) 
+
+
+
+@admin.route('/adminmanagesubcategory',methods=['get','post'])
+def adminmanagesubcategory():
+    data={}
+
+    q="select * from category"
+    data['cat']=select(q)
+    if 'submit' in request.form:
+        catid=request.form['catid']
+        name=request.form['name']
+        desc=request.form['desc']
+    
+        q="insert into subcategory values (null,'%s','%s','%s','inactive')"%(catid,name,desc)
+        insert(q)
+        return redirect(url_for("admin.adminmanagesubcategory"))
+
+
+    q="select * from subcategory"
+    data['res']=select(q)
+
+
+    if 'action' in request.args:
+        action=request.args['action']
+        subid=request.args['subid']
+
+      
+    else:
+        action=None
+
+    if action == "active":
+        q="update subcategory set status='active' where subcategory_id='%s' "%(subid)
+        update(q) 
+        return redirect(url_for("admin.adminmanagesubcategory"))
+    if action == "inactive":
+        q="update subcategory set status='inactive' where subcategory_id='%s' "%(subid)
+        update(q)
+        return redirect(url_for("admin.adminmanagesubcategory"))
+
+    if action == "update":
+        q="select * from subcategory where subcategory_id='%s'"%(subid)
+        val=select(q)
+        data['raw']=val
+
+        if 'update' in request.form:
+            name=request.form['name']
+            desc=request.form['desc']
+
+            q="update subcategory set subcategory_name='%s', subcategory_desc='%s' where subcategory_id='%s' "%(name,desc,subid)
+            update(q)
+            return redirect(url_for("admin.adminmanagesubcategory"))
+    return render_template('adminmanagesubcategory.html',data=data) 
