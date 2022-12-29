@@ -1,0 +1,25 @@
+{% include 'adminheader.html' %}
+
+<center>
+    <h3>View Booking</h3>
+
+    <table>
+        <tr>
+            <th></th>
+            <th>Product</th>
+            <th>Customer</th>
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td><img src="/{{ row['product_image'] }}" width="100" height="100" alt="image"></td>
+            <td>{{ row['product_name'] }}</td>
+            <td>{{ row['customer_fname'] }} {{ row['customer_lname'] }}</td>
+            <td><a href="adminviewcustomer?cid={{ row['customer_id'] }}">More details</a></td>
+            <td><a href="adminviewpayment?omid={{ row['ordermaster_id'] }}">View payment</a></td>
+            <td><a href="adminviewdeliverystatus?omid={{ row['ordermaster_id'] }}">Delivery statust</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+{% include 'footer.html' %}

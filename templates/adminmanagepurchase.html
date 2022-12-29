@@ -1,0 +1,101 @@
+{% include 'adminheader.html' %}
+<center>
+
+
+    <h3>Purchase Rawmaterials</h3>
+
+    <form action="" method="post">
+
+        <div>
+            <div>
+                <label for="">Select Vendor: </label>
+                <select required name="vid" id="">
+
+                    {% for row in data['ven'] %}
+                    <option value="{{ row['vendor_id'] }}">{{ row['vendor_name'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        
+        </div>
+        <div>
+            <div>
+                <label for="">Select Rawmaterials: </label>
+                <select required name="rid" id="">
+
+                    {% for row in data['raw'] %}
+                    <option value="{{ row['raw_mat_id'] }}">{{ row['raw_mat'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+           
+        </div>
+
+        <div>
+                
+            <input type="text" required placeholder="Amount" name="amount" id="">
+        </div>
+        
+         
+         <div>
+            <input type="submit" value="submit" name="submit">
+         </div>
+
+    </form>
+
+   
+
+<script src="
+https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+<script>
+    $(function() {
+        $("input[name='fname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        $("input[name='lname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        // $("input[name='dob']").on('input', function(e) {
+        //     $(this).val($(this).val().replace(/[^0-9/]/g, ''));
+
+        // });
+        
+        $("input[name='phone']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='pin']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='email']").on('input', function(e) {
+              var re = /([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{1,}/.test(this.value);
+                if(!re) {
+                    $('#eerror').show();
+                } else {
+                    $('#eerror').hide();
+                }
+
+        });
+        $("input[name='address']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z0-9()/. ]/g, ''));
+
+        });
+        $("input[name='place']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+            
+        $("input[name='pwd']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9A-Za-z@/. ]/g, ''));
+            
+        });
+    });
+
+
+</script>
+
+{% include 'footer.html' %}

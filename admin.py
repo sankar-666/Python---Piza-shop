@@ -169,8 +169,9 @@ def adminmanagerawmaterials():
        
         ven_id=request.form['ven_id']
         raw=request.form['raw']
+        quant=request.form['quant']
       
-        q="insert into rawmaterials values (null,'%s','%s')"%(ven_id,raw)
+        q="insert into rawmaterials values (null,'%s','%s','%s')"%(ven_id,raw,quant)
         insert(q)
         return redirect(url_for("admin.adminmanagerawmaterials"))
    
@@ -201,8 +202,9 @@ def adminmanagerawmaterials():
         if 'update' in request.form:
            
             raw=request.form['raw']
+            quant=request.form['quant']
 
-            q="update rawmaterials set raw_mat='%s' where raw_mat_id='%s' "%(raw,rawid)
+            q="update rawmaterials set raw_mat='%s', quantity='%s' where raw_mat_id='%s' "%(raw,quant,rawid)
             update(q)
             return redirect(url_for("admin.adminmanagerawmaterials"))
     return render_template('adminmanagerawmaterials.html',data=data) 
@@ -455,3 +457,98 @@ def adminmanageitems():
                 update(q)
             return redirect(url_for("admin.adminmanageitems"))
     return render_template('adminmanageitems.html',data=data) 
+
+
+
+@admin.route("/adminmanagepurchase",methods=['get','post'])
+def adminmanagepurchase():
+    data={}
+    q="select * from vendor"
+    data['ven']=select(q)
+    q="select * from rawmaterials"
+    data['raw']=select(q)
+    if 'submit' in request.form:
+        vid=request.form['vid']
+        rid=request.form['rid']
+        amount=request.form['amount']
+
+        q="select * from purchasemaster where status='pending'"
+        res=select(q)
+        if res:
+            pmaster_id=res[0]['purchasemaster_id']
+        else:
+            q="insert into purchasemaster values(null,'%s',0,0,'pending',curdate())"%(vid)
+            pmaster_id=insert(q)
+
+        q="select * from purchasechild where raw_mat_id='%s' and purchasemaster_id='%s'"%(rid,pmaster_id)
+        val=select(q)
+        if val:
+            q="update purchasechild set quantity=quantity+(select quantity from rawmaterials where raw_mat_id='%s') where prurchasechild_id='%s'"%(rid,val[0]['prurchasechild_id'])
+            update(q)
+        else:
+            q="insert into purchasechild values(null,'%s','%s','%s',(select quantity from rawmaterials where raw_mat_id='%s'))"%(pmaster_id,rid,amount,rid)
+            insert(q)
+        q="update rawmaterials set quantity=quantity+(select quantity from rawmaterials where raw_mat_id='%s') where raw_mat_id='%s'"%(rid,rid)
+        update(q)
+        q="update purchasemaster set total=total+'%s' where purchasemaster_id='%s'"%(amount,pmaster_id)
+        update(q)
+        flash("Purchased Sucessfully")
+        return redirect(url_for("admin.adminmanagepurchase"))
+    return render_template("adminmanagepurchase.html",data=data)
+
+
+@admin.route('/adminviewbooking')
+def adminviewbooking():
+    data={}
+    q="SELECT * FROM `ordermaster`, `orderdetails`, `customer`, `product` WHERE `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` AND `ordermaster`.`customer_id`=`customer`.`customer_id` AND `orderdetails`.`product_id`=`product`.`product_id`"
+    data['res']=select(q)
+    return render_template('adminviewbooking.html',data=data)
+
+@admin.route('/adminviewcustomer')
+def adminviewcustomer():
+    data={}
+    cid=request.args['cid']
+    q="SELECT * FROM customer where customer_id='%s'"%(cid)
+    data['res']=select(q)
+    return render_template('adminviewcustomer.html',data=data)
+
+@admin.route('/adminviewpayment')
+def adminviewpayment():
+    data={}
+    omid=request.args['omid']
+    q="SELECT * FROM payment where ordermaster_id='%s'"%(omid)
+    data['res']=select(q)
+    return render_template('adminviewpayment.html',data=data)
+
+
+@admin.route('/adminviewdeliverystatus')
+def adminviewdeliverystatus():
+    data={}
+    omid=request.args['omid']
+    q="SELECT * FROM ordermaster where ordermaster_id='%s'"%(omid)
+    data['res']=select(q)
+    return render_template('adminviewdeliverystatus.html',data=data)
+
+
+@admin.route("/adminviewcomplaints",methods=['get','post'])
+def adminviewcomplaints():
+    data={}
+    q="select * from customer inner join complaint using (customer_id)"
+    data['res']=select(q)
+
+    if 'action' in request.args:
+        action=request.args['action']
+        cid=request.args['cid']
+    else:
+        action=None
+
+    if action == "reply":
+        data['replysec']=True
+
+        if 'submit' in request.form:
+            reply=request.form['reply']
+
+            q="update complaint set reply='%s' where complaint_id='%s'"%(reply,cid)
+            update(q)
+            return redirect(url_for("admin.adminviewcomplaints"))
+    return render_template("adminviewcomplaints.html",data=data)

@@ -1,0 +1,21 @@
+{% include 'adminheader.html' %}
+
+<center>
+    <h3>Payment Details</h3>
+
+    <table>
+        <tr>
+            <th>Amount</th>
+            <th>Date</th>
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+          
+            <td>{{ row['amount'] }}</td>
+            <td>{{ row['date'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+{% include 'footer.html' %}

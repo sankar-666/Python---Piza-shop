@@ -12,6 +12,12 @@
                     <input type="text" value="{{ data['raw'][0]['raw_mat'] }}" required placeholder="Raw Material" name="raw" id="">
                 </div>
         </div>
+        <div>
+            <div>
+                <input type="number" value="{{ data['raw'][0]['quantity'] }}" required placeholder="Quantity" name="quant" id="">
+            </div>
+     
+    </div>
       
         
          <div>
@@ -44,6 +50,12 @@
                 </div>
          
         </div>
+        <div>
+                <div>
+                    <input type="number" required placeholder="Quantity" name="quant" id="">
+                </div>
+         
+        </div>
         
         
          
@@ -62,12 +74,14 @@
         <tr>
             <th>index</th>
             <th>Raw Material</th>
+            <th>Quantity</th>
             
         </tr>
         {% for row in data['res'] %}
         <tr>
             <td>{{ loop.index }}</td>
             <td>{{ row['raw_mat'] }}</td>
+            <td>{{ row['quantity'] }}</td>
            
             <td><a href="?action=update&rawid={{ row['raw_mat_id'] }}">Update</a></td>
             <td><a onclick="return confirm('Are you sure, delete this item ! ')" href="?action=delete&rawid={{ row['raw_mat_id'] }}">Delete</a></td>
