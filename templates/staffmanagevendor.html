@@ -1,0 +1,196 @@
+{% include 'staffheader.html' %}
+<center>
+
+    {% if data['vendor'] %}
+
+    <h3>Update Vendor</h3>
+
+    <form action="" method="post">
+
+        <div>
+                <div>
+                    <input type="text" value="{{ data['vendor'][0]['vendor_name'] }}" required placeholder="Name" name="fname" id="">
+                </div>
+                <!-- <div>
+                    <input type="text" value="{{ data['vendor'][0]['staff_lname'] }}" required placeholder="Lastname" name="lname" id="">
+                </div> -->
+        </div>
+        <div>
+                <div>
+                    <input type="text" value="{{ data['vendor'][0]['vendor_godown_num'] }}" required placeholder="Godown Number" name="gonum" id="">
+                </div>
+                <div>
+                    <input type="text" value="{{ data['vendor'][0]['vendor_street'] }}" required placeholder="Street" name="street" id="">
+                </div>
+        </div>
+        <div>
+                <div>
+                    <input type="text" value="{{ data['vendor'][0]['vendor_city'] }}" required placeholder="City" name="city" id="">
+                </div>
+                <div>
+                    <input type="text" value="{{ data['vendor'][0]['vendor_dist'] }}" required placeholder="District" name="district" id="">
+                </div>
+            
+        </div>
+
+        <div>
+                <div>
+                    <input type="text" maxlength="6" value="{{ data['vendor'][0]['vendor_pincode'] }}" required placeholder="Pincode" name="pin" id="">
+                </div>
+                <div>
+                    <input type="text" maxlength="10" value="{{ data['vendor'][0]['vendor_phone'] }}" required placeholder="phone" name="phone" id="">
+                </div>
+         </div>
+        
+         <div>
+            <input type="submit" value="Update" name="update">
+         </div>
+
+    </form>
+    
+
+    {% else %}
+    <h3>Manage Vendors</h3>
+
+    <form action="" method="post">
+
+        <div>
+                <div>
+                    <input type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required placeholder="Email" name="email" id="">
+                </div>
+                <!-- <div>
+                    <input type="password" required placeholder="Password" name="password" id="">
+                </div> -->
+        </div>
+        <div>
+                <div>
+                    <input type="text" required placeholder="Name" name="fname" id="">
+                </div>
+                <!-- <div>
+                    <input type="text" required placeholder="Lastname" name="lname" id="">
+                </div> -->
+        </div>
+        <div>
+                <div>
+                    <input type="text" required placeholder="Godown number " name="gonum" id="">
+                </div>
+                <div>
+                    <input type="text" required placeholder="Street" name="street" id="">
+                </div>
+        </div>
+        <div>
+                <div>
+                    <input type="text" required placeholder="City" name="city" id="">
+                </div>
+                <div>
+                    <input type="text" required placeholder="District" name="district" id="">
+                </div>
+                <!-- <div>
+                    <input type="text" required placeholder="State" name="state" id="">
+                </div> -->
+        </div>
+
+        <div>
+                <div>
+                    <input type="text" maxlength="6" required placeholder="Pincode" name="pin" id="">
+                </div>
+                <div>
+                    <input type="text" maxlength="10" required placeholder="phone" name="phone" id="">
+                </div>
+         </div>
+        
+         
+         <div>
+            <input type="submit" value="submit" name="submit">
+         </div>
+
+    </form>
+
+    {% endif %}
+
+    <br><br>
+
+    <h5>View Available Vendors</h5>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Godown Number</th>
+            <th>Street</th>
+            <th>City</th>
+            <th>District</th>
+            <th>Pincode</th>
+            <th>Phone</th>
+            <th>Status</th>
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td>{{ row['vendor_name'] }}</td>
+            <td>{{ row['vendor_godown_num'] }}</td>
+            <td>{{ row['vendor_street'] }}</td>
+            <td>{{ row['vendor_city'] }}</td>
+            <td>{{ row['vendor_dist'] }}</td>
+            <td>{{ row['vendor_pincode'] }}</td> 
+            <td>{{ row['vendor_phone'] }}</td>
+            <td>{{ row['vendor_status'] }}</td>
+            <td><a href="?action=update&vid={{ row['vendor_id'] }}">Update</a></td>
+            <td><a onclick="return confirm('Are You Sure!')" href="?action=active&vid={{ row['vendor_id'] }}">Active</a></td>
+            <td><a onclick="return confirm('Are You Sure!')" href="?action=inactive&vid={{ row['vendor_id'] }}">Inactive</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+<script src="
+https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+<script>
+    $(function() {
+        $("input[name='fname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        $("input[name='lname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        // $("input[name='dob']").on('input', function(e) {
+        //     $(this).val($(this).val().replace(/[^0-9/]/g, ''));
+
+        // });
+        
+        $("input[name='phone']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='pin']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='email']").on('input', function(e) {
+              var re = /([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{1,}/.test(this.value);
+                if(!re) {
+                    $('#eerror').show();
+                } else {
+                    $('#eerror').hide();
+                }
+
+        });
+        $("input[name='address']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z0-9()/. ]/g, ''));
+
+        });
+        $("input[name='place']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+            
+        $("input[name='pwd']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9A-Za-z@/. ]/g, ''));
+            
+        });
+    });
+
+
+</script>
+
+{% include 'footer.html' %}

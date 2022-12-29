@@ -162,7 +162,7 @@ def adminmanagevendor():
 @admin.route('/adminmanagerawmaterials',methods=['get','post'])
 def adminmanagerawmaterials():
     data={}
-    q="select * from vendor"
+    q="select * from vendor where vendor_status='active'"
     data['ven']=select(q)
     # print(data['ven'])
     if 'submit' in request.form:
@@ -345,7 +345,7 @@ def adminmanagecaterogy():
 def adminmanagesubcategory():
     data={}
 
-    q="select * from category"
+    q="select * from category where status='active' "
     data['cat']=select(q)
     if 'submit' in request.form:
         catid=request.form['catid']
@@ -398,7 +398,7 @@ def adminmanagesubcategory():
 def adminmanageitems():
     data={}
 
-    q="select * from subcategory"
+    q="select * from subcategory where status='active'"
     data['sub']=select(q)
 
     if 'submit' in request.form:
@@ -463,7 +463,7 @@ def adminmanageitems():
 @admin.route("/adminmanagepurchase",methods=['get','post'])
 def adminmanagepurchase():
     data={}
-    q="select * from vendor"
+    q="select * from vendor where vendor_status='active'"
     data['ven']=select(q)
     q="select * from rawmaterials"
     data['raw']=select(q)

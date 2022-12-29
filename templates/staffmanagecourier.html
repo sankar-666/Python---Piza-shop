@@ -1,0 +1,231 @@
+{% include 'staffheader.html' %}
+<center>
+
+    {% if data['courier'] %}
+
+    <h3>Update Courier</h3>
+
+    <form action="" method="post">
+
+        <div>
+                <div>
+                    <input type="text" value="{{ data['courier'][0]['courier_fname'] }}" required placeholder="Firstname" name="fname" id="">
+                </div>
+                <div>
+                    <input type="text" value="{{ data['courier'][0]['courier_lname'] }}" required placeholder="Lastname" name="lname" id="">
+                </div>
+        </div>
+        <div>
+                <div>
+                    <input type="text" value="{{ data['courier'][0]['courier_desig'] }}" required placeholder="Designation" name="desig" id="">
+                </div>
+                <div>
+                    <input type="text" value="{{ data['courier'][0]['courier_street'] }}" required placeholder="Street" name="street" id="">
+                </div>
+        </div>
+        <div>
+                <div>
+                    <input type="text" value="{{ data['courier'][0]['courier_city'] }}" required placeholder="City" name="city" id="">
+                </div>
+                <div>
+                    <input type="text" value="{{ data['courier'][0]['courier_dist'] }}" required placeholder="District" name="district" id="">
+                </div>
+                <div>
+                    <input type="text" value="{{ data['courier'][0]['courier_state'] }}" required placeholder="State" name="state" id="">
+                </div>
+        </div>
+
+        <div>
+                <div>
+                    <input type="text" maxlength="6" value="{{ data['courier'][0]['courier_pincode'] }}" required placeholder="Pincode" name="pin" id="">
+                </div>
+                <div>
+                    <input type="text" maxlength="10" value="{{ data['courier'][0]['courier_phone'] }}" required placeholder="phone" name="phone" id="">
+                </div>
+         </div>
+        
+         <div>
+                <div>
+                    {% if data['courier'][0]['courier_gender'] == "male" %}
+                
+                    <input type="radio" checked  value="male" name="gender" id="">Male<input value="female" type="radio"  name="gender" id="">Female
+                    {% else %}
+                    hellossss
+                 
+                    <input type="radio"  value="male" name="gender" id="">Male<input value="female" type="radio" checked  name="gender" id="">Female
+                  
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="">Date of Birth: </label>
+                    <input type="date" value="{{ data['courier'][0]['courier_dob'] }}" required placeholder="Date of Birth" name="dob" id="">
+                </div>
+         </div>
+         <div>
+            <input type="submit" value="Update" name="update">
+         </div>
+
+    </form>
+    
+
+    {% else %}
+    <h3>Manage Courier</h3>
+
+    <form action="" method="post">
+
+        <div>
+                <div>
+                    <input type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required placeholder="Email" name="email" id="">
+                </div>
+                <div>
+                    <input type="password" required placeholder="Password" name="password" id="">
+                </div>
+        </div>
+        <div>
+                <div>
+                    <input type="text" required placeholder="Firstname" name="fname" id="">
+                </div>
+                <div>
+                    <input type="text" required placeholder="Lastname" name="lname" id="">
+                </div>
+        </div>
+        <div>
+                <div>
+                    <input type="text" required placeholder="Designation" name="desig" id="">
+                </div>
+                <div>
+                    <input type="text" required placeholder="Street" name="street" id="">
+                </div>
+        </div>
+        <div>
+                <div>
+                    <input type="text" required placeholder="City" name="city" id="">
+                </div>
+                <div>
+                    <input type="text" required placeholder="District" name="district" id="">
+                </div>
+                <div>
+                    <input type="text" required placeholder="State" name="state" id="">
+                </div>
+        </div>
+
+        <div>
+                <div>
+                    <input type="text" maxlength="6" required placeholder="Pincode" name="pin" id="">
+                </div>
+                <div>
+                    <input type="text" maxlength="10" required placeholder="phone" name="phone" id="">
+                </div>
+         </div>
+        
+         <div>
+                <div>
+                    <input type="radio"  value="male" name="gender" id="">Male<input value="female" type="radio"  name="gender" id="">Female
+                </div>
+                <div>
+                    <label for="">Date of Birth: </label>
+                    <input type="date" required placeholder="Date of Birth" name="dob" id="">
+                </div>
+         </div>
+         <div>
+            <input type="submit" value="submit" name="submit">
+         </div>
+
+    </form>
+
+    {% endif %}
+
+    <br><br>
+
+    <h5>View Available Staffs</h5>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Designation</th>
+            <th>Street</th>
+            <th>City</th>
+            <th>District</th>
+            <th>State</th>
+            <th>Pincode</th>
+            <th>Phone</th>
+            <th>Gender</th>
+            <th>Dob</th>
+            <th>Joined Date</th>
+            <th>Courier Status</th>
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td>{{ row['courier_fname'] }}{{ row['courier_lname'] }}</td>
+            <td>{{ row['courier_desig'] }}</td>
+            <td>{{ row['courier_street'] }}</td>
+            <td>{{ row['courier_city'] }}</td>
+            <td>{{ row['courier_dist'] }}</td>
+            <td>{{ row['courier_state'] }}</td>
+            <td>{{ row['courier_pincode'] }}</td>
+            <td>{{ row['courier_phone'] }}</td>
+            <td>{{ row['courier_gender'] }}</td>
+            <td>{{ row['courier_dob'] }}</td>
+            <td>{{ row['courier_join'] }}</td>
+            <td>{{ row['courier_status'] }}</td>
+            <td><a href="?action=update&corid={{ row['courier_id'] }}&uname={{ row['username'] }}">Update</a></td>
+            <td><a onclick="return confirm('Are You Sure!')" href="?action=active&corid={{ row['courier_id'] }}&uname={{ row['username'] }}">Active</a></td>
+            <td><a onclick="return confirm('Are You Sure!')" href="?action=inactive&corid={{ row['courier_id'] }}&uname={{ row['username'] }}">Inactive</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+<script src="
+https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+<script>
+    $(function() {
+        $("input[name='fname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        $("input[name='lname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        // $("input[name='dob']").on('input', function(e) {
+        //     $(this).val($(this).val().replace(/[^0-9/]/g, ''));
+
+        // });
+        
+        $("input[name='phone']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='pin']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='email']").on('input', function(e) {
+              var re = /([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{1,}/.test(this.value);
+                if(!re) {
+                    $('#eerror').show();
+                } else {
+                    $('#eerror').hide();
+                }
+
+        });
+        $("input[name='address']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z0-9()/. ]/g, ''));
+
+        });
+        $("input[name='place']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+            
+        $("input[name='pwd']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9A-Za-z@/. ]/g, ''));
+            
+        });
+    });
+
+
+</script>
+
+{% include 'footer.html' %}
