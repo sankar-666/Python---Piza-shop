@@ -1,5 +1,6 @@
 from flask import *
 from database import *
+import uuid
 
 staff=Blueprint('staff',__name__)
 
@@ -156,3 +157,207 @@ def staffmanagecourier():
             update(q)
             return redirect(url_for("staff.staffmanagecourier"))
     return render_template('staffmanagecourier.html',data=data)
+
+
+
+@staff.route('/staffmanagecategory',methods=['get','post'])
+def staffmanagecategory():
+    data={}
+    if 'submit' in request.form:
+        name=request.form['name']
+        desc=request.form['desc']
+    
+        q="insert into category values (null,'%s','%s','inactive')"%(name,desc)
+        insert(q)
+        return redirect(url_for("staff.staffmanagecategory"))
+
+    data={}
+    q="select * from category"
+    data['res']=select(q)
+
+
+    if 'action' in request.args:
+        action=request.args['action']
+        cat_id=request.args['cat_id']
+
+      
+    else:
+        action=None
+
+    if action == "active":
+        q="update category set status='active' where category_id='%s' "%(cat_id)
+        update(q) 
+        return redirect(url_for("staff.staffmanagecategory"))
+    if action == "inactive":
+        q="update category set status='inactive' where category_id='%s' "%(cat_id)
+        update(q)
+        return redirect(url_for("staff.staffmanagecategory"))
+
+    if action == "update":
+        q="select * from category where category_id='%s'"%(cat_id)
+        val=select(q)
+        data['raw']=val
+
+        if 'update' in request.form:
+            name=request.form['name']
+            desc=request.form['desc']
+
+            q="update category set category_name='%s', category_desc='%s' where category_id='%s' "%(name,desc,cat_id)
+            update(q)
+            return redirect(url_for("staff.staffmanagecategory"))
+    return render_template('staffmanagecategory.html',data=data) 
+
+
+
+@staff.route('/staffmanagesubcategory',methods=['get','post'])
+def staffmanagesubcategory():
+    data={}
+
+    q="select * from category where status='active' "
+    data['cat']=select(q)
+    if 'submit' in request.form:
+        catid=request.form['catid']
+        name=request.form['name']
+        desc=request.form['desc']
+    
+        q="insert into subcategory values (null,'%s','%s','%s','inactive')"%(catid,name,desc)
+        insert(q)
+        return redirect(url_for("staff.staffmanagesubcategory"))
+
+
+    q="select * from subcategory"
+    data['res']=select(q)
+
+
+    if 'action' in request.args:
+        action=request.args['action']
+        subid=request.args['subid']
+
+      
+    else:
+        action=None
+
+    if action == "active":
+        q="update subcategory set status='active' where subcategory_id='%s' "%(subid)
+        update(q) 
+        return redirect(url_for("staff.staffmanagesubcategory"))
+    if action == "inactive":
+        q="update subcategory set status='inactive' where subcategory_id='%s' "%(subid)
+        update(q)
+        return redirect(url_for("staff.staffmanagesubcategory"))
+
+    if action == "update":
+        q="select * from subcategory where subcategory_id='%s'"%(subid)
+        val=select(q)
+        data['raw']=val
+
+        if 'update' in request.form:
+            name=request.form['name']
+            desc=request.form['desc']
+
+            q="update subcategory set subcategory_name='%s', subcategory_desc='%s' where subcategory_id='%s' "%(name,desc,subid)
+            update(q)
+            return redirect(url_for("staff.staffmanagesubcategory"))
+    return render_template('staffmanagesubcategory.html',data=data) 
+
+@staff.route('/staffmanageitems',methods=['get','post'])
+def staffmanageitems():
+    data={}
+
+    q="select * from subcategory where status='active'"
+    data['sub']=select(q)
+
+    if 'submit' in request.form:
+        subid=request.form['subid']
+        name=request.form['name']
+        desc=request.form['desc']
+        price=request.form['price']
+        image=request.files['image']
+        path="static/uploads/"+str(uuid.uuid4())+image.filename
+        image.save(path)
+    
+        q="insert into product values (null,'%s','%s','%s','%s','%s','inactive')"%(subid,name,desc,path,price)
+        insert(q)
+        return redirect(url_for("staff.staffmanageitems"))
+
+
+    q="select * from product"
+    data['res']=select(q)
+
+
+    if 'action' in request.args:
+        action=request.args['action']
+        pid=request.args['pid']
+
+      
+    else:
+        action=None
+
+    if action == "active":
+        q="update product set status='active' where product_id='%s' "%(pid)
+        update(q) 
+        return redirect(url_for("staff.staffmanageitems"))
+    if action == "inactive":
+        q="update product set status='inactive' where product_id='%s' "%(pid)
+        update(q)
+        return redirect(url_for("staff.staffmanageitems"))
+
+    if action == "update":
+        q="select * from product where product_id='%s'"%(pid)
+        val=select(q)
+        data['raw']=val
+
+        if 'update' in request.form:
+            name=request.form['name']
+            desc=request.form['desc']
+            price=request.form['price']
+            image=request.files['image']
+            path="static/uploads/"+str(uuid.uuid4())+image.filename
+            image.save(path)
+            print(image.filename)
+            if image.filename == "":
+                q="update product set product_name='%s', product_desc='%s' , product_price='%s' where product_id='%s' "%(name,desc,price,pid)
+                update(q)
+            else:
+                q="update product set product_name='%s', product_desc='%s' , product_image='%s', product_price='%s' where product_id='%s' "%(name,desc,path,price,pid)
+                update(q)
+            return redirect(url_for("staff.staffmanageitems"))
+    return render_template('staffmanageitems.html',data=data) 
+
+
+
+@staff.route("/staffmanagepurchase",methods=['get','post'])
+def staffmanagepurchase():
+    data={}
+    q="select * from vendor where vendor_status='active'"
+    data['ven']=select(q)
+    q="select * from rawmaterials"
+    data['raw']=select(q)
+    if 'submit' in request.form:
+        vid=request.form['vid']
+        rid=request.form['rid']
+        amount=request.form['amount']
+
+        q="select * from purchasemaster where status='pending'"
+        res=select(q)
+        if res:
+            pmaster_id=res[0]['purchasemaster_id']
+        else:
+            q="insert into purchasemaster values(null,'%s','%s',0,'pending',curdate())"%(vid,session['sid'])
+            pmaster_id=insert(q)
+
+        q="select * from purchasechild where raw_mat_id='%s' and purchasemaster_id='%s'"%(rid,pmaster_id)
+        val=select(q)
+        if val:
+            q="update purchasechild set quantity=quantity+(select quantity from rawmaterials where raw_mat_id='%s') where prurchasechild_id='%s'"%(rid,val[0]['prurchasechild_id'])
+            update(q)
+        else:
+            q="insert into purchasechild values(null,'%s','%s','%s',(select quantity from rawmaterials where raw_mat_id='%s'))"%(pmaster_id,rid,amount,rid)
+            insert(q)
+        q="update rawmaterials set quantity=quantity+(select quantity from rawmaterials where raw_mat_id='%s') where raw_mat_id='%s'"%(rid,rid)
+        update(q)
+        q="update purchasemaster set total=total+'%s' where purchasemaster_id='%s'"%(amount,pmaster_id)
+        update(q)
+        flash("Purchased Sucessfully")
+        return redirect(url_for("staff.staffmanagepurchase"))
+    return render_template("staffmanagepurchase.html",data=data)
