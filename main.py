@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,render_template
 from public import public
 from admin import admin
 from staff import staff
@@ -14,6 +14,9 @@ app.register_blueprint(staff,url_prefix="/staff")
 app.register_blueprint(customer,url_prefix="/customer")
 app.register_blueprint(courier,url_prefix="/courier")
 app.register_blueprint(public)
+@app.errorhandler(404)
+def not_found(e):
+  return render_template("404.html")
 
 
 

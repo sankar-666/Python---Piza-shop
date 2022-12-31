@@ -1,0 +1,41 @@
+{% include 'customerheader.html' %}
+<center>
+    <h5>fill this details to continue</h5>
+    <br>
+    <div>
+        <form action="" method="post">
+        <div>
+            <label for="">Item: </label>
+            <input type="text" value="{{ item }}" readonly name="product" id="">
+        </div>
+        <div>
+            <label for="">Amount: </label>
+            <input type="number" value="{{ amount }}" readonly name="amount" id="amount">
+        </div>
+        <div>
+            <label for="">Required Quantity: </label>
+            <input required type="number" placeholder="Enter your Quantity" name="quantity" id="qty">
+        </div>
+        <div>
+            <label for="">Total Amount: </label>
+            <input type="number" readonly  name="total" id="total">
+        </div>
+        <div>
+            <input type="submit" name="btn" id="">
+        </div>
+    </form>
+    </div>
+</center>
+
+<script>
+
+    var qty = document.getElementById("qty")
+    qty.addEventListener("input",()=> {
+
+        document.getElementById("total").value = document.getElementById("amount").value*document.getElementById("qty").value
+    })
+
+</script>
+
+
+{% include 'footer.html' %}

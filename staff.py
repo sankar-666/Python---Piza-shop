@@ -361,3 +361,11 @@ def staffmanagepurchase():
         flash("Purchased Sucessfully")
         return redirect(url_for("staff.staffmanagepurchase"))
     return render_template("staffmanagepurchase.html",data=data)
+
+
+@staff.route('/staffviewbookings')
+def staffviewbookings():
+    data={}
+    q="SELECT * FROM `ordermaster`, `orderdetails`, `customer`, `product` WHERE `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` AND `ordermaster`.`customer_id`=`customer`.`customer_id` AND `orderdetails`.`product_id`=`product`.`product_id`"
+    data['res']=select(q)
+    return render_template('staffviewbookings.html',data=data)
