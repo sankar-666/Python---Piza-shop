@@ -356,10 +356,19 @@ def staffmanagepurchase():
             insert(q)
         q="update rawmaterials set quantity=quantity+(select quantity from rawmaterials where raw_mat_id='%s') where raw_mat_id='%s'"%(rid,rid)
         update(q)
-        q="update purchasemaster set total=total+'%s' where purchasemaster_id='%s'"%(amount,pmaster_id)
+        q="update purchasemaster set staff_id='%s', total=total+'%s' where purchasemaster_id='%s'"%(session['sid'],amount,pmaster_id)
         update(q)
         flash("Purchased Sucessfully")
         return redirect(url_for("staff.staffmanagepurchase"))
+
+    q="SELECT * FROM `purchasemaster`, `purchasechild`, `rawmaterials` WHERE `purchasemaster`.`purchasemaster_id`=`purchasechild`.`purchasemaster_id` AND `purchasechild`.`raw_mat_id`=`rawmaterials`.`raw_mat_id` and status='pending'"
+    data['res']=select(q)
+
+    if 'btn' in request.form:
+    
+        q="update purchasemaster set status='purchase completed' where staff_id='%s' and status='pending' "%(session['sid'])
+        update(q)
+        return redirect(url_for("admin.adminmanagepurchase"))
     return render_template("staffmanagepurchase.html",data=data)
 
 
@@ -479,3 +488,15 @@ def staffviewtoppings():
                 insert(q)
                 return redirect(url_for("staff.staffviewtoppings")) 
     return render_template('staffviewtoppings.html',data=data)
+
+
+
+@staff.route('/staffviewpurchasedhistory')
+def staffviewpurchasedhistory():
+    data={}
+    sid=session['sid']
+    q="SELECT * FROM `purchasemaster`, `purchasechild`, `rawmaterials`, `vendor` WHERE `purchasemaster`.`purchasemaster_id`=`purchasechild`.`purchasemaster_id` AND `purchasechild`.`raw_mat_id`=`rawmaterials`.`raw_mat_id` AND `purchasemaster`.`vendor_id`=`vendor`.`vendor_id` and purchasemaster.staff_id='%s'"%(sid)
+    data['res']=select(q)
+    
+    return render_template('staffviewpurchasedhistory.html',data=data)
+

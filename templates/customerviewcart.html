@@ -43,7 +43,9 @@
             <input type="hidden" value="{{ row['total_price'] }}"  name="singletotal{{ loop.index }}" id="stotal{{ loop.index }}">
           </div>
                 <div class="cartSection removeWrap">
-             <a href="#" class="remove">x</a>
+             <!-- <a href="#" class="remove">x</a> -->
+             <!-- <input type="submit" class="remove" value="x" name="del{{ loop.index }}" id=""> -->
+             <button type="submit" class="remove" name="del{{ loop.index }}"><img class="del" src="/static/images/delete.png" alt=""></button>
           </div>
         </div>
 
@@ -63,7 +65,8 @@
         <li class="totalRow">
             <!-- <a href="?action=checkout&omid={{ data['res'][0]['ordermaster_id'] }}" class="btn continue">Checkout</a> -->
             <input type="hidden" value="{{ data['res'][0]['ordermaster_id'] }}" name="om_id" id="">
-            <input class="btn continue" value="Checkout" type="submit" name="btncheckout" id="">
+
+            <input class="btn continue" id="chb" value="Checkout" type="submit" name="btncheckout" id="">
         </li>
       {% endif %}
     </ul>
@@ -72,7 +75,22 @@
 </form>
 
   <style>
+    #chb{
+      /* width: 10rem; */
+      /* height: 2rem; */
+      border-radius: 30px;
+      background: #82ca9c;
+      color: #fff;
+      border: none;
+      padding: .9rem 3.4rem;
+      cursor: pointer;
+    
+    }
 
+    #chb:hover{
+      background: #f69679;
+      /* transition: all 1s; */
+    }
     .btn-up{
         padding: 4px 10px;
         margin: 0px 2px;
@@ -101,6 +119,24 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
+.del{
+  width: 15px;
+  border: none;
+  height: 15px;
+  cursor: pointer;
+  transition: transform 1s;
+}
+
+.del:hover{
+  /* border: 1px solid red !important; */
+  transform: scale(1.5);
+  transition: transform 1s;
+}
+
+.remove{
+  border: none;
+  background: transparent;
+}
 
 
 html {
@@ -360,6 +396,7 @@ a.remove {
   padding: .5em;
   font-size: .75em;
   display: inline-block;
+  border: none !important;
   border-radius: 100%;
   line-height: .85;
   -webkit-transition: all 0.25s linear;

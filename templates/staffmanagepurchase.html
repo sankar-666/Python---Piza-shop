@@ -43,6 +43,39 @@
 
     </form>
 
+    <br>
+
+        <h3>Purchased products</h3>
+
+    <div>
+        <div>
+            <table>
+                <tr>
+                    <th>Rawmaterial</th>
+                    <th>Quantity</th>
+                    <th>price</th>
+                    <th>Date of Purchase</th>
+
+                </tr>
+                {% for row in data['res'] %}
+                <tr>
+                    <td>{{ row['raw_mat'] }}</td>
+                    <td>{{ row['quantity'] }}</td>
+                    <td>{{ row['price'] }}</td>
+                    <td>{{ row['date_added'] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <div>
+                <form action="" method="post">
+                    
+                    <input type="submit" value="Complete Purchase" name="btn" id="">
+                </form>
+            </div>
+        
+        </div>
+    </div>
+
    
 
 <script src="

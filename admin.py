@@ -490,9 +490,18 @@ def adminmanagepurchase():
             insert(q)
         q="update rawmaterials set quantity=quantity+(select quantity from rawmaterials where raw_mat_id='%s') where raw_mat_id='%s'"%(rid,rid)
         update(q)
-        q="update purchasemaster set total=total+'%s' where purchasemaster_id='%s'"%(amount,pmaster_id)
+        q="update purchasemaster set staff_id='0', total=total+'%s' where purchasemaster_id='%s'"%(amount,pmaster_id)
         update(q)
         flash("Purchased Sucessfully")
+        return redirect(url_for("admin.adminmanagepurchase"))
+
+    q="SELECT * FROM `purchasemaster`, `purchasechild`, `rawmaterials` WHERE `purchasemaster`.`purchasemaster_id`=`purchasechild`.`purchasemaster_id` AND `purchasechild`.`raw_mat_id`=`rawmaterials`.`raw_mat_id` and status='pending'"
+    data['res']=select(q)
+
+    if 'btn' in request.form:
+    
+        q="update purchasemaster set status='purchase completed' where staff_id='0' and status='pending' "
+        update(q)
         return redirect(url_for("admin.adminmanagepurchase"))
     return render_template("adminmanagepurchase.html",data=data)
 
@@ -527,11 +536,14 @@ def adminviewdeliverystatus():
     omid=request.args['omid']
     q="SELECT * FROM ordermaster where ordermaster_id='%s'"%(omid)
     data['res']=select(q)
+    print(data['res'])
     return render_template('adminviewdeliverystatus.html',data=data)
 
 
 @admin.route("/adminviewcomplaints",methods=['get','post'])
 def adminviewcomplaints():
+
+    
     data={}
     q="select * from customer inner join complaint using (customer_id)"
     data['res']=select(q)
@@ -552,3 +564,15 @@ def adminviewcomplaints():
             update(q)
             return redirect(url_for("admin.adminviewcomplaints"))
     return render_template("adminviewcomplaints.html",data=data)
+
+
+
+
+@admin.route('/adminviewpurchasedhistory')
+def adminviewpurchasedhistory():
+    data={}
+    sid=session['sid']
+    q="SELECT * FROM `purchasemaster`, `purchasechild`, `rawmaterials`, `vendor` WHERE `purchasemaster`.`purchasemaster_id`=`purchasechild`.`purchasemaster_id` AND `purchasechild`.`raw_mat_id`=`rawmaterials`.`raw_mat_id` AND `purchasemaster`.`vendor_id`=`vendor`.`vendor_id` and purchasemaster.staff_id='0'"
+    data['res']=select(q)
+    
+    return render_template('adminviewpurchasedhistory.html',data=data)

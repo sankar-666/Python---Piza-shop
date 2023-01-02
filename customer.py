@@ -82,15 +82,22 @@ def customerviewcart():
     res=select(q)
     # print(len(res))
     data['val']=len(res)
+
+    for i in range(1,len(res)+1):
+        if 'del'+str(i) in request.form:
+            product_id=request.form['pid'+str(i)]
+            total_single_price=request.form['singletotal'+str(i)]
+            omid=request.form['om_id']
+
+            q="delete from orderdetails where ordermaster_id='%s' and product_id='%s' "%(omid,product_id)
+            delete(q)
+            q="update ordermaster set total_amount=total_amount-'%s' where ordermaster_id='%s'"%(total_single_price,omid)
+            update(q)
+            return redirect(url_for("customer.customerviewcart"))
+
+
     
     data['res']=res
-
-    # if 'action' in request.args:
-    #     action=request.args['action']
-    #     omid=request.args['omid']
-    # else:
-    #     action=None
-    # if action == "checkout":
     if 'btncheckout' in request.form:
         total=request.form['total']
         print("ssssssssssssssssssssssssssssssss"+total)

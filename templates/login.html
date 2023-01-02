@@ -44,7 +44,7 @@
       </div>
       <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
         <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
-          <h1><a href="http://blog.stackfindover.com/" rel="dofollow">Piza hut</a></h1>
+          <h1><a style="color: #e7272d;" href="http://blog.stackfindover.com/" rel="dofollow">Piza hut</a></h1>
         </div>
         <div class="formbg-outer">
           <div class="formbg">
@@ -53,27 +53,27 @@
               <form id="stripe-login" method="post">
                 <div class="field padding-bottom--24">
                   <label for="email">Email</label>
-                  <input type="email" name="email">
+                  <input required id="email" type="email" name="email">
+                  <span id="unamespan">Incorrect email format!</span>
                 </div>
-                <div class="field padding-bottom--24">
+                <div style="margin-top: -25px;" class="field padding-bottom--24">
                   <div class="grid--50-50">
                     <label for="password">Password</label>
-                    <div class="reset-pass">
-                      <!-- <a href="#">Forgot your password?</a> -->
-                    </div>
+                   
                   </div>
-                  <input type="password" name="password">
+                  <input  required id="password" type="password" name="password">
+                  <span id="passspan">Password Must contain <br> 8 charactor, 1 lowercase, 1 uppercase, 1 number!</span>
                 </div>
                 <div class="field field-checkbox padding-bottom--24 flex-flex align-center">
                   <!-- <label for="checkbox">
                     <input type="checkbox" name="checkbox"> Stay signed in for a week
                   </label> -->
                 </div>
-                <div class="field padding-bottom--24">
-                  <input type="submit" name="submit" value="Continue">
+                <div style="margin-top: -20px;" class="field padding-bottom--24">
+                  <input style="background: #fa4046;border: 2px solid white !important;outline: 2px solid white;" id="btn" type="submit" name="submit" value="Continue">
                 </div>
                 <div class="field">
-                  <!-- <a class="ssolink" href="#">Use single sign-on (Google) instead</a> -->
+                  <a class="ssolink" style="font-size: .7em; color: #1a1f36;" href="reg">New to here? Register</a>
                 </div>
               </form>
             </div>
@@ -98,6 +98,21 @@
   box-sizing: border-box;
   word-wrap: break-word;
   font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif;
+}
+
+#unamespan{
+  /* background: red; */
+  /* padding-left: 10px; */
+  color: red;
+
+  font-size: .8em;
+}
+#passspan{
+  /* background: red; */
+  /* padding-left: 10px; */
+  color: red;
+
+  font-size: .8em;
 }
 body {
     min-height: 100%;
@@ -146,7 +161,7 @@ a {
 }
 
 
-/* .loginbackground-gridContainer {
+.loginbackground-gridContainer {
     display: -ms-grid;
     display: grid;
     -ms-grid-columns: [start] 1fr [left-gutter] (86.6px)[16] [left-gutter] 1fr [end];
@@ -156,20 +171,20 @@ a {
     justify-content: center;
     margin: 0 -2%;
     transform: rotate(-12deg) skew(-12deg);
-} */
+}
 
 
 .box-divider--light-all-2 {
     box-shadow: inset 0 0 0 2px #e3e8ee;
 }
 .box-background--blue {
-    background-color: #5469d4;
+    background-color: #e7272d;
 }
 .box-background--white {
   background-color: #ffffff; 
 }
 .box-background--blue800 {
-    background-color: #212d63;
+    background-color: #e7272d;
 }
 .box-background--gray100 {
     background-color: #e3e8ee;
@@ -330,4 +345,58 @@ a.ssolink {
   }
 } 
   </style>
+
+  <script>
+    document.getElementById("unamespan").style.visibility="hidden"
+
+    document.getElementById("email").addEventListener("input",validateEmail)
+
+    function validateEmail() {
+        // alert("hai")
+        let email = document.getElementById("email").value
+        var val = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+        if (val) {
+          console.log('Valid email');
+          document.getElementById("unamespan").style.visibility="hidden"
+          document.getElementById('btn').disabled = false;
+          
+            } else {
+              console.log('Invalid email');
+              document.getElementById("unamespan").style.visibility="visible"
+              document.getElementById('btn').disabled = true;
+        
+            }
+
+      }
+
+
+
+      document.getElementById("passspan").style.display="none"
+
+      document.getElementById("password").addEventListener("input",validatePassword)
+
+    function validatePassword() {
+        // alert("hai")
+        let password = document.getElementById("password").value
+        var val = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password);
+
+        if (val) {
+          console.log('Valid pass');
+          document.getElementById("passspan").style.display="none"
+          document.getElementById('btn').disabled = false;
+          
+            } else {
+              console.log('Invalid pass');
+              document.getElementById("passspan").style.display="block"
+              document.getElementById('btn').disabled = true;
+        
+            }
+
+      }
+   
+
+
+
+  </script>
 {% include 'footer.html' %}

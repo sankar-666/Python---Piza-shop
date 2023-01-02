@@ -1,0 +1,36 @@
+{% include 'adminheader.html' %}
+
+<center>
+    <h3>Purchased Details</h3>
+
+    <table>
+        <tr>
+            <th>Vendor Name</th>
+            <th>Godown number</th>
+            <th>Street</th>
+            <th>City</th>
+            <th>District</th>
+            <th>Pincode</th>
+            <th>Phone</th>
+            <th>Raw Material</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td>{{ row['vendor_name'] }}</td>
+            <td>{{ row['vendor_godown_num'] }}</td>
+            <td>{{ row['vendor_street'] }}</td>
+            <td>{{ row['vendor_city'] }}</td>
+            <td>{{ row['vendor_dist'] }}</td>
+            <td>{{ row['vendor_pincode'] }}</td>
+            <td>{{ row['vendor_phone'] }}</td>
+            <td>{{ row['raw_mat'] }}</td>
+            <td>{{ row['quantity'] }}</td>
+            <td>{{ row['price'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+{% include 'footer.html' %}
