@@ -1,10 +1,11 @@
-
 {% include 'customerheader.html' %}
+
+
 <form  action="" method="post">
 <div class="wrap cf">
     <h1 class="projTitle">Piza<span>-hub</span></h1>
     <div class="heading cf">
-      <h1>My Cart</h1>
+      <h1>My Orders</h1>
       <a  href="customerviewitems" class="continue">Continue Shopping</a>
     </div>
     <div class="cart">
@@ -20,31 +21,20 @@
         
         <li class="items odd">
           
-      <div class="infoWrap"> 
+      <div class="infoWrap" style="justify-content: space-between;"> 
           <div class="cartSection">
-            <input type="hidden" name="pid{{ loop.index }}" value="{{ row['product_id'] }}" id="">
-            <input type="hidden" name="single{{ loop.index }}" value="{{ row['product_price'] }}" id="single{{ loop.index }}">
-          <img src="/{{ row['product_image'] }}"  alt="img" class="itemImg" />
-            <!-- <p class="itemNumber">#QUE-007544-002</p> -->
             <h3>{{ row['product_name'] }}</h3>
           
-             <p> <input readonly name="qty{{ loop.index }}" type="text" value="{{ row['quantity'] }}" id="inp{{ loop.index }}"  class="qty" /><button  id="dec{{ loop.index }}" value="dec" onclick="samplefnd('{{ loop.index }}')" type="button"  class="btn-up">-</button><button  id="add{{ loop.index }}" onclick="samplefna('{{ loop.index }}')" value="add" type="button" class="btn-up">+</button></p>
            
-            {% if row['status'] == "active" %}
-            <p class="stockStatus"> In Stock</p>
-            {% elif row['status'] == "inactive" %}
-            <p class="stockStatus out"> Out of Stock</p>
-            {% endif %}
+         
           </div>  
       
           
-          <div class="prodTotal cartSection">
-            <p id="singleCost{{ loop.index }}">₹{{ row['total_price'] }}</p>
-            <input type="hidden" value="{{ row['total_price'] }}"  name="singletotal{{ loop.index }}" id="stotal{{ loop.index }}">
-          </div>
-                <div class="cartSection removeWrap">
-             <a href="#" class="remove">x</a>
-          </div>
+          <div style="padding-left: 300px !important;" class="prodTotal cartSection">
+            <p style="font-size: .8em;" id="singleCost{{ loop.index }}">Status: <span style="color: #82CA9C;">{{ row['order_status'] }}</span></p>
+          
+        </div>
+
         </div>
 
 
@@ -53,21 +43,21 @@
       </ul>
     </div>
     
-    <div class="subtotal cf">
+    <!-- <div class="subtotal cf">
       <ul>
           <input type="hidden" id="mainval" value="{{ data['val'] }}" name="" id="">
           {% if data['res'] %}
         
               <li class="totalRow final"><span class="label">Total</span><span id="final" class="value">₹{{ data['res'][0]['total_amount'] }}</span></li>
               <input type="hidden" value="{{ data['res'][0]['total_amount'] }}" name="total" id="tot">
-        <li class="totalRow">
+        <li class="totalRow"> -->
             <!-- <a href="?action=checkout&omid={{ data['res'][0]['ordermaster_id'] }}" class="btn continue">Checkout</a> -->
-            <input type="hidden" value="{{ data['res'][0]['ordermaster_id'] }}" name="om_id" id="">
+            <!-- <input type="hidden" value="{{ data['res'][0]['ordermaster_id'] }}" name="om_id" id="">
             <input class="btn continue" value="Checkout" type="submit" name="btncheckout" id="">
         </li>
       {% endif %}
     </ul>
-    </div>
+    </div> -->
   </div>
 </form>
 
@@ -590,87 +580,89 @@ a.remove:hover {
   
 // }
 
-function defaultValue(q) {
-            document.getElementById("tot").value=(document.getElementById("final").innerText).slice(1,)
-            document.getElementById("single"+q).value=(document.getElementById("singlecost"+q).innerText).slice(1,)
-}
+// function defaultValue(q) {
+//             document.getElementById("tot").value=(document.getElementById("final").innerText).slice(1,)
+//             document.getElementById("single"+q).value=(document.getElementById("singlecost"+q).innerText).slice(1,)
+// }
 
 
-function samplefna(q){
-    // console.log(q);
-            var inp = document.getElementById("inp"+q).value
-            document.getElementById("inp"+q).value=parseInt(inp)+1
+// function samplefna(q){
+//     // console.log(q);
+//             var inp = document.getElementById("inp"+q).value
+//             document.getElementById("inp"+q).value=parseInt(inp)+1
          
 
-            var t = document.getElementById("singleCost"+q).innerText
-            var tot = t.slice(1,)
-            var singleCost = document.getElementById("single"+q).value
-            // alert(singleCost)
+//             var t = document.getElementById("singleCost"+q).innerText
+//             var tot = t.slice(1,)
+//             var singleCost = document.getElementById("single"+q).value
+//             // alert(singleCost)
 
-            var sum = parseInt(tot) + parseInt(singleCost)
-            document.getElementById("singleCost"+q).innerText = "₹"+sum
+//             var sum = parseInt(tot) + parseInt(singleCost)
+//             document.getElementById("singleCost"+q).innerText = "₹"+sum
 
-            // var f = 
-            // var final = f.slice(1,)
+//             // var f = 
+//             // var final = f.slice(1,)
 
 
-            var limit = document.getElementById("mainval").value
-            // console.log(limit);
+//             var limit = document.getElementById("mainval").value
+//             // console.log(limit);
            
-            var checkoutTotal = 0
-            // console.log(newtotal);
+//             var checkoutTotal = 0
+//             // console.log(newtotal);
 
-            for(i=1;i<=limit;i++){
+//             for(i=1;i<=limit;i++){
 
 
-                var abc = document.getElementById("singleCost"+i).innerText
-                var newtotal = abc.slice(1,)
-                // alert(newtotal)
-                checkoutTotal=parseInt(newtotal)+checkoutTotal
+//                 var abc = document.getElementById("singleCost"+i).innerText
+//                 var newtotal = abc.slice(1,)
+//                 // alert(newtotal)
+//                 checkoutTotal=parseInt(newtotal)+checkoutTotal
                 
-            }
-            document.getElementById("final").innerText="₹"+checkoutTotal
-            // console.log(document.getElementById("singleCost"+q).innerText.slice(1,))
-            document.getElementById("tot").value=(document.getElementById("final").innerText).slice(1,)
-            document.getElementById("stotal"+q).value=document.getElementById("singleCost"+q).innerText.slice(1,)
+//             }
+//             document.getElementById("final").innerText="₹"+checkoutTotal
+//             // console.log(document.getElementById("singleCost"+q).innerText.slice(1,))
+//             document.getElementById("tot").value=(document.getElementById("final").innerText).slice(1,)
+//             document.getElementById("stotal"+q).value=document.getElementById("singleCost"+q).innerText.slice(1,)
       
-}
+// }
 
-function samplefnd(q){
-     var inp = document.getElementById("inp"+q).value
-     if (inp != 1){
+// function samplefnd(q){
+//      var inp = document.getElementById("inp"+q).value
+//      if (inp != 1){
             
-            document.getElementById("inp"+q).value=parseInt(inp)-1
-            var t = document.getElementById("singleCost"+q).innerText
-            var tot = t.slice(1,)
-            console.log(tot);
-            var singleCost = document.getElementById("single"+q).value
-            console.log(singleCost);
+//             document.getElementById("inp"+q).value=parseInt(inp)-1
+//             var t = document.getElementById("singleCost"+q).innerText
+//             var tot = t.slice(1,)
+//             console.log(tot);
+//             var singleCost = document.getElementById("single"+q).value
+//             console.log(singleCost);
 
-            var diff = parseInt(tot) - parseInt(singleCost)
-            document.getElementById("singleCost"+q).innerText = "₹"+diff
+//             var diff = parseInt(tot) - parseInt(singleCost)
+//             document.getElementById("singleCost"+q).innerText = "₹"+diff
 
-            var limit = document.getElementById("mainval").value
-            // console.log(limit);
+//             var limit = document.getElementById("mainval").value
+//             // console.log(limit);
            
-            var checkoutTotal = 0
-            // console.log(newtotal);
+//             var checkoutTotal = 0
+//             // console.log(newtotal);
 
-            for(i=1;i<=limit;i++){
+//             for(i=1;i<=limit;i++){
 
 
-                var abc = document.getElementById("singleCost"+i).innerText
-                var newtotal = abc.slice(1,)
-                // alert(newtotal)
-                checkoutTotal=parseInt(newtotal)+checkoutTotal
+//                 var abc = document.getElementById("singleCost"+i).innerText
+//                 var newtotal = abc.slice(1,)
+//                 // alert(newtotal)
+//                 checkoutTotal=parseInt(newtotal)+checkoutTotal
                 
-            }
-            document.getElementById("final").innerText="₹"+checkoutTotal
-            document.getElementById("tot").value=(document.getElementById("final").innerText).slice(1,)
-            document.getElementById("stotal"+q).value=document.getElementById("singleCost"+q).innerText.slice(1,)
-        }
+//             }
+//             document.getElementById("final").innerText="₹"+checkoutTotal
+//             document.getElementById("tot").value=(document.getElementById("final").innerText).slice(1,)
+//             document.getElementById("stotal"+q).value=document.getElementById("singleCost"+q).innerText.slice(1,)
+//         }
     
- }
-  </script>
+//  }
+//   </script>
 
   {% include 'footer.html' %}
+
+{% include 'footer.html' %}

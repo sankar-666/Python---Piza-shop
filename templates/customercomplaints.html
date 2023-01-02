@@ -1,0 +1,39 @@
+{% include 'customerheader.html' %}
+<center>
+    <h3>Any Complaints</h3>
+
+    <div>
+        <form action="" method="post">
+            <div>
+                <input type="text" required name="comp" id="">
+            </div>
+            <div>
+                <input type="submit" name="btn" id="">
+            </div>
+        </form>
+    </div>
+
+    <br>
+    <br>
+    <h4>view Reply here</h4>
+
+    <table>
+        <tr>
+            <th>Index</th>
+            <th>Complaint</th>
+            <th>Reply</th>
+            <th>Date</th>
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td>{{ row['complaint'] }}</td>
+            <td>{{ row['reply'] }}</td>
+            <td>{{ row['date'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+</center>
+
+
+{% include 'footer.html' %}
