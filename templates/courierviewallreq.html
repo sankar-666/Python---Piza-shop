@@ -1,0 +1,40 @@
+{% include 'courierheader.html' %}
+
+<center>
+    <h3>Pending Couriers</h3>
+
+    <table>
+        <tr>
+            <th>Name</th>
+
+            <th>Street</th>
+            <th>City</th>
+            <th>District</th>
+          
+            <th>Pincode</th>
+            <th>Phone</th>
+            <th>Gender</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td>{{ row['customer_fname'] }}{{ row['customer_lname'] }}</td>
+      
+            <td>{{ row['customer_street'] }}</td>
+            <td>{{ row['customer_city'] }}</td>
+            <td>{{ row['customer_dist'] }}</td>
+            <td>{{ row['customer_pincode'] }}</td>
+            <td>{{ row['customer_phone'] }}</td>
+            <td>{{ row['customer_gender'] }}</td>
+            <td>{{ row['product_name'] }}</td>
+            <td>{{ row['quantity'] }}</td>
+            <td>{{ row['total_price'] }}</td>
+            <td><a onclick="return confirm('Are you Sure?')" href="?action=accept&omid={{ row['ordermaster_id'] }}">Accept Delivery</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+{% include 'footer.html' %}

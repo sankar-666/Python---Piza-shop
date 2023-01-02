@@ -1,0 +1,25 @@
+
+{% include 'staffheader.html' %}
+<center>
+<br>
+<div>
+     <form action="" method="post">
+        <div>
+            <label for="">Select Raw Material</label>
+            <select name="rawid" id="">
+                {% for row in data['raw'] %}
+                <option value="{{ row['raw_mat_id'] }}">{{ row['raw_mat'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+
+            <input type="submit" name="rawbtn" value="Submit" id="">
+        </div>
+    </form>
+</div>
+
+</center>
+
+
+{% include 'footer.html' %}

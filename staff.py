@@ -368,4 +368,114 @@ def staffviewbookings():
     data={}
     q="SELECT * FROM `ordermaster`, `orderdetails`, `customer`, `product` WHERE `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` AND `ordermaster`.`customer_id`=`customer`.`customer_id` AND `orderdetails`.`product_id`=`product`.`product_id`"
     data['res']=select(q)
+
+    if 'action' in request.args:
+        action=request.args['action']
+        omid=request.args['omid']  
+    else:
+        action=None
+
+    if action == "dispatch":
+        q="update ordermaster set order_status='Dispatched' where ordermaster_id='%s' "%(omid)
+        update(q)
+        return redirect(url_for("staff.staffviewbookings"))
+    
     return render_template('staffviewbookings.html',data=data)
+
+
+@staff.route('/staffviewcustomers')
+def staffviewcustomers():
+    data={}
+    cid=request.args['cid']
+    q="SELECT * from customer where customer_id='%s'"%(cid)
+    data['res']=select(q)
+
+
+    return render_template('staffviewcustomers.html',data=data)
+
+
+@staff.route('/staffviewpayment')
+def staffviewpayment():
+    data={}
+    omid=request.args['omid']
+    q="select * from payment where type='booking' and ordermaster_id='%s' group by payment_id desc limit 1  "%(omid)
+    data['viewpayment']=select(q)
+
+
+    return render_template('staffviewpayment.html',data=data)
+
+
+@staff.route('/staffbookingaddraw',methods=['get','post'])
+def staffbookingaddraw():
+    data={}
+    omid=request.args['omid']
+    q="select * from rawmaterials"
+    data['raw']=select(q)
+
+    if 'rawbtn' in request.form:
+        rawid=request.form['rawid']
+
+        q="select * from rawmaterialused where ordermaster_id='%s' " %(omid)
+        val=select(q)
+        if val:
+            flash("Rawmaterial details Already Added!")
+            return redirect(url_for("staff.staffviewbookings")) 
+        else:
+            q="insert into rawmaterialused values(null,'%s','booking','%s',(select quantity from rawmaterials where raw_mat_id='%s'))"%(omid,rawid,rawid)
+            # print(q)
+            insert(q)
+            return redirect(url_for("staff.staffviewbookings")) 
+
+
+    return render_template('staffbookingaddraw.html',data=data)
+
+
+@staff.route('/staffviewtoppings',methods=['get','post'])
+def staffviewtoppings():
+    data={}
+    q="SELECT * FROM `customer`, `topping` WHERE `customer`.`customer_id`=`topping`.`customer_id`"
+    data['res']=select(q)
+
+    if 'action' in request.args:
+        action=request.args['action']
+        tid=request.args['tid']  
+    else:
+        action=None
+
+    if action == "approve":
+        data['approve']=True
+
+        if 'btn' in request.form:
+            amount=request.form['amount']
+            q="update topping set topping_price='%s', topping_status='Approved by staff' where topping_id='%s'"%(amount,tid)
+            update(q)
+            return redirect(url_for("staff.staffviewtoppings"))
+    
+    if action == "viewpayment":
+
+        q="select * from payment where type='topping' and ordermaster_id='%s' group by payment_id desc limit 1  "%(tid)
+        data['viewpayment']=select(q)
+
+        if 'dispatch' in request.form:
+            q="update topping set topping_status='Dispatched' where topping_id='%s' "%(tid)
+            update(q)
+            return redirect(url_for("staff.staffviewtoppings"))
+    
+    if action=='addraw':
+        q="select * from rawmaterials"
+        data['raw']=select(q)
+
+        if 'rawbtn' in request.form:
+            rawid=request.form['rawid']
+
+            q="select * from rawmaterialused where ordermaster_id='%s' " %(tid)
+            val=select(q)
+            if val:
+                flash("Rawmaterial details Already Added!")
+                return redirect(url_for("staff.staffviewtoppings")) 
+            else:
+                q="insert into rawmaterialused values(null,'%s','topping','%s',(select quantity from rawmaterials where raw_mat_id='%s'))"%(tid,rawid,rawid)
+                print(q)
+                insert(q)
+                return redirect(url_for("staff.staffviewtoppings")) 
+    return render_template('staffviewtoppings.html',data=data)

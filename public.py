@@ -15,9 +15,9 @@ def login():
         pasw =request.form['password']
 
         q="select * from login where username='%s' and password='%s'"%(email,pasw)
+        print(q)
         res=select(q)
-
-
+        
         if res:
             session['email']=res[0]["username"]
             utype=res[0]["usertype"]
@@ -49,6 +49,17 @@ def login():
                     session['cid']=select(q)[0]['customer_id']
                     flash("Login Succeessfully")
                     return redirect(url_for("customer.customerhome"))
+                else:
+                    flash("This Account is not Active")
+                    return redirect(url_for("public.login")) 
+            elif utype == "courier":
+                q="select * from login where usertype='courier' and status='active'"
+                courieract=select(q)
+                if courieract:
+                    q="select * from courier where username='%s'"%(session['email'])
+                    session['cor_id']=select(q)[0]['courier_id']
+                    flash("Login Succeessfully")
+                    return redirect(url_for("courier.courierhome"))
                 else:
                     flash("This Account is not Active")
                     return redirect(url_for("public.login")) 

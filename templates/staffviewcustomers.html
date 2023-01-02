@@ -1,0 +1,36 @@
+{% include 'staffheader.html' %}
+
+<center>
+    <h3>Customer Details</h3>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <!-- <th>Designation</th> -->
+            <th>Street</th>
+            <th>City</th>
+            <th>District</th>
+            <th>State</th>
+            <th>Pincode</th>
+            <th>Phone</th>
+            <th>Gender</th>
+            <th>Dob</th>
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td>{{ row['customer_fname'] }}{{ row['customer_lname'] }}</td>
+            <!-- <td>{{ row['customer_desig'] }}</td> -->
+            <td>{{ row['customer_street'] }}</td>
+            <td>{{ row['customer_city'] }}</td>
+            <td>{{ row['customer_dist'] }}</td>
+            <td>{{ row['customer_state'] }}</td>
+            <td>{{ row['customer_pincode'] }}</td>
+            <td>{{ row['customer_phone'] }}</td>
+            <td>{{ row['customer_gender'] }}</td>
+            <td>{{ row['customer_dob'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+{% include 'footer.html' %}

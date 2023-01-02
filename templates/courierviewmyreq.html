@@ -1,0 +1,49 @@
+{% include 'courierheader.html' %}
+
+<center>
+    <h3>My Couriers</h3>
+
+    <div>
+        <span style="color: rgb(255, 85, 85);">Note: products under same cart are delivered together.</span>
+    </div>
+
+    <table>
+        <tr>
+            <th>Name</th>
+
+            <th>Street</th>
+            <th>City</th>
+            <th>District</th>
+          
+            <th>Pincode</th>
+            <th>Phone</th>
+            <th>Gender</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Status</th>
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td>{{ row['customer_fname'] }}{{ row['customer_lname'] }}</td>
+      
+            <td>{{ row['customer_street'] }}</td>
+            <td>{{ row['customer_city'] }}</td>
+            <td>{{ row['customer_dist'] }}</td>
+            <td>{{ row['customer_pincode'] }}</td>
+            <td>{{ row['customer_phone'] }}</td>
+            <td>{{ row['customer_gender'] }}</td>
+            <td>{{ row['product_name'] }}</td>
+            <td>{{ row['quantity'] }}</td>
+            <td>{{ row['total_price'] }}</td>
+            {% if row['status'] == "Delivery Completed" %}
+            <td>{{ row['status'] }}</td>
+            {% else %}
+            <td><a onclick="return confirm('Are you Sure?')" href="?action=accept&omid={{ row['ordermaster_id'] }}&did={{ row['delivery_id'] }}">Deliver Now</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+{% include 'footer.html' %}

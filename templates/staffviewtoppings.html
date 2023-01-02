@@ -1,0 +1,84 @@
+{% include 'staffheader.html' %}
+
+
+<center>
+
+    <br>
+
+    {% if data['approve'] %}
+    <div>
+        <form action="" method="post">
+        <h2>Add Topping Amount</h2>
+        <div>
+            <label for="">Amount</label>
+            <input type="number" required name="amount" id="">
+        </div>
+        <div>
+            <input type="submit" name="btn" id="">
+        </div>
+    </form>
+    </div>
+    {% elif data['viewpayment'] %}
+    <br>
+    <div>
+        <div><span>Rs {{ data['viewpayment'][0]['amount'] }} Was Successfully Paid on {{ data['viewpayment'][0]['date'] }} </span></div>
+        <form action="" method="post">
+            <input type="submit" name="dispatch" value="Dispatch" id="">
+        </form>
+    </div>
+
+    {% elif data['raw'] %}
+    <br>
+    <div>
+         <form action="" method="post">
+            <div>
+                <label for="">Select Raw Material</label>
+                <select name="rawid" id="">
+                    {% for row in data['raw'] %}
+                    <option value="{{ row['raw_mat_id'] }}">{{ row['raw_mat'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+
+                <input type="submit" name="rawbtn" value="Submit" id="">
+            </div>
+        </form>
+    </div>
+
+
+    {% else %}
+
+
+    <h1>Topping Details</h1>
+    <table>
+        <tr>
+            <th>Customer Name</th>
+            <th>Phone No</th>
+            <th>Topping</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Status</th>
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+             <td>{{ row['customer_fname'] }}{{ row['customer_lname'] }}</td>
+            <td>{{ row['customer_phone'] }}</td>
+            <td>{{ row['topping_name'] }}</td>
+            <td>{{ row['topping_desc'] }}</td>
+            <td>{{ row['topping_price'] }}</td>
+            <td>{{ row['topping_status'] }}</td>
+            {% if row['topping_status'] == "Waiting for approval" %}
+            <td><a href="?action=approve&tid={{ row['topping_id'] }}">Approve</a></td>
+            {% elif row['topping_status'] == "Payment Completed" %}
+            <td><a href="?action=addraw&tid={{ row['topping_id'] }}">Add Raw Materials*</a></td>
+            <td><a href="?action=viewpayment&tid={{ row['topping_id'] }}">View Payment</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</center>
+
+
+{% include 'footer.html' %}

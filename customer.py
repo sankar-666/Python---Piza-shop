@@ -121,7 +121,7 @@ def customerpayment():
     omid=request.args['omid']
 
     if 'btn' in request.form:
-        q="insert into payment values(null,'%s','%s',curdate())"%(omid,total)
+        q="insert into payment values(null,'%s','booking','%s',curdate())"%(omid,total)
         insert(q)
         flash("Order placed Successfully")
         return redirect(url_for("customer.customerhome"))
@@ -165,3 +165,41 @@ def customercomplaints():
     q="select * from complaint where customer_id='%s'"%(cid)
     data['res']=select(q)
     return render_template("customercomplaints.html",data=data)
+
+
+
+@customer.route("/customeraddtoppings",methods=['get','post'])
+def customeraddtoppings():
+    data={}
+    cid=session['cid']
+
+    if 'btn' in request.form:
+        topp=request.form['topp']
+        desc=request.form['desc']
+
+        q="insert into topping values (null,'%s','%s','not assigned','%s','Waiting for approval')"%(cid,topp,desc)
+        insert(q)
+        return redirect(url_for("customer.customeraddtoppings"))
+    
+    q="select * from topping where customer_id='%s'"%(cid)
+    data['res']=select(q)
+    
+
+    return render_template("customeraddtoppings.html",data=data)
+
+
+
+@customer.route("/customertoppingpayment",methods=['get','post'])
+def customertoppingpayment():
+    data={}
+    total=request.args['amount']
+    tid=request.args['tid']
+
+    if 'btn' in request.form:
+        q="insert into payment values(null,'%s','topping','%s',curdate())"%(tid,total)
+        insert(q)
+        q="update topping set topping_status='Payment Completed' where topping_id='%s'"%(tid)
+        update(q)
+        flash("Payment Successfull")
+        return redirect(url_for("customer.customerhome"))
+    return render_template("customertoppingpayment.html",data=data,total=total)

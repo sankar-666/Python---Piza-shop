@@ -26,6 +26,7 @@
         </tr>
         {% for row in data['res'] %}
         <tr>
+            <td>{{ loop.index }}</td>
             <td>{{ row['complaint'] }}</td>
             <td>{{ row['reply'] }}</td>
             <td>{{ row['date'] }}</td>

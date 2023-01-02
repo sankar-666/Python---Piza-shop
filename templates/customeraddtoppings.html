@@ -1,0 +1,50 @@
+{% include 'customerheader.html' %}
+<center>
+    <h3>Add Toppings</h3>
+
+    <div>
+        <form action="" method="post">
+            <div>
+                <label for="">Topping</label>
+                <input type="text" required name="topp" id="">
+            </div>
+            <div>
+                <label for="">Description</label>
+                <input type="text" required name="desc" id="">
+            </div>
+            <div>
+                <input type="submit" name="btn" id="">
+            </div>
+        </form>
+    </div>
+
+    <br>
+    <br>
+    <h4>view </h4>
+
+    <table>
+        <tr>
+            <th>Index</th>
+            <th>Topping</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Status</th>
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ row['topping_name'] }}</td>
+            <td>{{ row['topping_price'] }}</td>
+            <td>{{ row['topping_desc'] }}</td>
+            <td>{{ row['topping_status'] }}</td>
+            {% if row['topping_status'] == "Approved by staff" %}
+                <td><a href="customertoppingpayment?tid={{ row['topping_id'] }}&amount={{ row['topping_price'] }}">Make Payment</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+    
+</center>
+
+
+{% include 'footer.html' %}
