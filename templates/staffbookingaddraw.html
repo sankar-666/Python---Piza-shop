@@ -1,24 +1,26 @@
 
 {% include 'staffheader.html' %}
 <center>
+    <div class="img-div">
 <br>
 <div>
-     <form action="" method="post">
-        <div>
-            <label for="">Select Raw Material</label>
-            <select name="rawid" id="">
+     <form id="reg" action="" style="padding-top: 2rem;background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" action="" method="post">
+        <div class="reg-container" style="margin-top: 8rem;">
+            <!-- <label for="">Select raw material: </label> -->
+            <select class="form-control" style="width: 354px !important;" name="rawid" id="">
+                <option value="0">-- Select raw material --</option>
                 {% for row in data['raw'] %}
                 <option value="{{ row['raw_mat_id'] }}">{{ row['raw_mat'] }}</option>
                 {% endfor %}
             </select>
         </div>
-        <div>
+        <div class="reg-container">
 
-            <input type="submit" name="rawbtn" value="Submit" id="">
+            <input id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" name="rawbtn" value="Submit" id="">
         </div>
     </form>
 </div>
-
+</div>
 </center>
 
 

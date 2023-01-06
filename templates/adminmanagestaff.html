@@ -1,141 +1,165 @@
 {% include 'adminheader.html' %}
 <center>
-
+    <div class="img-div">
     {% if data['staff'] %}
 
-    <h3>Manage Staff</h3>
+    
+    <form id="reg" style="background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" action="" method="post">
+        <h3 class="p-3 text-white">Update Staff</h3>
 
-    <form action="" method="post">
-
-        <div>
+        <div class="reg-container">
                 <div>
-                    <input type="text" value="{{ data['staff'][0]['staff_fname'] }}" required placeholder="Firstname" name="fname" id="">
+                    <input type="text" class="form-control" value="{{ data['staff'][0]['staff_fname'] }}" required placeholder="Firstname" name="fname" id="">
                 </div>
                 <div>
-                    <input type="text" value="{{ data['staff'][0]['staff_lname'] }}" required placeholder="Lastname" name="lname" id="">
+                    <input type="text" class="form-control" value="{{ data['staff'][0]['staff_lname'] }}" required placeholder="Lastname" name="lname" id="">
                 </div>
         </div>
-        <div>
+        <div class="reg-container">
                 <div>
-                    <input type="text" value="{{ data['staff'][0]['staff_desig'] }}" required placeholder="Designation" name="desig" id="">
+                    <input type="text" class="form-control" value="{{ data['staff'][0]['staff_desig'] }}" required placeholder="Designation" name="desig" id="">
                 </div>
                 <div>
-                    <input type="text" value="{{ data['staff'][0]['staff_street'] }}" required placeholder="Street" name="street" id="">
+                    <input type="text" class="form-control" value="{{ data['staff'][0]['staff_street'] }}" required placeholder="Street" name="street" id="">
                 </div>
         </div>
-        <div>
-                <div>
-                    <input type="text" value="{{ data['staff'][0]['staff_city'] }}" required placeholder="City" name="city" id="">
+        <div class="reg-container">
+                <div style="margin-left: 32px;">
+                    <input  type="text" class="form-control" value="{{ data['staff'][0]['staff_city'] }}" required placeholder="City" name="city" id="">
                 </div>
                 <div>
-                    <input type="text" value="{{ data['staff'][0]['staff_dist'] }}" required placeholder="District" name="district" id="">
+                    <input type="text" class="form-control" value="{{ data['staff'][0]['staff_dist'] }}" required placeholder="District" name="district" id="">
                 </div>
-                <div>
-                    <input type="text" value="{{ data['staff'][0]['staff_state'] }}" required placeholder="State" name="state" id="">
+                <div style="margin-right: 32px;">
+                    <input type="text" class="form-control" value="{{ data['staff'][0]['staff_state'] }}" required placeholder="State" name="state" id="">
                 </div>
         </div>
 
-        <div>
+        <div class="reg-container">
                 <div>
-                    <input type="text" maxlength="6" value="{{ data['staff'][0]['staff_pincode'] }}" required placeholder="Pincode" name="pin" id="">
+                    <input type="text" class="form-control" maxlength="6" value="{{ data['staff'][0]['staff_pincode'] }}" required placeholder="Pincode" name="pin" id="">
                 </div>
                 <div>
-                    <input type="text" maxlength="10" value="{{ data['staff'][0]['staff_phone'] }}" required placeholder="phone" name="phone" id="">
+                    <input type="text" class="form-control" maxlength="10" value="{{ data['staff'][0]['staff_phone'] }}" required placeholder="phone" name="phone" id="">
                 </div>
          </div>
         
-         <div>
-                <div>
-                    {%  if data['staff'][0]['staff_gender'] == "male" %}
-                    <input type="radio" checked  value="male" name="gender" id="">Male<input value="female" type="radio"  name="gender" id="">Female
-                    {% else %}
-                    <input type="radio"  value="male" name="gender" id="">Male<input value="female" type="radio" checked  name="gender" id="">Female
-                  
-                    {% endif %}
+         <div class="reg-container">
+                <div >
+                     <select name="gender" required style="padding: 10px 130px;border: 1px solid lightgrey;color: rgb(120, 120, 120);" class="form-select" aria-label="Default select example">
+                       {% if data['staff'][0]['staff_gender']=="male" %}
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                        {% elif data['staff'][0]['staff_gender']=="female" %}
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
+                        <option value="other">Other</option>
+                        {% elif data['staff'][0]['staff_gender']=="other" %}
+                        <option value="other">Other</option>
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
+                        
+                        {% endif %}
+                      </select>
                 </div>
-                <div>
-                    <label for="">Date of Birth: </label>
-                    <input type="date" value="{{ data['staff'][0]['staff_dob'] }}" required placeholder="Date of Birth" name="dob" id="">
+                <div >
+                    <!-- <label for="">Date of Birth: </label> -->
+                    <input style="height: 20px;border: 1px solid rgb(205, 205, 205);padding: 22px 80px;" type="date" value="{{ data['staff'][0]['staff_dob'] }}" required placeholder="Date of Birth" name="dob" id="">
                 </div>
          </div>
          <div>
-            <input type="submit" value="Update" name="update">
+            <input id="reg-btn" style="color: #fff;margin-bottom: 1rem;border: none;outline: none;" type="submit" value="Update" name="update">
          </div>
 
     </form>
     
 
     {% else %}
-    <h3>Manage Staff</h3>
-
-    <form action="" method="post">
-
-        <div>
-                <div>
-                    <input type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required placeholder="Email" name="email" id="">
-                </div>
-                <div>
-                    <input type="password" required placeholder="Password" name="password" id="">
-                </div>
-        </div>
-        <div>
-                <div>
-                    <input type="text" required placeholder="Firstname" name="fname" id="">
-                </div>
-                <div>
-                    <input type="text" required placeholder="Lastname" name="lname" id="">
-                </div>
-        </div>
-        <div>
-                <div>
-                    <input type="text" required placeholder="Designation" name="desig" id="">
-                </div>
-                <div>
-                    <input type="text" required placeholder="Street" name="street" id="">
-                </div>
-        </div>
-        <div>
-                <div>
-                    <input type="text" required placeholder="City" name="city" id="">
-                </div>
-                <div>
-                    <input type="text" required placeholder="District" name="district" id="">
-                </div>
-                <div>
-                    <input type="text" required placeholder="State" name="state" id="">
-                </div>
+    <div >
+        
+        <form action="" id="reg" style="background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" method="post">
+        <h3 class="p-3 text-white">Manage Staff</h3>
+        <div style="display: flex;position: relative;top: 15px;" >
+           
+            <span style="padding-left: 50px;font-size: .8em;color: rgb(255, 0, 0);" id="unamespan">Incorrect email format!</span>
+      
+            <span  style="padding-left: 170px;font-size: .8em;color: red;" id="passspan">Password Must contain  8 charactor, 1 lowercase, 1 uppercase, 1 number!</span>
+        
         </div>
 
-        <div>
+        <div class="reg-container">
                 <div>
-                    <input type="text" maxlength="6" required placeholder="Pincode" name="pin" id="">
+                    <input type="text" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required placeholder="Email" name="email" id="email">
                 </div>
                 <div>
-                    <input type="text" maxlength="10" required placeholder="phone" name="phone" id="">
+                    <input type="password" class="form-control" required placeholder="Password" name="password" id="password">
+                </div>
+        </div>
+        <div class="reg-container">
+                <div>
+                    <input type="text" class="form-control" required placeholder="Firstname" name="fname" id="">
+                </div>
+                <div>
+                    <input type="text" class="form-control" required placeholder="Lastname" name="lname" id="">
+                </div>
+        </div>
+        <div class="reg-container">
+                <div>
+                    <input type="text"  class="form-control"required placeholder="Designation" name="desig" id="">
+                </div>
+                <div>
+                    <input type="text" class="form-control" required placeholder="Street" name="street" id="">
+                </div>
+        </div>
+        <div class="reg-container">
+                <div style="margin-left: 32px;">
+                    <input type="text" class="form-control" required placeholder="City" name="city" id="">
+                </div>
+                <div>
+                    <input type="text" class="form-control" required placeholder="District" name="district" id="">
+                </div>
+                <div style="margin-right: 30px;">
+                    <input type="text" class="form-control" required placeholder="State" name="state" id="">
+                </div>
+        </div>
+
+        <div class="reg-container">
+                <div>
+                    <input type="text" class="form-control"  maxlength="6" required placeholder="Pincode" name="pin" id="">
+                </div>
+                <div>
+                    <input type="text" class="form-control" maxlength="10" required placeholder="phone" name="phone" id="">
                 </div>
          </div>
         
-         <div>
+         <div class="reg-container">
                 <div>
-                    <input type="radio"  value="male" name="gender" id="">Male<input value="female" type="radio"  name="gender" id="">Female
-                </div>
-                <div>
-                    <label for="">Date of Birth: </label>
-                    <input type="date" required placeholder="Date of Birth" name="dob" id="">
-                </div>
+                        <select name="gender" required style="padding: 10px 70px;border: 1px solid lightgrey;color: rgb(120, 120, 120);" class="form-select" aria-label="Default select example">
+                            <option selected>Click to select gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>   </div>
+             
+                    <div>
+                        <input style="height: 20px;border: 1px solid rgb(205, 205, 205);padding: 22px 80px;" type="date" required placeholder="Dob" name="dob" id="">
+                    </div>       
          </div>
-         <div>
-            <input type="submit" value="submit" name="submit">
+         <div >
+            <input id="reg-btn" style="color: #fff;margin-bottom: 1rem;border: none;outline: none;" type="submit" value="submit" name="submit">
          </div>
-
+        </div>
     </form>
 
     {% endif %}
 
+    </div>
+
     <br><br>
 
     <h5>View Available Staffs</h5>
-    <table>
+    <table class="table table-striped tbl-new">
         <tr>
             <th>Name</th>
             <th>Designation</th>
@@ -149,6 +173,9 @@
             <th>Dob</th>
             <th>Staff Join</th>
             <th>Staff Status</th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
         {% for row in data['res'] %}
         <tr>
@@ -164,9 +191,9 @@
             <td>{{ row['staff_dob'] }}</td>
             <td>{{ row['staff_join'] }}</td>
             <td>{{ row['staff_status'] }}</td>
-            <td><a href="?action=update&stid={{ row['staff_id'] }}&uname={{ row['username'] }}">Update</a></td>
-            <td><a onclick="return confirm('Are You Sure!')" href="?action=active&stid={{ row['staff_id'] }}&uname={{ row['username'] }}">Active</a></td>
-            <td><a onclick="return confirm('Are You Sure!')" href="?action=inactive&stid={{ row['staff_id'] }}&uname={{ row['username'] }}">Inactive</a></td>
+            <td><a class="btn btn-info" href="?action=update&stid={{ row['staff_id'] }}&uname={{ row['username'] }}">Update</a></td>
+            <td><a class="btn btn-success" onclick="return confirm('Are You Sure!')" href="?action=active&stid={{ row['staff_id'] }}&uname={{ row['username'] }}">Active</a></td>
+            <td><a class="btn btn-danger" onclick="return confirm('Are You Sure!')" href="?action=inactive&stid={{ row['staff_id'] }}&uname={{ row['username'] }}">Inactive</a></td>
         </tr>
         {% endfor %}
     </table>
@@ -222,7 +249,57 @@ https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
         });
     });
 
+    document.getElementById("unamespan").style.visibility="hidden"
 
-</script>
+    document.getElementById("email").addEventListener("input",validateEmail)
+
+    function validateEmail() {
+        // alert("hai")
+        let email = document.getElementById("email").value
+        var val = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+        if (val) {
+          console.log('Valid email');
+          document.getElementById("unamespan").style.visibility="hidden"
+          document.getElementById('reg-btn').disabled = false;
+          
+            } else {
+              console.log('Invalid email');
+              document.getElementById("unamespan").style.visibility="visible"
+              document.getElementById('reg-btn').disabled = true;
+        
+            }
+
+      }
+
+
+
+      document.getElementById("passspan").style.display="none"
+
+      document.getElementById("password").addEventListener("input",validatePassword)
+
+    function validatePassword() {
+        // alert("hai")
+        let password = document.getElementById("password").value
+        var val = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password);
+
+        if (val) {
+          console.log('Valid pass');
+          document.getElementById("passspan").style.display="none"
+          document.getElementById('reg-btn').disabled = false;
+          
+            } else {
+              console.log('Invalid pass');
+              document.getElementById("passspan").style.display="block"
+              document.getElementById('reg-btn').disabled = true;
+        
+            }
+
+      }
+   
+
+
+
+  </script>
 
 {% include 'footer.html' %}

@@ -1,43 +1,44 @@
 {% include 'adminheader.html' %}
 <center>
+    <div class="img-div">
 
     {% if data['raw'] %}
 
-    <h3>Update rawMaterials</h3>
+    
+    <form id="reg" style="padding-top: 5rem;background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" action="" method="post">
+        <h3  class="p-3 text-white">Update rawMaterials</h3>
 
-    <form action="" method="post">
-
-        <div>
+        <div class="reg-container">
                 <div>
-                    <input type="text" value="{{ data['raw'][0]['raw_mat'] }}" required placeholder="Raw Material" name="raw" id="">
+                    <input class="form-control" type="text" value="{{ data['raw'][0]['raw_mat'] }}" required placeholder="Raw Material" name="raw" id="">
                 </div>
         </div>
-        <div>
+        <div class="reg-container">
             <div>
-                <input type="number" value="{{ data['raw'][0]['quantity'] }}" required placeholder="Quantity" name="quant" id="">
+                <input class="form-control" type="number" value="{{ data['raw'][0]['quantity'] }}" required placeholder="Quantity" name="quant" id="">
             </div>
      
     </div>
       
         
          <div>
-            <input type="submit" value="Update" name="update">
+            <input id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" value="Update" name="update">
          </div>
 
     </form>
     
 
     {% else %}
-    <h3>Manage RawMaterials</h3>
+    
+    
+    <form id="reg" action="" style="background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" method="post">
+        <h3 class="p-3 text-white">Manage RawMaterials</h3>
 
-
-    <form action="" method="post">
-
-        <div>
+        <div class="reg-container">
                 <div>
-                    <label for="">Select Vendor: </label>
-                    <select required name="ven_id" id="">
-
+                    <!-- <label for="">Select Vendor: </label> -->
+                    <select class="form-control" required name="ven_id" id="">
+                        <option value="0">--select vendor--</option>
                         {% for row in data['ven'] %}
                         <option value="{{ row['vendor_id'] }}">{{ row['vendor_name'] }}</option>
                         {% endfor %}
@@ -45,37 +46,39 @@
                 </div>
             
         </div>
-        <div>
+        <div class="reg-container">
                 <div>
-                    <input type="text" required placeholder="Raw material" name="raw" id="">
+                    <input type="text" class="form-control" required placeholder="Raw material" name="raw" id="">
                 </div>
          
         </div>
-        <div>
+        <div class="reg-container">
                 <div>
-                    <input type="number" required placeholder="Quantity" name="quant" id="">
+                    <input type="number" class="form-control" required placeholder="Quantity" name="quant" id="">
                 </div>
          
         </div>
         
         
          
-         <div>
-            <input type="submit" value="submit" name="submit">
+         <div class="reg-container">
+            <input id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" value="submit" name="submit">
          </div>
 
     </form>
 
     {% endif %}
-
+</div>
     <br><br>
 
     <h5>View Available Raw Materials</h5>
-    <table>
+    <table class="table table-striped tbl-new">
         <tr>
             <th>index</th>
             <th>Raw Material</th>
             <th>Quantity</th>
+            <th></th>
+            <th></th>
             
         </tr>
         {% for row in data['res'] %}
@@ -84,8 +87,8 @@
             <td>{{ row['raw_mat'] }}</td>
             <td>{{ row['quantity'] }}</td>
            
-            <td><a href="?action=update&rawid={{ row['raw_mat_id'] }}">Update</a></td>
-            <td><a onclick="return confirm('Are you sure, delete this item ! ')" href="?action=delete&rawid={{ row['raw_mat_id'] }}">Delete</a></td>
+            <td><a class="btn btn-success" href="?action=update&rawid={{ row['raw_mat_id'] }}">Update</a></td>
+            <td><a class="btn btn-danger" onclick="return confirm('Are you sure, delete this item ! ')" href="?action=delete&rawid={{ row['raw_mat_id'] }}">Delete</a></td>
         </tr>
         {% endfor %}
     </table>

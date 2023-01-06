@@ -1,23 +1,143 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Piza hub</title>
+    <link rel="icon" href="/static/images/piza.jfif">
+  <!-- Web-Fonts -->
+  <link href="//fonts.googleapis.com/css?family=Spartan:400,500,600,700,900&display=swap" rel="stylesheet">
+  <!-- //Web-Fonts -->
+
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="/static/assets/css/style-starter.css">
 </head>
+
 <body>
+<!--header-->
+<div class="w3l-top-header">
+  <header  id="site-header"  style="display: flex !important;background: white;" class="fixed-top" >
+    <div  class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark stroke">
+        <a style="color: #e7272d;" class="navbar-brand" href="/">
+          <span style="color: #e7272d;" class="fa fa-pie-chart"></span> Pizza hub
+        </a>
+        <!-- if logo is image enable this   
+      <a class="navbar-brand" href="#index.html">
+          <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
+      </a> -->
+        <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+          <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+          </span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+     
+          
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item @@index-active">
+              <a style="color: #e7272d;"  class="nav-link" href="customerhome">Home<span class="sr-only">(current)</span></a>
+              
+            </li>
+            <li class="nav-item @@index-active">
+                <a style="color: #e7272d;"  class="nav-link" href="customerviewitems">View Products<span class="sr-only">(current)</span></a>
+                
+              </li>
+            <li class="nav-item @@index-active">
+                <a style="color: #e7272d;"  class="nav-link" href="customerviewcart">Basket<span class="badge badge-primary">{{ data['count'] }}</span></a>
+                
+              </li>
+              <li class="nav-item @@index-active">
+                <a style="color: #e7272d;"  class="nav-link" href="customervieworders">My Orders<span class="sr-only">(current)</span></a>
+                
+              </li>
+              <li class="nav-item @@index-active">
+                <a style="color: #e7272d;"  class="nav-link" href="customercomplaints">Complaints<span class="sr-only">(current)</span></a>
+                
+              </li>
+              <li class="nav-item @@index-active">
+                <a  style="color: #e7272d;" class="nav-link" href="customeraddtoppings">Add toppings<span class="sr-only">(current)</span></a>
+                
+              </li>
+              <li class="nav-item @@index-active">
+                <a style="color: #e7272d;"  class="nav-link" href="/">Logout<span class="sr-only">(current)</span></a>
+                
+              </li>
+                 
+           
+          </ul>
+          <div class="popup">
+            <!-- <a href="#domain" class="domain" data-toggle="modal" data-target="#DomainModal"> -->
+              <div class="hamburger1">
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+</div>
+<!--/header-->
+
 
     <style>
+
+        .drop a{
+            font-size: .7em;
+            color: #252525;
+            padding: 15px 5px;
+            /* background: red !important; */
+            width: 100%;
+            padding-left: 10px;
+        }
+
+        .drop a:hover{background: rgb(226, 226, 226);}
         a{
             padding: 5px;
         }
+        .nav-link{
+            position: relative !important;
+        }
+
+        .nav-link:hover~.drop,.drop:hover{
+            visibility: visible !important;
+            z-index: 1;
+            background: rgb(253, 253, 253) !important;
+            box-shadow: 2px 2px 4px rgb(203, 203, 203);
+            opacity: 1;
+            transition: all .6s;
+        }
+
+        .drop{
+            transition: all .6s;
+            background: rgb(255, 255, 255);
+            min-width: 250px;
+            min-height: 100px;
+            position: absolute;
+            top: 2.5rem;
+            left: .5rem;
+            visibility: hidden;
+            opacity: 0;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            
+            flex-direction: column;
+        }
     </style>
-    <a href="customerhome">Home</a>
-    <a href="customerviewitems">View items</a>
-    <a href="customerviewcart">Cart</a>
-    <a href="customervieworders">My Orders</a>
-    <a href="customercomplaints">Complaints</a>
-    <a href="customeraddtoppings">Toppings</a>
-    <a href="/">Logout</a>
+   
+   
+
+    
+
   
+
+

@@ -2,15 +2,16 @@
 <center>
 
 
-    <h3>Purchase Rawmaterials</h3>
+    <div class="img-div">
+        
+        <form  id="reg" action="" style="padding-top: 2rem;background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey"    action="" method="post">
+        <h3  class="p-3 text-white">Purchase Rawmaterials</h3>
 
-    <form action="" method="post">
-
-        <div>
+        <div class="reg-container">
             <div>
-                <label for="">Select Vendor: </label>
-                <select required name="vid" id="">
-
+               
+                <select class="form-control" required name="vid" id="">
+                    <option value="0">--select vendor--</option>
                     {% for row in data['ven'] %}
                     <option value="{{ row['vendor_id'] }}">{{ row['vendor_name'] }}</option>
                     {% endfor %}
@@ -18,11 +19,11 @@
             </div>
         
         </div>
-        <div>
+        <div class="reg-container">
             <div>
-                <label for="">Select Rawmaterials: </label>
-                <select required name="rid" id="">
-
+               
+                <select class="form-control" required name="rid" id="">
+                    <option value="0">--select rawmaterial--</option>
                     {% for row in data['raw'] %}
                     <option value="{{ row['raw_mat_id'] }}">{{ row['raw_mat'] }}</option>
                     {% endfor %}
@@ -31,25 +32,25 @@
            
         </div>
 
-        <div>
+        <div style="width: 48%;" class="reg-container">
                 
-            <input type="text" required placeholder="Amount" name="amount" id="">
+            <input class="form-control" type="text" required placeholder="Amount" name="amount" id="">
         </div>
         
          
-         <div>
-            <input type="submit" value="submit" name="submit">
+        <div class="reg-container">
+            <input  id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" value="submit" name="submit">
          </div>
 
     </form>
-
+</div>
     <br>
 
         <h3>Purchased products</h3>
 
     <div>
         <div>
-            <table>
+            <table class="table table-striped tbl-new">
                 <tr>
                     <th>Rawmaterial</th>
                     <th>Quantity</th>
@@ -67,10 +68,12 @@
                 {% endfor %}
             </table>
             <div>
-                <form action="" method="post">
+                {% if data['res'] %}
+                <form style="width: 100%;display: flex;justify-content: flex-end;align-items: center;padding-right: 5rem;" action="" method="post">
                     
-                    <input type="submit" value="Complete Purchase" name="btn" id="">
+                    <input id="reg-btn" style="color: aliceblue;border:none;outline:none;background: rgb(19, 154, 98);margin-bottom: 1rem;margin-top: 1rem;" type="submit" value="Complete Purchase" name="btn" id="">
                 </form>
+                {% endif %}
             </div>
         
         </div>

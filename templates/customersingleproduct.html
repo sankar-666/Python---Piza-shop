@@ -1,9 +1,9 @@
 
 
-<section class="product">
-	<div class="product__photo">
-		<div class="photo-container" style="height: 25rem;border-radius: 10px;">
-			<div class="photo-main" style="background: #fff;height: 25rem;">
+<section class="product" style="box-shadow: 10px 10px 10px rgb(30, 29, 29),2px 2px 12px rgb(0, 0, 0)">
+	<div class="product__photo" style="background: transparent !important;">
+		<div class="photo-container" style="background: transparent !important;border: none !important;box-shadow: none !important;">
+			<div class="photo-main" style="background: rgb(255, 255, 255);height: 25rem;background: transparent !important;box-shadow: none;border: none;">
 				<div class="controls">
 					<!-- <i class="material-icons">share</i>
 					<i class="material-icons">favorite_border</i> -->
@@ -21,21 +21,21 @@
 		</div>
 	</div>
 	<div class="product__info">
-		<div class="title">
+		<div  class="title">
 			<h1>{{ data['res'][0]['product_name'] }}</h1>
 			<span>Piza hub</span>
 		</div>
-		<div class="price">
+		<div style="border: 1px solid rgb(255, 255, 255);box-shadow: -4px -4px 4px rgb(255, 255, 255),0px 4px rgb(196, 196, 196);padding-left: .2rem;" class="price">
 			Rs:<span>{{ data['res'][0]['product_price'] }}</span>
 		</div>
-		<div class="variant">
+		<div style="border: 1px solid rgb(255, 255, 255);box-shadow: -4px -4px 4px rgb(255, 255, 255),0px 4px rgb(196, 196, 196);padding-left: .2rem;" class="variant">
 			<h3>CATEROGY</h3>
 			<ul>
 				<span>{{ data['res'][0]['category_name'] }}</span>
 				<!-- <span>{{ data['res'][0]['category_descr'] }}</span> -->
             </ul>
 		</div>
-		<div class="description">
+		<div style="border: 1px solid rgb(255, 255, 255);box-shadow: -4px -4px 4px rgb(255, 255, 255),0px 4px rgb(196, 196, 196);padding-left: .2rem;" class="description">
 			<h3>ABOUT</h3>
 			<ul>
 				<li style="list-style: none;">Description: {{ data['res'][0]['product_desc'] }}</li>
@@ -68,6 +68,9 @@ body {
   font-family: "Raleway", sans-serif;
   background-color: #01e37f;
   background: linear-gradient(270deg,#01e37f,rgb(151, 193, 252));
+  background: url('/static/images/piza8.jpg');
+  background-size: cover;
+
 }
 
 h3 {
@@ -87,7 +90,7 @@ img {
   grid-template-columns: 0.9fr 1fr;
   margin: auto;
   padding: 2.5em 0;
-  min-width: 600px;
+  min-width: 650px;
   background-color: white;
   border-radius: 5px;
 }
@@ -244,10 +247,10 @@ footer a:hover {
 
 .main-im{
     /* object-fit: cover; */
-    max-width: 16rem !important;
-    max-height: 19rem !important;
+    width: 20rem !important;
+    height: 20rem !important;
     position: relative;
-    left: 1rem !important;
+    left: -2rem !important;
     border-radius: 10px !important;
 }
 </style>

@@ -5,11 +5,13 @@
 
 <div>
     {% if data['viewpayment'] %}
-    <div><span>Rs {{ data['viewpayment'][0]['amount'] }} Was Successfully Paid on {{ data['viewpayment'][0]['date'] }} </span></div>
+    <div style="width: 100%;height: 50vh;display: flex;justify-content: center;align-items: center;">
+        <span>Rs {{ data['viewpayment'][0]['amount'] }} Was Successfully Paid on {{ data['viewpayment'][0]['date'] }} </span>
+    </div>
     
     {% else %}
 
-    <div>
+    <div style="width: 100%;height: 50vh;display: flex;justify-content: center;align-items: center;">
         <span>Payment Not Completed</span>
     </div>
     {% endif %}

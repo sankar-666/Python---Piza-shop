@@ -1,117 +1,117 @@
 {% include 'adminheader.html' %}
 <center>
-
+    <div class="img-div">
     {% if data['vendor'] %}
 
-    <h3>Update Vendor</h3>
+    
+    <form id="reg" style="background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" action="" method="post">
+        <h3 class="p-3 text-white">Update Vendor</h3>
 
-    <form action="" method="post">
-
-        <div>
-                <div>
-                    <input type="text" value="{{ data['vendor'][0]['vendor_name'] }}" required placeholder="Name" name="fname" id="">
+        <div style="width: 100%;" class="reg-container">
+                <div style="width: 92% !important;">
+                    <input  type="text" class="form-control" value="{{ data['vendor'][0]['vendor_name'] }}" required placeholder="Name" name="fname" id="">
                 </div>
                 <!-- <div>
                     <input type="text" value="{{ data['vendor'][0]['staff_lname'] }}" required placeholder="Lastname" name="lname" id="">
                 </div> -->
         </div>
-        <div>
+        <div class="reg-container">
                 <div>
-                    <input type="text" value="{{ data['vendor'][0]['vendor_godown_num'] }}" required placeholder="Godown Number" name="gonum" id="">
+                    <input type="text" class="form-control" value="{{ data['vendor'][0]['vendor_godown_num'] }}" required placeholder="Godown Number" name="gonum" id="">
                 </div>
                 <div>
-                    <input type="text" value="{{ data['vendor'][0]['vendor_street'] }}" required placeholder="Street" name="street" id="">
+                    <input type="text" class="form-control" value="{{ data['vendor'][0]['vendor_street'] }}" required placeholder="Street" name="street" id="">
                 </div>
         </div>
-        <div>
+        <div class="reg-container">
                 <div>
-                    <input type="text" value="{{ data['vendor'][0]['vendor_city'] }}" required placeholder="City" name="city" id="">
+                    <input type="text" class="form-control" value="{{ data['vendor'][0]['vendor_city'] }}" required placeholder="City" name="city" id="">
                 </div>
                 <div>
-                    <input type="text" value="{{ data['vendor'][0]['vendor_dist'] }}" required placeholder="District" name="district" id="">
+                    <input type="text" class="form-control" value="{{ data['vendor'][0]['vendor_dist'] }}" required placeholder="District" name="district" id="">
                 </div>
             
         </div>
 
-        <div>
+        <div class="reg-container">
                 <div>
-                    <input type="text" maxlength="6" value="{{ data['vendor'][0]['vendor_pincode'] }}" required placeholder="Pincode" name="pin" id="">
+                    <input type="text" class="form-control" maxlength="6" value="{{ data['vendor'][0]['vendor_pincode'] }}" required placeholder="Pincode" name="pin" id="">
                 </div>
                 <div>
-                    <input type="text" maxlength="10" value="{{ data['vendor'][0]['vendor_phone'] }}" required placeholder="phone" name="phone" id="">
+                    <input type="text" class="form-control" maxlength="10" value="{{ data['vendor'][0]['vendor_phone'] }}" required placeholder="phone" name="phone" id="">
                 </div>
          </div>
         
          <div>
-            <input type="submit" value="Update" name="update">
+            <input id="reg-btn" class="text-white m-3" style="border: none;outline: none;" type="submit" value="Update" name="update">
          </div>
 
     </form>
     
 
     {% else %}
-    <h3>Manage Vendors</h3>
+    
+    <form id="reg" style="background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" action="" method="post">
+        <h3 class="p-3 text-white">Manage Vendors</h3>
 
-    <form action="" method="post">
-
-        <div>
-                <div>
-                    <input type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required placeholder="Email" name="email" id="">
+        <div class="reg-container" style="width: 100%;">
+                <div style="width: 92% !important;">
+                    <input  class="form-control"   type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required placeholder="Email" name="email" id="">
                 </div>
                 <!-- <div>
                     <input type="password" required placeholder="Password" name="password" id="">
                 </div> -->
         </div>
-        <div>
-                <div>
-                    <input type="text" required placeholder="Name" name="fname" id="">
+        <div class="reg-container" style="width: 100%;">
+                <div style="width: 92% !important;">
+                    <input  class="form-control"   type="text" required placeholder="Name" name="fname" id="">
                 </div>
                 <!-- <div>
                     <input type="text" required placeholder="Lastname" name="lname" id="">
                 </div> -->
         </div>
-        <div>
+        <div class="reg-container">
                 <div>
-                    <input type="text" required placeholder="Godown number " name="gonum" id="">
+                    <input  class="form-control"   type="text" required placeholder="Godown number " name="gonum" id="">
                 </div>
                 <div>
-                    <input type="text" required placeholder="Street" name="street" id="">
+                    <input   class="form-control"  type="text" required placeholder="Street" name="street" id="">
                 </div>
         </div>
-        <div>
+        <div class="reg-container">
                 <div>
-                    <input type="text" required placeholder="City" name="city" id="">
+                    <input  class="form-control"   type="text" required placeholder="City" name="city" id="">
                 </div>
                 <div>
-                    <input type="text" required placeholder="District" name="district" id="">
+                    <input  class="form-control" type="text" required placeholder="District" name="district" id="">
                 </div>
                 <!-- <div>
                     <input type="text" required placeholder="State" name="state" id="">
                 </div> -->
         </div>
 
-        <div>
+        <div class="reg-container">
                 <div>
-                    <input type="text" maxlength="6" required placeholder="Pincode" name="pin" id="">
+                    <input class="form-control" type="text" maxlength="6" required placeholder="Pincode" name="pin" id="">
                 </div>
                 <div>
-                    <input type="text" maxlength="10" required placeholder="phone" name="phone" id="">
+                    <input class="form-control" type="text" maxlength="10" required placeholder="phone" name="phone" id="">
                 </div>
          </div>
         
          
          <div>
-            <input type="submit" value="submit" name="submit">
+            <input id="reg-btn" class="text-white m-3" style="border: none;outline: none;" type="submit" value="submit" name="submit">
          </div>
 
     </form>
 
     {% endif %}
-
+</div>
     <br><br>
 
     <h5>View Available Vendors</h5>
-    <table>
+    <table class="table table-striped tbl-new">
         <tr>
             <th>Name</th>
             <th>Godown Number</th>
@@ -121,6 +121,9 @@
             <th>Pincode</th>
             <th>Phone</th>
             <th>Status</th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
         {% for row in data['res'] %}
         <tr>
@@ -132,9 +135,9 @@
             <td>{{ row['vendor_pincode'] }}</td> 
             <td>{{ row['vendor_phone'] }}</td>
             <td>{{ row['vendor_status'] }}</td>
-            <td><a href="?action=update&vid={{ row['vendor_id'] }}">Update</a></td>
-            <td><a onclick="return confirm('Are You Sure!')" href="?action=active&vid={{ row['vendor_id'] }}">Active</a></td>
-            <td><a onclick="return confirm('Are You Sure!')" href="?action=inactive&vid={{ row['vendor_id'] }}">Inactive</a></td>
+            <td><a class="btn btn-info" href="?action=update&vid={{ row['vendor_id'] }}">Update</a></td>
+            <td><a class="btn btn-success" onclick="return confirm('Are You Sure!')" href="?action=active&vid={{ row['vendor_id'] }}">Active</a></td>
+            <td><a class="btn btn-danger" onclick="return confirm('Are You Sure!')" href="?action=inactive&vid={{ row['vendor_id'] }}">Inactive</a></td>
         </tr>
         {% endfor %}
     </table>

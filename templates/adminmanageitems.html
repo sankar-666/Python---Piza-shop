@@ -1,49 +1,49 @@
 {% include 'adminheader.html' %}
 <center>
-
+<div class="img-div">
     {% if data['raw'] %}
 
-    <h3>Update Items</h3>
+    
+    <form id="reg" action="" style="padding-top: 2rem;background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" action="" method="post" enctype="multipart/form-data">
+        <h3 class="p-3 text-white">Update Items</h3>
 
-    <form action="" method="post" enctype="multipart/form-data">
-
-        <div>
+        <div  style="width: 50%;" class="reg-container">
                 
-            <input type="text" value="{{data['raw'][0]['product_name']}}" required placeholder="Product Name" name="name" id="">
+            <input class="form-control" type="text" value="{{data['raw'][0]['product_name']}}" required placeholder="Product Name" name="name" id="">
         </div>
-        <div>
+        <div style="width: 50%;"  class="reg-container">
                 
-            <input type="text" value="{{data['raw'][0]['product_desc']}}" required placeholder="Product description" name="desc" id="">
+            <input class="form-control" type="text" value="{{data['raw'][0]['product_desc']}}" required placeholder="Product description" name="desc" id="">
             
         </div>
 
-        <div>
+        <div class="reg-container">
             <label for="">Image: </label>
-            <img src="/{{data['raw'][0]['product_image']}}" width="60" height="60" alt="">
+            <img style="border-radius: 6px;" src="/{{data['raw'][0]['product_image']}}" width="70" height="70" alt="">
         </div>
-        <div>
-            <input type="file"   placeholder="Product Name" name="image" id="">
+        <div class="reg-container">
+            <input style="margin-left: 18rem;" type="file"   placeholder="Product Name" name="image" id="">
 
         </div>
-        <div>
-                
-            <input type="number" value="{{data['raw'][0]['product_price']}}" required placeholder="Product Price" name="price" id="">
-            <div>
-                <input type="submit" name="update" id="">
+        <div style="width: 50%;"  class="reg-container">
+            <input class="form-control" type="number" value="{{data['raw'][0]['product_price']}}" required placeholder="Product Price" name="price" id="">
+            </div>    
+            <div class="reg-container">
+                <input id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" name="update" id="">
             </div>
     </form>
     
 
     {% else %}
-    <h3>Manage Items</h3>
+    
+    <form id="reg" action="" style="padding-top: 2rem;background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" action="" method="post"  enctype="multipart/form-data">
+        <h3 class="p-3 text-white">Manage Items</h3>
 
-    <form action="" method="post"  enctype="multipart/form-data">
-
-        <div>
-            <div>
-                <label for="">Select Sub category: </label>
-                <select required name="subid" id="">
-
+        <div class="reg-container">
+            <div style="width: 354px !important;">
+                
+                <select class="form-control" required name="subid" id="">
+                    <option value="0">--select sub category--</option>
                     {% for row in data['sub'] %}
                     <option value="{{ row['subcategory_id'] }}">{{ row['subcategory_name'] }}</option>
                     {% endfor %}
@@ -52,63 +52,70 @@
         
     </div>
 
-        <div>
+        <div style="width: 50%;" class="reg-container">
                 
-            <input type="text" required placeholder="Product Name" name="name" id="">
+            <input class="form-control" type="text" required placeholder="Product Name" name="name" id="">
         </div>
-        <div>
+        <div style="width: 50%;" class="reg-container">
                 
-            <input type="text" required placeholder="Product description" name="desc" id="">
+            <input class="form-control" type="text" required placeholder="Product description" name="desc" id="">
             
         </div>
 
-        <div>
+        <div style="margin-left: 14rem;" class="reg-container">
                     <label for="">Image: </label>
-            <input type="file" required placeholder="Product Name" name="image" id="">
+            <input  type="file" required placeholder="Product Name" name="image" id="">
         </div>
-        <div>
+        <div style="width: 50%;" class="reg-container">
                 
-            <input type="number" required placeholder="Product Price" name="price" id="">
+            <input class="form-control" type="number" required placeholder="Product Price" name="price" id="">
             
         </div>
               
         
         
          
-         <div>
-            <input type="submit" value="submit" name="submit">
+         <div  class="reg-container">
+            <input id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" value="submit" name="submit">
          </div>
 
     </form>
 
     {% endif %}
+    </div>
 
     <br><br>
 
     <h5>View Available Items</h5>
-    <table>
-        <tr>
-            <th></th>
-            <th>Product</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Status</th>
-            
-        </tr>
+
+    <div style="display: block;">
+    <div class="pim-div" style="background: aliceblue !important;box-sizing: border-box;padding-right: 1rem;transform: none;">
+        <span></span>
+        <span style="position: relative;right:-2rem;">Product</span>
+        <span>Description</span>
+        <span>Price</span>
+        <span style="position: relative;right:4rem;">Status</span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
         {% for row in data['res'] %}
-        <tr>
-            <td><img src="/{{ row['product_image'] }}" width="100" height="100" alt=""></td>
-            <td>{{ row['product_name'] }}</td>
-            <td>{{ row['product_desc'] }}</td>
-            <td>{{ row['product_price'] }}</td>
-            <td>{{ row['status'] }}</td>
-           
-            <td><a href="?action=update&pid={{ row['product_id'] }}">Update</a></td>
-            <td><a onclick="return confirm('Are You Sure!')" href="?action=active&pid={{ row['product_id'] }}">Active</a></td>
-            <td><a onclick="return confirm('Are You Sure!')" href="?action=inactive&pid={{ row['product_id'] }}">Inactive</a></td>
-        </tr>
+        <div class="pimg-div">
+            <img style="border-radius: 10px;" src="/{{ row['product_image'] }}" width="100" height="100" alt="">
+            <span>{{ row['product_name'] }}</span>
+            <span>{{ row['product_desc'] }}</span>
+            <span>{{ row['product_price'] }}</span>
+            <span>{{ row['status'] }}</span>
+
+            <a class="btn btn-success" href="?action=update&pid={{ row['product_id'] }}">Update</a>
+            <a class="btn btn-info" onclick="return confirm('Are You Sure!')" href="?action=active&pid={{ row['product_id'] }}">Active</a>
+            <a class="btn btn-danger" onclick="return confirm('Are You Sure!')" href="?action=inactive&pid={{ row['product_id'] }}">Inactive</a>
+        </div>
+      
+    </div>
+     
         {% endfor %}
-    </table>
+    
 </center>
 
 <script src="

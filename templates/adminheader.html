@@ -19,7 +19,7 @@
 <body>
 <!--header-->
 <div class="w3l-top-header">
-  <header id="site-header" class="fixed-top">
+  <header  id="site-header" class="fixed-top">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-dark stroke">
         <a class="navbar-brand" href="/">
@@ -39,22 +39,40 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item @@index-active">
-              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-            </li>
-           
-            <li class="px-4 fill-none">
-              <a href="login" class="btn btn-style btn-secondary">Online Order</a>
+              <a class="nav-link" href="adminhome">Home <span class="sr-only">(current)</span></a>
               
+            </li>
+            <li class="nav-item @@index-active">
+              <a class="nav-link" href="">Manage </a>
+              <div class="drop">
+                <a href="adminmanagestaff">Manage Staff</a>
+                <a href="adminmanagevendor">Manage Vendor</a>
+                <a href="adminmanagerawmaterials">Manage Raw Materials</a>
+                <a href="adminmanagecourier">Manage Courier</a>
+                <a href="adminmanagecaterogy">Manage Category</a>
+                <a href="adminmanagesubcategory">Manage SubCategory</a>
+                <a href="adminmanageitems">Manage Items</a>
+                <a href="adminmanagepurchase">Manage Purchase</a>
+              </div>
+            </li>
+            <li class="nav-item @@index-active">
+                <a class="nav-link" href="adminviewbooking">View Booking<span class="sr-only">(current)</span></a>
+                
               </li>
-
-              <li class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
-                <div class="dropdown-content">
-                  <a href="#">Link 1</a>
-                  <a href="#">Link 2</a>
-                  <a href="#">Link 3</a>
-                </div>
+              <li class="nav-item @@index-active">
+                <a class="nav-link" href="adminviewpurchasedhistory">Purchased History<span class="sr-only">(current)</span></a>
+                
               </li>
+              <li class="nav-item @@index-active">
+                <a class="nav-link" href="adminviewcomplaints">Complaints<span class="sr-only">(current)</span></a>
+                
+              </li>
+              <li class="nav-item @@index-active">
+                <a class="nav-link" href="/">Logout<span class="sr-only">(current)</span></a>
+                
+              </li>
+                 
+           
           </ul>
           <div class="popup">
             <!-- <a href="#domain" class="domain" data-toggle="modal" data-target="#DomainModal"> -->
@@ -74,74 +92,49 @@
 
 
     <style>
+
+        .drop a{
+            font-size: .7em;
+            color: #252525;
+            padding: 15px 5px;
+            /* background: red !important; */
+            width: 100%;
+            padding-left: 10px;
+        }
+
+        .drop a:hover{background: rgb(226, 226, 226);}
         a{
             padding: 5px;
         }
+        .nav-link{
+            position: relative !important;
+        }
+
+        .nav-link:hover~.drop,.drop:hover{
+            visibility: visible !important;
+            z-index: 1;
+            background: rgb(253, 253, 253) !important;
+            box-shadow: 2px 2px 4px rgb(203, 203, 203);
+            opacity: 1;
+            transition: all .6s;
+        }
+
+        .drop{
+            transition: all .6s;
+            background: rgb(255, 255, 255);
+            min-width: 250px;
+            min-height: 100px;
+            position: absolute;
+            top: 2.5rem;
+            left: .5rem;
+            visibility: hidden;
+            opacity: 0;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            
+            flex-direction: column;
+        }
     </style>
-    <a href="adminhome">Home</a>
-    <a href="adminmanagestaff">Manage Staff</a>
-    <a href="adminmanagevendor">Manage Vendor</a>
-    <a href="adminmanagerawmaterials">Manage Raw Materials</a>
-    <a href="adminmanagecourier">Manage Courier</a>
-    <a href="adminmanagecaterogy">Manage Category</a>
-    <a href="adminmanagesubcategory">Manage SubCategory</a>
-    <a href="adminmanageitems">Manage Items</a>
-    <a href="adminmanagepurchase">Manage Purchase</a>
-    <a href="adminviewbooking">View Booking</a>
-    <a href="adminviewpurchasedhistory">Purchased History</a>
-    <a href="/">Logout</a>
-
-    <style>
-        <style>
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  /* background-color: #333; */
-}
-
-li {
-  float: left;
-}
-
-li a, .dropbtn {
-  display: inline-block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover, .dropdown:hover .dropbtn {
-  /* background-color: red; */
-}
-
-li.dropdown {
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.dropdown-content a:hover {background-color: #f1f1f1;}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-    </style>
+   
+   

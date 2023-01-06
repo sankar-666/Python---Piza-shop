@@ -1,7 +1,8 @@
 
 {% include 'customerheader.html' %}
-<form  action="" method="post">
-<div class="wrap cf">
+<div class="img-di">
+<form  id="fc-cart" action="" method="post">
+<div  class="wrap cf">
     <h1 class="projTitle">Piza<span>-hub</span></h1>
     <div class="heading cf">
       <h1>My Cart</h1>
@@ -20,7 +21,7 @@
         
         <li class="items odd">
           
-      <div class="infoWrap"> 
+      <div  class="infoWrap"> 
           <div class="cartSection">
             <input type="hidden" name="pid{{ loop.index }}" value="{{ row['product_id'] }}" id="">
             <input type="hidden" name="single{{ loop.index }}" value="{{ row['product_price'] }}" id="single{{ loop.index }}">
@@ -73,8 +74,22 @@
     </div>
   </div>
 </form>
-
+</div>
   <style>
+
+      #fc-cart{
+        /* width: 80%; */
+        /* background: rebeccapurple; */
+        margin: 0px 16rem;
+        margin-top: 1rem;
+        background: white;
+        box-shadow: 10px 10px 10px rgb(234, 232, 232),-3px -5px 10px rgb(234, 232, 232);
+        /* border: 1px solid lightblue; */
+      }
+      input{
+        border: 1px solid lightgray;
+        padding: 5px !important;
+      }
     #chb{
       /* width: 10rem; */
       /* height: 2rem; */
@@ -92,7 +107,7 @@
       /* transition: all 1s; */
     }
     .btn-up{
-        padding: 4px 10px;
+        padding: 6px 10px;
         margin: 0px 2px;
         background: transparent;
         border: 1px solid rgb(194, 194, 194);
@@ -708,6 +723,17 @@ function samplefnd(q){
         }
     
  }
+
   </script>
+
+<script src = "http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src = "http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    $(document).ready(function() {
+       function disablePrev() { window.history.forward() }
+       window.onload = disablePrev();
+       window.onpageshow = function(evt) { if (evt.persisted) disableBack() }
+    });
+ </script>
 
   {% include 'footer.html' %}

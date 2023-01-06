@@ -5,12 +5,19 @@ customer=Blueprint('customer',__name__)
 
 @customer.route("/customerhome")
 def customerhome():
-    return render_template("customerhome.html")
+    data={}
+    q="select * from `ordermaster`, `orderdetails`, `product` where `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` and `orderdetails`.`product_id`=`product`.`product_id` and  customer_id='%s' and order_status='pending'"%(session['cid'])
+    count=select(q)
+    data['count']=len(count)
+    return render_template("customerhome.html",data=data)
 
 
 @customer.route("/customerviewitems",methods=['get','post'])
 def customerviewitems():
     data={}
+    q="select * from `ordermaster`, `orderdetails`, `product` where `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` and `orderdetails`.`product_id`=`product`.`product_id` and  customer_id='%s' and order_status='pending'"%(session['cid'])
+    count=select(q)
+    data['count']=len(count)
     
 
     if 'searchbtn' in request.form:
@@ -44,6 +51,10 @@ def customerviewitems():
 
 @customer.route("/customeraddtocart",methods=['get','post'])
 def customeraddtocart():
+    data={}
+    q="select * from `ordermaster`, `orderdetails`, `product` where `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` and `orderdetails`.`product_id`=`product`.`product_id` and  customer_id='%s' and order_status='pending'"%(session['cid'])
+    count=select(q)
+    data['count']=len(count)
     item=request.args['item']
     amount=request.args['amount']
     pid=request.args['pid']
@@ -51,7 +62,7 @@ def customeraddtocart():
         quantity=request.form['quantity']
         total=request.form['total']
 
-        q="select * from ordermaster where order_status='pending'"
+        q="select * from ordermaster where order_status='pending' and customer_id='%s'"%(session['cid'])
         res=select(q)
         if res:
             oid=res[0]['ordermaster_id']
@@ -61,7 +72,7 @@ def customeraddtocart():
         q="select * from orderdetails where product_id='%s' and ordermaster_id='%s'"%(pid,oid)
         val=select(q)
         if val:
-            q="update orderdetails set quantity=quantity+'%s', total_price=total_price+'%s' "%(quantity,total)
+            q="update orderdetails set quantity=quantity+'%s', total_price=total_price+'%s' where product_id='%s' and ordermaster_id='%s' "%(quantity,total,pid,oid)
             update(q)
         else:
             q="insert into orderdetails values (null,'%s','%s','%s','%s')"%(oid,pid,quantity,total)
@@ -70,7 +81,7 @@ def customeraddtocart():
         update(q)
         flash("Successfully added to Cart")
         return redirect(url_for("customer.customerviewitems"))
-    return render_template("customeraddtocart.html",item=item,amount=amount)
+    return render_template("customeraddtocart.html",item=item,amount=amount,data=data)
 
 
 
@@ -78,6 +89,9 @@ def customeraddtocart():
 @customer.route("/customerviewcart",methods=['get','post'])
 def customerviewcart():
     data={}
+    q="select * from `ordermaster`, `orderdetails`, `product` where `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` and `orderdetails`.`product_id`=`product`.`product_id` and  customer_id='%s' and order_status='pending'"%(session['cid'])
+    count=select(q)
+    data['count']=len(count)
     q="select * from `ordermaster`, `orderdetails`, `product` where `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` and `orderdetails`.`product_id`=`product`.`product_id` and  customer_id='%s' and order_status='pending'"%(session['cid'])
     res=select(q)
     # print(len(res))
@@ -93,6 +107,12 @@ def customerviewcart():
             delete(q)
             q="update ordermaster set total_amount=total_amount-'%s' where ordermaster_id='%s'"%(total_single_price,omid)
             update(q)
+            q=" select * from ordermaster where ordermaster_id='%s' and total_amount='0'"%(omid)
+            ves=select(q)
+            if ves:
+                q="delete from ordermaster where ordermaster_id='%s'"%(omid)
+                delete(q)
+            
             return redirect(url_for("customer.customerviewcart"))
 
 
@@ -124,6 +144,9 @@ def customerviewcart():
 @customer.route("/customerpayment",methods=['get','post'])
 def customerpayment():
     data={}
+    q="select * from `ordermaster`, `orderdetails`, `product` where `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` and `orderdetails`.`product_id`=`product`.`product_id` and  customer_id='%s' and order_status='pending'"%(session['cid'])
+    count=select(q)
+    data['count']=len(count)
     total=request.args['total']
     omid=request.args['omid']
 
@@ -138,6 +161,9 @@ def customerpayment():
 @customer.route("/customersingleproduct",methods=['get','post'])
 def customersingleproduct():
     data={}
+    q="select * from `ordermaster`, `orderdetails`, `product` where `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` and `orderdetails`.`product_id`=`product`.`product_id` and  customer_id='%s' and order_status='pending'"%(session['cid'])
+    count=select(q)
+    data['count']=len(count)
     pid=request.args['pid']
 
     q="SELECT * FROM product,`subcategory`, `category` WHERE `product`.`subcategory_id`=`subcategory`.`subcategory_id` AND `subcategory`.`category_id`=`category`.`category_id` and  product_id='%s'"%(pid)
@@ -149,6 +175,9 @@ def customersingleproduct():
 @customer.route("/customervieworders",methods=['get','post'])
 def customervieworders():
     data={}
+    q="select * from `ordermaster`, `orderdetails`, `product` where `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` and `orderdetails`.`product_id`=`product`.`product_id` and  customer_id='%s' and order_status='pending'"%(session['cid'])
+    count=select(q)
+    data['count']=len(count)
     cid=session['cid']
 
     q="select * from `ordermaster`, `orderdetails`, `product` where `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` and `orderdetails`.`product_id`=`product`.`product_id` and  customer_id='%s'"%(cid)
@@ -159,6 +188,9 @@ def customervieworders():
 @customer.route("/customercomplaints",methods=['get','post'])
 def customercomplaints():
     data={}
+    q="select * from `ordermaster`, `orderdetails`, `product` where `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` and `orderdetails`.`product_id`=`product`.`product_id` and  customer_id='%s' and order_status='pending'"%(session['cid'])
+    count=select(q)
+    data['count']=len(count)
     cid=session['cid']
 
     if 'btn' in request.form:
@@ -178,6 +210,9 @@ def customercomplaints():
 @customer.route("/customeraddtoppings",methods=['get','post'])
 def customeraddtoppings():
     data={}
+    q="select * from `ordermaster`, `orderdetails`, `product` where `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` and `orderdetails`.`product_id`=`product`.`product_id` and  customer_id='%s' and order_status='pending'"%(session['cid'])
+    count=select(q)
+    data['count']=len(count)
     cid=session['cid']
 
     if 'btn' in request.form:
@@ -199,6 +234,9 @@ def customeraddtoppings():
 @customer.route("/customertoppingpayment",methods=['get','post'])
 def customertoppingpayment():
     data={}
+    q="select * from `ordermaster`, `orderdetails`, `product` where `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` and `orderdetails`.`product_id`=`product`.`product_id` and  customer_id='%s' and order_status='pending'"%(session['cid'])
+    count=select(q)
+    data['count']=len(count)
     total=request.args['amount']
     tid=request.args['tid']
 
@@ -210,3 +248,12 @@ def customertoppingpayment():
         flash("Payment Successfull")
         return redirect(url_for("customer.customerhome"))
     return render_template("customertoppingpayment.html",data=data,total=total)
+
+
+@customer.route("/countforcart",methods=['get','post'])
+def countforcart():
+    data={}
+    q="select * from `ordermaster`, `orderdetails`, `product` where `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` and `orderdetails`.`product_id`=`product`.`product_id` and  customer_id='%s' and order_status='pending'"%(session['cid'])
+    count=select(q)
+    data['count']=len(count)
+    return render_template("customerheader.html",data=data)

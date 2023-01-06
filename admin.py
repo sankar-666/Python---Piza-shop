@@ -571,7 +571,7 @@ def adminviewcomplaints():
 @admin.route('/adminviewpurchasedhistory')
 def adminviewpurchasedhistory():
     data={}
-    sid=session['sid']
+    # sid=session['sid']
     q="SELECT * FROM `purchasemaster`, `purchasechild`, `rawmaterials`, `vendor` WHERE `purchasemaster`.`purchasemaster_id`=`purchasechild`.`purchasemaster_id` AND `purchasechild`.`raw_mat_id`=`rawmaterials`.`raw_mat_id` AND `purchasemaster`.`vendor_id`=`vendor`.`vendor_id` and purchasemaster.staff_id='0'"
     data['res']=select(q)
     

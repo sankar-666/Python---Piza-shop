@@ -1,31 +1,45 @@
 {% include 'customerheader.html' %}
 <center>
-    <h5>fill this details to continue</h5>
+    <div class="img-div">
     <br>
-    <div>
+    <div id="reg" class="bg-light shadow" >
+        <h5 class="p-3 heading" >fill this details to continue</h5>
         <form action="" method="post">
-        <div>
-            <label for="">Item: </label>
-            <input type="text" value="{{ item }}" readonly name="product" id="">
+        <div style="width: 60%;" class="reg-container">
+            <!-- <label for="">Item: </label> -->
+            <input style="width: 100%;" class="form-control" type="text" value="{{ item }}" readonly name="product" id="">
         </div>
-        <div>
-            <label for="">Amount: </label>
-            <input type="number" value="{{ amount }}" readonly name="amount" id="amount">
+        <div style="width: 60%;" class="reg-container">
+            <!-- <label for="">Amount: </label> -->
+            <input style="width: 100%;" class="form-control" type="number" value="{{ amount }}" readonly name="amount" id="amount">
         </div>
-        <div>
-            <label for="">Required Quantity: </label>
-            <input required type="number" placeholder="Enter your Quantity" name="quantity" id="qty">
+        <div style="width: 60%;" class="reg-container">
+            <!-- <label for="">Required Quantity: </label> -->
+            <input style="width: 100%;" class="form-control" required type="number" placeholder="Enter your Quantity" name="quantity" id="qty">
         </div>
-        <div>
-            <label for="">Total Amount: </label>
-            <input type="number" readonly  name="total" id="total">
+        <div style="width: 60%;" class="reg-container">
+            <!-- <label for="">Total Amount: </label> -->
+            <input style="width: 100%;" class="form-control" type="number" readonly  name="total" id="total">
         </div>
-        <div>
-            <input type="submit" name="btn" id="">
+        <div  class="reg-container">
+            <input id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" name="btn" id="">
         </div>
     </form>
     </div>
+</div>
 </center>
+
+<style>
+
+    .heading{
+
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        font-size: 2em;
+        text-transform: capitalize;
+    }
+</style>
 
 <script>
 
