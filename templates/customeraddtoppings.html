@@ -1,34 +1,18 @@
 {% include 'customerheader.html' %}
 <center>
-    
-    <div class="img-div">
-        <form id="reg2"  style="padding-top: 2rem;background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" action="" method="post">
-            <h3 class="p-3 text-white ">Add Toppings</h3>
-            <div style="width: 60%;" class="reg-container">
-                <!-- <label for="">Topping</label> -->
-                <input class="form-control" placeholder="topping" type="text" required name="topp" id="">
-            </div>
-            <div style="width: 60%;" class="reg-container">
-                <!-- <label for="">Description</label> -->
-                <input class="form-control" placeholder="details..." type="text" required name="desc" id="">
-            </div>
-            <div style="width: 60%;" class="reg-container">
-                <input id="reg-btn" style="color: #fff;margin-bottom: 1rem;border: none;outline: none;margin-top: 0px;" type="submit" name="btn" id="">
-            </div>
-        </form>
+    <h3 class="p-3">Add Toppings</h3>
+
+    <div style="width: 54%;height: 40px;display: flex;justify-content: flex-end;align-items: center;">
+        <a style="background: #e7272d;color: aliceblue;padding: .5rem 1.5rem;" href="customerviewcart">Continue</a>
     </div>
-
-    <br>
-    <br>
-    <h4>view </h4>
-
+   <form action="" method="post">
     <table class="table table-striped tbl-new" style="width: 60%;margin-bottom: 2rem;padding: 1rem !important;">
         <tr>
             <th>Index</th>
             <th>Topping</th>
             <th>Price</th>
             <th>Description</th>
-            <th>Status</th>
+      
         </tr>
         {% for row in data['res'] %}
         <tr>
@@ -36,15 +20,24 @@
             <td>{{ row['topping_name'] }}</td>
             <td>{{ row['topping_price'] }}</td>
             <td>{{ row['topping_desc'] }}</td>
-            <td>{{ row['topping_status'] }}</td>
-            {% if row['topping_status'] == "Approved by staff" %}
-                <td><a href="customertoppingpayment?tid={{ row['topping_id'] }}&amount={{ row['topping_price'] }}">Make Payment</a></td>
-            {% endif %}
+            <td>quantity</td>
+            <td>
+                <div>
+         <input type="hidden" name="topid{{ loop.index }}" value="{{ row['topping_id'] }}" id="">
+            <input class="btn-sec" placeholder="0" value="{{ row['qty'] }}" readonly style="width: 30px;" type="text" name="qty{{ loop.index }}" id="">
+            <button name="qtydec{{ loop.index }}" type="submit" class="btn-sec">-</button>
+            <button name="qtyadd{{ loop.index }}" type="submit" class="btn-sec">+</button> </div></td>
         </tr>
         {% endfor %}
     </table>
-    
+</form>
 </center>
+
+<style>
+    .btn-sec{
+        border-color: rgb(219, 219, 219);
+    }
+</style>
 
 
 {% include 'footer.html' %}

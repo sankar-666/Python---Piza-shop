@@ -1,9 +1,9 @@
 {% include 'courierheader.html' %}
 
 <center>
-    <h3>Pending Couriers</h3>
+    <h3 class="p-3">Pending Couriers</h3>
 
-    <table>
+    <table class="table table-striped tbl-new" style="width: 80%;margin-bottom: 2rem;padding: 1rem !important;">
         <tr>
             <th>Name</th>
 
@@ -17,6 +17,7 @@
             <th>Product</th>
             <th>Quantity</th>
             <th>Price</th>
+            <th></th>
         </tr>
         {% for row in data['res'] %}
         <tr>
@@ -31,10 +32,16 @@
             <td>{{ row['product_name'] }}</td>
             <td>{{ row['quantity'] }}</td>
             <td>{{ row['total_price'] }}</td>
-            <td><a onclick="return confirm('Are you Sure?')" href="?action=accept&omid={{ row['ordermaster_id'] }}">Accept Delivery</a></td>
+            <td><a class="btn btn-success" onclick="return confirm('Are you Sure?')" href="?action=accept&omid={{ row['ordermaster_id'] }}">Accept Delivery</a></td>
         </tr>
         {% endfor %}
     </table>
 </center>
+
+<style>
+    .btn-success{
+        font-size: .7em !important;
+    }
+</style>
 
 {% include 'footer.html' %}

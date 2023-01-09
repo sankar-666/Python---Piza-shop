@@ -210,23 +210,76 @@ def customercomplaints():
 @customer.route("/customeraddtoppings",methods=['get','post'])
 def customeraddtoppings():
     data={}
+    od_id=request.args['od_id']
     q="select * from `ordermaster`, `orderdetails`, `product` where `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` and `orderdetails`.`product_id`=`product`.`product_id` and  customer_id='%s' and order_status='pending'"%(session['cid'])
     count=select(q)
     data['count']=len(count)
     cid=session['cid']
 
-    if 'btn' in request.form:
-        topp=request.form['topp']
-        desc=request.form['desc']
-
-        q="insert into topping values (null,'%s','%s','not assigned','%s','Waiting for approval')"%(cid,topp,desc)
-        insert(q)
-        return redirect(url_for("customer.customeraddtoppings"))
     
-    q="select * from topping where customer_id='%s'"%(cid)
-    data['res']=select(q)
-    
+    q="""SELECT topping_id,topping_name,topping_price,topping_desc,topping_status,topping_booked.`topping_quantity` AS qty FROM topping INNER JOIN topping_booked USING (topping_id) WHERE orderdetails_id='%s'
+        UNION 
+        SELECT topping_id,topping_name,topping_price,topping_desc,topping_status,0 AS qty FROM topping WHERE topping_id not in (SELECT topping_id FROM topping_booked WHERE orderdetails_id='%s') order by topping_id"""%(od_id,od_id)
+    res=select(q)
+    data['res']=res
 
+    # q="select * from "
+
+    for i in range(1,len(res)+1):
+        if 'qtyadd'+str(i) in request.form:
+            qty=request.form['qty'+str(i)]
+            topid=request.form['topid'+str(i)]
+            print(topid)
+
+            q="select topping_price from topping where topping_id='%s'"%(topid)
+            print(q)
+            topamount=select(q)
+            top=int(topamount[0]['topping_price'])
+            print("ssssssssssssssssssssssssssssssssssssssssssssss",top)
+            total=int(topamount[0]['topping_price'])*int(qty)
+
+            q="select * from topping_booked where orderdetails_id='%s' and topping_id='%s'"%(od_id,topid)
+            val=select(q)
+            if val:
+                q="update topping_booked set topping_quantity=topping_quantity+'1', total='%s' where orderdetails_id='%s' and topping_id='%s' "%(total,od_id,topid)
+                update(q)
+            else:
+                q="insert into topping_booked values(null,'%s','%s',1,'%s')"%(od_id,topid,total)
+                insert(q)
+            q="update orderdetails set total_price=total_price+'%s' where orderdetails_id='%s' "%(top,od_id)
+            update(q)
+            q="update ordermaster set total_amount=total_amount+'%s' where ordermaster_id=(select ordermaster_id from orderdetails where orderdetails_id='%s') "%(top,od_id)
+            update(q)
+            return redirect(url_for("customer.customeraddtoppings",od_id=od_id))
+    
+    
+    for i in range(1,len(res)+1):
+        if 'qtydec'+str(i) in request.form:
+            qty=request.form['qty'+str(i)]
+            topid=request.form['topid'+str(i)]
+
+            q="select topping_price from topping where topping_id='%s'"%(topid)
+            topamount=select(q)
+            top=int(topamount[0]['topping_price'])
+            print("ssssssssssssssssssssssssssssssssssssssssssssss",qty)
+            total=int(topamount[0]['topping_price'])*int(qty)
+
+            if int(qty) == 0:
+                print("quantity is already Zero")
+            else:
+                q="select * from topping_booked where orderdetails_id='%s' and topping_id='%s'"%(od_id,topid)
+                val=select(q)
+                if val:
+                    q="update topping_booked set topping_quantity=topping_quantity-'1', total='%s' where orderdetails_id='%s' and topping_id='%s' "%(total,od_id,topid)
+                    update(q)
+                else:
+                    q="insert into topping_booked values(null,'%s','%s','%s','%s')"%(od_id,topid,qty,total)
+                    insert(q)
+                q="update orderdetails set total_price=total_price-'%s' where orderdetails_id='%s' "%(top,od_id)
+                update(q)
+                q="update ordermaster set total_amount=total_amount-'%s' where ordermaster_id=(select ordermaster_id from orderdetails where orderdetails_id='%s') "%(top,od_id)
+                update(q)
+            return redirect(url_for("customer.customeraddtoppings",od_id=od_id))
     return render_template("customeraddtoppings.html",data=data)
 
 

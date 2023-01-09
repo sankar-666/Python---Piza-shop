@@ -1,13 +1,13 @@
 {% include 'courierheader.html' %}
 
 <center>
-    <h3>My Couriers</h3>
+    <h3 class="p-3">My Delivery Details</h3>
 
-    <div>
-        <span style="color: rgb(255, 85, 85);">Note: products under same cart are delivered together.</span>
+    <div class="p-2">
+        <span  style="color: rgb(255, 85, 85);">Note: products under same basket are delivered together.</span>
     </div>
 
-    <table>
+    <table class="table table-striped  tbl-new" style="width: 80%;margin-bottom: 2rem;padding: 1rem !important;">
         <tr>
             <th>Name</th>
 
@@ -39,11 +39,16 @@
             {% if row['status'] == "Delivery Completed" %}
             <td>{{ row['status'] }}</td>
             {% else %}
-            <td><a onclick="return confirm('Are you Sure?')" href="?action=accept&omid={{ row['ordermaster_id'] }}&did={{ row['delivery_id'] }}">Deliver Now</a></td>
+            <td><a class="btn btn-primary" onclick="return confirm('Are you Sure?')" href="?action=accept&omid={{ row['ordermaster_id'] }}&did={{ row['delivery_id'] }}">Deliver Now</a></td>
             {% endif %}
         </tr>
         {% endfor %}
     </table>
 </center>
 
+<style>
+    .btn-primary{
+        font-size: .7em !important;
+    }
+</style>
 {% include 'footer.html' %}

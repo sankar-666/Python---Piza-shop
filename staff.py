@@ -500,3 +500,54 @@ def staffviewpurchasedhistory():
     
     return render_template('staffviewpurchasedhistory.html',data=data)
 
+
+
+
+@staff.route('/staffmanagetoppings',methods=['get','post'])
+def staffmanagetoppings():
+    data={}
+    if 'submit' in request.form:
+        name=request.form['name']
+        price=request.form['price']
+        desc=request.form['desc']
+    
+        q="insert into topping values (null,'%s','%s','%s','active')"%(name,price,desc)
+        insert(q)
+        return redirect(url_for("staff.staffmanagetoppings"))
+
+    data={}
+    q="select * from topping"
+    data['res']=select(q)
+
+
+    if 'action' in request.args:
+        action=request.args['action']
+        top_id=request.args['top_id']
+
+      
+    else:
+        action=None
+
+    if action == "active":
+        q="update topping set topping_status='active' where topping_id='%s' "%(top_id)
+        update(q) 
+        return redirect(url_for("staff.staffmanagetoppings"))
+    if action == "inactive":
+        q="update topping set topping_status='inactive' where topping_id='%s' "%(top_id)
+        update(q)
+        return redirect(url_for("staff.staffmanagetoppings"))
+
+    if action == "update":
+        q="select * from topping where topping_id='%s'"%(top_id)
+        val=select(q)
+        data['raw']=val
+
+        if 'update' in request.form:
+            name=request.form['name']
+            price=request.form['price']
+            desc=request.form['desc']
+
+            q="update topping set topping_name='%s', topping_price='%s', topping_desc='%s' where topping_id='%s' "%(name,price,desc,top_id)
+            update(q)
+            return redirect(url_for("staff.staffmanagetoppings"))
+    return render_template('staffmanagetoppings.html',data=data) 

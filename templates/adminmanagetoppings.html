@@ -1,0 +1,146 @@
+{% include 'adminheader.html' %}
+<center>
+    <div class="img-div">
+    {% if data['raw'] %}
+
+    
+    <form id="reg" style="padding-top: 2rem;background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" action="" method="post">
+        <h3  class="p-3 text-white">Update Toppings</h3>
+
+        <div style="width: 50%;" class="reg-container"> 
+                
+            <input type="text" class="form-control" value="{{ data['raw'][0]['topping_name'] }}" required placeholder="Topping name" name="name" id="">
+        </div>
+        <div style="width: 50%;" class="reg-container">
+                
+            <input type="text" class="form-control" value="{{ data['raw'][0]['topping_price'] }}" required placeholder="Price" name="price" id="">
+        </div>
+        <div style="width: 50%;" class="reg-container">
+                
+            <input type="text" class="form-control" value="{{ data['raw'][0]['topping_desc'] }}" required placeholder=" description" name="desc" id="">
+        </div>
+              
+         
+        
+         <div class="reg-container">
+            <input id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" value="Update" name="update">
+         </div>
+
+    </form>
+    
+
+    {% else %}
+    
+    <form id="reg" action="" style="padding-top: 2rem;background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" action="" method="post">
+        <h3  class="p-3 text-white">Manage Toppings</h3>
+
+        <div style="width: 50%;" class="reg-container">
+                
+            <input type="text" class="form-control" required placeholder="Topping Name" name="name" id="">
+        </div>
+        <div style="width: 50%;" class="reg-container">
+                
+            <input type="text" class="form-control" required placeholder="price" name="price" id="">
+        </div>
+        <div style="width: 50%;" class="reg-container">
+                
+            <input type="text" class="form-control" required placeholder="Description" name="desc" id="">
+        </div>
+              
+         
+        
+        
+         
+         <div class="reg-container">
+            <input id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" value="submit" name="submit">
+         </div>
+
+    </form>
+
+    {% endif %}
+</div>
+    <br><br>
+
+    <h5>View Available Raw Materials</h5>
+    <table class="table table-striped tbl-new">
+        <tr>
+            <th>index</th>
+            <th>Topping</th>
+            <th>price</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ row['topping_name'] }}</td>
+            <td>{{ row['topping_price'] }}</td>
+            <td>{{ row['topping_desc'] }}</td>
+            <td>{{ row['topping_status'] }}</td>
+           
+            <td><a class="btn btn-info" href="?action=update&top_id={{ row['topping_id'] }}">Update</a></td>
+            <td><a class="btn btn-success" onclick="return confirm('Are You Sure!')" href="?action=active&top_id={{ row['topping_id'] }}">Active</a></td>
+            <td><a class="btn btn-danger" onclick="return confirm('Are You Sure!')" href="?action=inactive&top_id={{ row['topping_id'] }}">Inactive</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+<script src="
+https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+<script>
+    $(function() {
+        $("input[name='fname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        $("input[name='lname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        // $("input[name='dob']").on('input', function(e) {
+        //     $(this).val($(this).val().replace(/[^0-9/]/g, ''));
+
+        // });
+        
+        $("input[name='phone']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='pin']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='email']").on('input', function(e) {
+              var re = /([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{1,}/.test(this.value);
+                if(!re) {
+                    $('#eerror').show();
+                } else {
+                    $('#eerror').hide();
+                }
+
+        });
+        $("input[name='address']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z0-9()/. ]/g, ''));
+
+        });
+        $("input[name='place']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+            
+        $("input[name='pwd']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9A-Za-z@/. ]/g, ''));
+            
+        });
+    });
+
+
+</script>
+
+{% include 'footer.html' %}

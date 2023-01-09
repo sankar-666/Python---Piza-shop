@@ -21,7 +21,7 @@
         
         <li class="items odd">
           
-      <div  class="infoWrap"> 
+      <div  class="infoWrap" > 
           <div class="cartSection">
             <input type="hidden" name="pid{{ loop.index }}" value="{{ row['product_id'] }}" id="">
             <input type="hidden" name="single{{ loop.index }}" value="{{ row['product_price'] }}" id="single{{ loop.index }}">
@@ -38,16 +38,20 @@
             {% endif %}
           </div>  
       
-          
-          <div class="prodTotal cartSection">
+          <div style="float: right;position: relative;top: 28px;">
+          <div style="position: relative;right: 40px;" class="prodTotal cartSection">
             <p id="singleCost{{ loop.index }}">₹{{ row['total_price'] }}</p>
             <input type="hidden" value="{{ row['total_price'] }}"  name="singletotal{{ loop.index }}" id="stotal{{ loop.index }}">
           </div>
-                <div class="cartSection removeWrap">
+                <div style="position: relative;right: 15px;" class="cartSection removeWrap">
              <!-- <a href="#" class="remove">x</a> -->
              <!-- <input type="submit" class="remove" value="x" name="del{{ loop.index }}" id=""> -->
              <button type="submit" class="remove" name="del{{ loop.index }}"><img class="del" src="/static/images/delete.png" alt=""></button>
           </div>
+          <div style="position: relative;bottom: 4px;" class="cartSection removeWrap" >
+            <a href="customeraddtoppings?od_id={{ row['orderdetails_id'] }}" id="addtop">add toppings</a>
+          </div>
+        </div>
         </div>
 
 
@@ -77,6 +81,14 @@
 </div>
   <style>
 
+    #addtop{
+      background: #e7272d;
+      padding: 5px 10px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: .6em;
+    }
+
       #fc-cart{
         /* width: 80%; */
         /* background: rebeccapurple; */
@@ -97,9 +109,9 @@
       background: #82ca9c;
       color: #fff;
       border: none;
-      padding: .9rem 3.4rem;
+      padding: 1rem 3.4rem !important;
       cursor: pointer;
-    
+      font-size: .8em;
     }
 
     #chb:hover{
