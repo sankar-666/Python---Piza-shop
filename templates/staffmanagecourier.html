@@ -5,7 +5,7 @@
 
     
     <form style="background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" id="reg" action="" method="post">
-        <h3 class="p-3 text-white">Update Courier</h3>
+        <h3 class="p-3 text-white">Update Delivery Boy</h3>
 
         <div class="reg-container">
                 <div>
@@ -78,7 +78,7 @@
     {% else %}
     
     <form id="reg" style="background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" action="" method="post">
-        <h3 class="p-3 text-white">Manage Courier</h3>
+        <h3 class="p-3 text-white">Manage Delivery Boy</h3>
         <div style="display: flex;position: relative;top: 15px;" >
            
             <span style="padding-left: 50px;font-size: .8em;color: rgb(255, 0, 0);" id="unamespan">Incorrect email format!</span>
@@ -177,18 +177,18 @@
         </tr>
         {% for row in data['res'] %}
         <tr>
-            <td>{{ row['courier_fname'] }}{{ row['courier_lname'] }}</td>
-            <td>{{ row['courier_desig'] }}</td>
-            <td>{{ row['courier_street'] }}</td>
-            <td>{{ row['courier_city'] }}</td>
-            <td>{{ row['courier_dist'] }}</td>
-            <td>{{ row['courier_state'] }}</td>
-            <td>{{ row['courier_pincode'] }}</td>
-            <td>{{ row['courier_phone'] }}</td>
-            <td>{{ row['courier_gender'] }}</td>
-            <td>{{ row['courier_dob'] }}</td>
-            <td>{{ row['courier_join'] }}</td>
-            <td>{{ row['courier_status'] }}</td>
+            <td class="nospace-sec">{{ row['courier_fname'] }}{{ row['courier_lname'] }}</td>
+            <td class="nospace-sec">{{ row['courier_desig'] }}</td>
+            <td class="nospace-sec">{{ row['courier_street'] }}</td>
+            <td class="nospace-sec">{{ row['courier_city'] }}</td>
+            <td class="nospace-sec">{{ row['courier_dist'] }}</td>
+            <td class="nospace-sec">{{ row['courier_state'] }}</td>
+            <td class="nospace-sec">{{ row['courier_pincode'] }}</td>
+            <td class="nospace-sec">{{ row['courier_phone'] }}</td>
+            <td class="nospace-sec">{{ row['courier_gender'] }}</td>
+            <td class="nospace-sec">{{ row['courier_dob'] }}</td>
+            <td class="nospace-sec">{{ row['courier_join'] }}</td>
+            <td class="nospace-sec">{{ row['courier_status'] }}</td>
             <td><a class="btn btn-info" href="?action=update&corid={{ row['courier_id'] }}&uname={{ row['username'] }}">Update</a></td>
             <td><a class="btn btn-success" onclick="return confirm('Are You Sure!')" href="?action=active&corid={{ row['courier_id'] }}&uname={{ row['username'] }}">Active</a></td>
             <td><a class="btn btn-danger" onclick="return confirm('Are You Sure!')" href="?action=inactive&corid={{ row['courier_id'] }}&uname={{ row['username'] }}">Inactive</a></td>
@@ -196,6 +196,15 @@
         {% endfor %}
     </table>
 </center>
+
+<style>
+    .nospace-sec{
+        max-width: 50px !important;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+</style>
 
 <script src="
 https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">

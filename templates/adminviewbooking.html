@@ -24,7 +24,7 @@
             <td>{{ row['customer_fname'] }} {{ row['customer_lname'] }}</td>
             <td><a class="btn btn-success" href="adminviewcustomer?cid={{ row['customer_id'] }}">More details</a></td>
             <td><a class="btn btn-success" href="adminviewpayment?omid={{ row['ordermaster_id'] }}">View payment</a></td>
-            <td><a class="btn btn-success" href="adminviewdeliverystatus?omid={{ row['ordermaster_id'] }}">Delivery statust</a></td>
+            <td><a class="btn btn-success" href="adminviewdeliverystatus?omid={{ row['ordermaster_id'] }}">Delivery status</a></td>
         </tr>
         {% endfor %}
     </table>

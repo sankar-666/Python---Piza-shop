@@ -14,7 +14,7 @@
     </div>
 
 
-    <div  class="container m-5" >
+    <div  class="container m-5 bg-light"  >
         <div class="row piza-row">
             {% for row in data['res'] %}
             <div class="col-md-3 piza">
@@ -33,6 +33,14 @@
         {% endfor %}
         </div>
     </div>
+
+
+    <style>
+        .piza-row{
+            gap: 70px;
+    padding-left: 5rem;
+        }
+    </style>
 
         
 

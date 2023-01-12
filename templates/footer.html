@@ -1,243 +1,7 @@
- <!-- footers 20 -->
- <section class="w3l-footers-20">
-    <div class="footers20">
-        <div class="container">
-            <div class="footers20-content">
-                <div class="d-grid grid-col-4 grids-content">
-                    <div class="column">
-                        <h4>Address</h4>
-                        <p class="contact-para3">New York, NY-90814 Hill Station 4th Street</p>
-                        <a href="mailto:hello@w3layouts.com">
-                            <p class="contact-mail mt-2">pizza@order.com</p>
-                        </a>
-                    </div>
-                    <div class="column">
-                        <h4>Book a Table</h4>
-                        <p>Lorem ipsum dolor sit amet, elit. Minima, enim.</p>
-                        <a href="tel:+1-2345-678-11">
-                            <p class="contact-phone mt-2">+1-2345-678-11</p>
-                        </a>
-                    </div>
-                    <div class="column">
-                        <h4>Opening hours</h4>
-                        <p>Monday - Friday</p>
-                        <p class="mt-2">09:00 am to 10:00 pm</p>
-                    </div>
-                    <div class="column">
-                        <h4>Twitter feed</h4>
-                        <a href="blog-single.html">
-                            <p><span class="fa fa-twitter mr-2"></span>Eating hot spicy pizza is best thing to
-                                consider</p>
-                        </a>
-                        <p class="small mt-2"><span class="fa fa-clock-o"></span> March 25, 2020</p>
-                    </div>
-                </div>
-                <div class="d-grid grid-col-3 grids-content1 bottom-border">
-                    <div class="columns copyright-grid">
-                        <p class="copy-footer-29">© 2022 Pizza hub. All rights reserved | Designed by <a
-                                href="">Sankar</a></p>
-                    </div>
-                    <div class="columns text-right social-grid">
-                        <ul class="social">
-                            <li><a href="#url"><span class="fa fa-facebook" aria-hidden="true"></span></a></li>
-                            <li><a href="#url"><span class="fa fa-instagram" aria-hidden="true"></span></a></li>
-                            <li><a href="#url"><span class="fa fa-twitter" aria-hidden="true"></span></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- move top -->
-<button onclick="topFunction()" id="movetop" title="Go to top">
-    &#10548;
-</button>
-<script>
-    // When the user scrolls down 20px from the top of the document, show the button
-    window.onscroll = function () {
-        scrollFunction()
-    };
 
-    function scrollFunction() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            document.getElementById("movetop").style.display = "block";
-        } else {
-            document.getElementById("movetop").style.display = "none";
-        }
-    }
+ <!--//subscribe-->
 
-    // When the user clicks on the button, scroll to the top of the document
-    function topFunction() {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-    }
-</script>
-<!-- /move top -->
-</section>
-
-<style>
-    body::-webkit-scrollbar{
-        display: none;
-    }
-</style>
-
-<!-- jQuery and Bootstrap JS -->
-<script src="/static/assets/js/jquery-3.3.1.min.js"></script>
-
-<!-- libhtbox -->
-<script src="/static/assets/js/lightbox-plus-jquery.min.js"></script>
-
-
-<script src="/static/assets/js/jquery.magnific-popup.min.js"></script>
-
-<script src="/static/assets/js/counter.js"></script>
-<script>
-    $(document).ready(function () {
-        $('.popup-with-zoom-anim').magnificPopup({
-            type: 'inline',
-
-            fixedContentPos: false,
-            fixedBgPos: true,
-
-            overflowY: 'auto',
-
-            closeBtnInside: true,
-            preloader: false,
-
-            midClick: true,
-            removalDelay: 300,
-            mainClass: 'my-mfp-zoom-in'
-        });
-
-        $('.popup-with-move-anim').magnificPopup({
-            type: 'inline',
-
-            fixedContentPos: false,
-            fixedBgPos: true,
-
-            overflowY: 'auto',
-
-            closeBtnInside: true,
-            preloader: false,
-
-            midClick: true,
-            removalDelay: 300,
-            mainClass: 'my-mfp-slide-bottom'
-        });
-    });
-</script>
-
-<!-- testimonials owlcarousel -->
-<script src="/static/assets/js/owl.carousel.js"></script>
-<script>
-    $(document).ready(function () {
-        $('.owl-two').owlCarousel({
-            loop: true,
-            margin: 30,
-            nav: false,
-            responsiveClass: true,
-            autoplay: false,
-            autoplayTimeout: 5000,
-            autoplaySpeed: 1000,
-            autoplayHoverPause: false,
-            responsive: {
-                0: {
-                    items: 1,
-                    nav: false
-                },
-                480: {
-                    items: 1,
-                    nav: false
-                },
-                667: {
-                    items: 1,
-                    nav: false
-                },
-                1000: {
-                    items: 1,
-                    nav: false
-                }
-            }
-        })
-    })
-</script>
-<!-- //script for Testimonials-->
-
-<!-- script for food-->
-<script>
-    $(document).ready(function () {
-        $('.owl-carousel').owlCarousel({
-            loop: true,
-            margin: 0,
-            responsiveClass: true,
-            responsive: {
-                0: {
-                    items: 1,
-                    nav: true
-                },
-                480: {
-                    items: 2,
-                    nav: true,
-                    margin: 20
-                },
-                769: {
-                    items: 3,
-                    nav: true,
-                    margin: 20
-                },
-                1280: {
-                    items: 4,
-                    nav: true,
-                    loop: true,
-                    margin: 25
-                }
-            }
-        })
-    })
-</script>
-<!-- //script for food-->
-
-<!-- disable body scroll which navbar is in active -->
-<script>
-    $(function () {
-        $('.navbar-toggler').click(function () {
-            $('body').toggleClass('noscroll');
-        })
-    });
-</script>
-<!-- disable body scroll which navbar is in active -->
-<!--/MENU-JS-->
-<script>
-    $(window).on("scroll", function () {
-        var scroll = $(window).scrollTop();
-
-        if (scroll >= 80) {
-            $("#site-header").addClass("nav-fixed");
-        } else {
-            $("#site-header").removeClass("nav-fixed");
-        }
-    });
-
-    //Main navigation Active Class Add Remove
-    $(".navbar-toggler").on("click", function () {
-        $("header").toggleClass("active");
-    });
-    $(document).on("ready", function () {
-        if ($(window).width() > 991) {
-            $("header").removeClass("active");
-        }
-        $(window).on("resize", function () {
-            if ($(window).width() > 991) {
-                $("header").removeClass("active");
-            }
-        });
-    });
-</script>
-<!--//MENU-JS-->
-<script src="/static/assets/js/bootstrap.min.js"></script>
-
-{% with messages = get_flashed_messages() %}
+ {% with messages = get_flashed_messages() %}
 {% if messages %}
 <ul class="flashes">
     {% for message in messages %}
@@ -249,6 +13,197 @@
 
 
 
+ <section class="buttom-footer py-lg-4 py-md-3 py-sm-3 py-3">
+    <div class="container pt-lg-5 pt-md-5 pt-sm-4 pt-4">
+       <div class="row footer-agile-grids ">
+          <div class="col-lg-6 col-md-12 wthree-left-right">
+             <div class="row">
+                <div class="col-md-4 footer-header pl-0">
+                   <h5><a href="index.html">Pizza-Pie</a></h5>
+                   <p>Fun & Joy Time</p>
+                </div>
+                <div class="col-md-8 footer-para">
+                   <p>Melbourne,south Brisbane,<br>QLD 4101,Aurstralia.</p>
+                   <p>+(000) 123 4565 32</p>
+                   <p><a href="mailto:info@example.com">mail@example.com</a></p>
+                </div>
+             </div>
+          </div>
+          <div class="col-lg-3 col-md-12 wthree-left-right">
+             <h4 class="pb-lg-3 pb-3">About Us</h4>
+             <div class="address-para">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+             </div>
+          </div>
+          <div class="wthree-left-right col-lg-3 col-md-12">
+             <h4 class="pb-lg-3 pb-3">Fallow us</h4>
+             <div class="icons">
+                <ul>
+                   <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
+                   <li><a href="#"><span class="fas fa-envelope"></span></a></li>
+                   <li><a href="#"><span class="fas fa-rss"></span></a></li>
+                   <li><a href="#"><span class="fab fa-vk"></span></a></li>
+                </ul>
+             </div>
+          </div>
+       </div>
+    </div>
+ </section>
+ <footer>
+    <p>©2018 Pizza-Pie. All Rights Reserved | Design by <a href="http://www.W3Layouts.com" target="_blank">W3Layouts</a></p>
+ </footer>
+ <!-- //Footer -->
+ <!--js working-->
+ <script src='/static/latest/js/jquery-2.2.3.min.js'></script>
+ <!--//js working-->
+ <!--navbar-->
+ <script>
+    (function($){
+        // Menu Functions
+        $(document).ready(function(){
+        $('#menuToggle').click(function(e){
+            var $parent = $(this).parent('.menu');
+          $parent.toggleClass("open");
+          var navState = $parent.hasClass('open') ? "hide" : "show";
+          $(this).attr("title", navState + " navigation");
+                // Set the timeout to the animation length in the CSS.
+                setTimeout(function(){
+                    console.log("timeout set");
+                    $('#menuToggle > span').toggleClass("navClosed").toggleClass("navOpen");
+                }, 200);
+            e.preventDefault();
+        });
+      });
+    })(jQuery);
+ </script>
+ <!--// navbar-->
+ <!--responsiveslides banner-->
+ <script src="/static/latest/js/responsiveslides.min.js"></script>
+ <script>
+    // You can also use "$(window).load(function() {"
+    $(function () {
+        // Slideshow 4
+        $("#slider4").responsiveSlides({
+            auto: true,
+            pager:false,
+            nav:true ,
+            speed: 900,
+            namespace: "callbacks",
+            before: function () {
+                $('.events').append("<li>before event fired.</li>");
+            },
+            after: function () {
+                $('.events').append("<li>after event fired.</li>");
+            }
+        });
+    
+    });
+ </script>
+ <!--// responsiveslides banner-->	  
+ <!--responsive tabs-->	 
+ <script src="/static/latest/js/easy-responsive-tabs.js"></script>
+ <script>
+    $(document).ready(function () {
+    $('#horizontalTab').easyResponsiveTabs({
+    type: 'default', //Types: default, vertical, accordion           
+    width: 'auto', //auto or any width like 600px
+    fit: true,   // 100% fit in a container
+    closed: 'accordion', // Start closed if in accordion view
+    activate: function(event) { // Callback function if tab is switched
+    var $tab = $(this);
+    var $info = $('#tabInfo');
+    var $name = $('span', $info);
+    $name.text($tab.text());
+    $info.show();
+    }
+    });
+    });
+     
+ </script>
+ <!--// responsive tabs-->
+ <!--Scrolling menu-->	 
+ <script>
+    jQuery.fn.liScroll = function(settings) {
+        settings = jQuery.extend({
+            travelocity: 0.01
+            }, settings);		
+            return this.each(function(){
+                    var $strip = jQuery(this);
+                    $strip.addClass("newsticker")
+                    var stripHeight = 1;
+                    $strip.find("li").each(function(i){
+                        stripHeight += jQuery(this, i).outerHeight(true); // thanks to Michael Haszprunar and Fabien Volpi
+                    });
+                    var $mask = $strip.wrap("<div class='mask'></div>");
+                    var $tickercontainer = $strip.parent().wrap("<div class='tickercontainer'></div>");								
+                    var containerHeight = $strip.parent().parent().height();	//a.k.a. 'mask' width 	
+                    $strip.height(stripHeight);			
+                    var totalTravel = stripHeight;
+                    var defTiming = totalTravel/settings.travelocity;	// thanks to Scott Waye		
+                    function scrollnews(spazio, tempo){
+                    $strip.animate({top: '-='+ spazio}, tempo, "linear", function(){$strip.css("top", containerHeight); scrollnews(totalTravel, defTiming);});
+                    }
+                    scrollnews(totalTravel, defTiming);				
+                    $strip.hover(function(){
+                    jQuery(this).stop();
+                    },
+                    function(){
+                    var offset = jQuery(this).offset();
+                    var residualSpace = offset.top + stripHeight;
+                    var residualTime = residualSpace/settings.travelocity;
+                    scrollnews(residualSpace, residualTime);
+                    });			
+            });	
+    };
+    
+    $(function(){
+        $("ul#ticker01").liScroll();
+    });		  
+     
+ </script>
+ <!--//Scrolling menu-->	 
+ <!--About OnScroll-Number-Increase-JavaScript -->
+ <script src="/static/latest/js/jquery.waypoints.min.js"></script>
+ <script src="/static/latest/js/jquery.countup.js"></script>
+ <script>
+    $('.counter').countUp();
+ </script>
+ <!-- //OnScroll-Number-Increase-JavaScript -->
+ <!-- start-smoth-scrolling -->
+ <script src="/static/latest/js/move-top.js"></script>
+ <script src="/static/latest/js/easing.js"></script>
+ <script>
+    jQuery(document).ready(function ($) {
+        $(".scroll").click(function (event) {
+            event.preventDefault();
+            $('html,body').animate({
+                scrollTop: $(this.hash).offset().top
+            }, 900);
+        });
+    });
+ </script>
+ <!-- start-smoth-scrolling -->
+ <!-- here stars scrolling icon -->
+ <script>
+    $(document).ready(function () {
+    
+        var defaults = {
+            containerID: 'toTop', // fading element id
+            containerHoverID: 'toTopHover', // fading element hover id
+            scrollSpeed: 1200,
+            easingType: 'linear'
+        };
+    
+    
+        $().UItoTop({
+            easingType: 'easeOutQuart'
+        });
+    
+    });
+ </script>
+ <!-- //here ends scrolling icon -->
+ <!--bootstrap working-->
+ <script src="/static/latest/js/bootstrap.min.js"></script>
+ <!-- //bootstrap working-->
 </body>
-
 </html>
