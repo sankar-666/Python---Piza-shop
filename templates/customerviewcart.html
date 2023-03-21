@@ -1,9 +1,17 @@
-
 {% include 'customerheader.html' %}
+<script src = "http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src = "http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    $(document).ready(function() {
+       function disablePrev() { window.history.forward() }
+       window.onload = disablePrev();
+       window.onpageshow = function(evt) { if (evt.persisted) disableBack() }
+    });
+ </script>
 <div class="img-di">
 <form  id="fc-cart" action="" method="post">
 <div  class="wrap cf">
-    <h1 class="projTitle">Piza<span>-hub</span></h1>
+    <h1 class="projTitle">Pizza Pie</span></h1>
     <div class="heading cf">
       <h1>My Cart</h1>
       <a  href="customerviewitems" class="continue">Continue Shopping</a>
@@ -46,13 +54,26 @@
                 <div style="position: relative;right: 15px;" class="cartSection removeWrap">
              <!-- <a href="#" class="remove">x</a> -->
              <!-- <input type="submit" class="remove" value="x" name="del{{ loop.index }}" id=""> -->
-             <button type="submit" class="remove" name="del{{ loop.index }}"><img class="del" src="/static/images/delete.png" alt=""></button>
+             <button type="submit" class="remove" name="del{{ loop.index }}"><span style="color: red;letter-spacing: .1px;">Remove</span></button>
+           
           </div>
-          <div style="position: relative;bottom: 4px;" class="cartSection removeWrap" >
-            <a href="customeraddtoppings?od_id={{ row['orderdetails_id'] }}" id="addtop">add toppings</a>
+          <div style="position: relative;bottom: 4px;left: 10px;" class="cartSection removeWrap" >
+            <a href="customeraddtoppings?od_id={{ row['orderdetails_id'] }}" style="color: red;" id="">Add toppings</a>
           </div>
         </div>
         </div>
+
+        <style>
+          .remove{
+            background-color: transparent !important;
+            border: none;
+          }
+
+          button[type="submit"]{
+            background: transparent !important;
+            border: none !important;
+          }
+        </style>
 
 
         </li>
@@ -70,8 +91,9 @@
         <li class="totalRow">
             <!-- <a href="?action=checkout&omid={{ data['res'][0]['ordermaster_id'] }}" class="btn continue">Checkout</a> -->
             <input type="hidden" value="{{ data['res'][0]['ordermaster_id'] }}" name="om_id" id="">
-
+            {% if data['res'][0]['status'] == 'active' %}
             <input class="btn continue" id="chb" value="Checkout" type="submit" name="btncheckout" id="">
+            {% endif %}
         </li>
       {% endif %}
     </ul>

@@ -8,19 +8,14 @@
         <h3 class="p-3 text-white">Update Vendor</h3>
 
         <div style="width: 100%;" class="reg-container">
-                <div style="width: 92% !important;">
+                <div style="width: 45% !important;">
                     <input  type="text" class="form-control" value="{{ data['vendor'][0]['vendor_name'] }}" required placeholder="Name" name="fname" id="">
                 </div>
                 <!-- <div>
                     <input type="text" value="{{ data['vendor'][0]['staff_lname'] }}" required placeholder="Lastname" name="lname" id="">
                 </div> -->
-        </div>
-        <div class="reg-container">
                 <div>
                     <input type="text" class="form-control" value="{{ data['vendor'][0]['vendor_godown_num'] }}" required placeholder="Godown Number" name="gonum" id="">
-                </div>
-                <div>
-                    <input type="text" class="form-control" value="{{ data['vendor'][0]['vendor_street'] }}" required placeholder="Street" name="street" id="">
                 </div>
         </div>
         <div class="reg-container">
@@ -54,29 +49,29 @@
     <form id="reg" style="background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" action="" method="post">
         <h3 class="p-3 text-white">Manage Vendors</h3>
 
-        <div class="reg-container" style="width: 100%;">
+        <!-- <div class="reg-container" style="width: 100%;">
                 <div style="width: 92% !important;">
                     <input  class="form-control"   type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required placeholder="Email" name="email" id="">
                 </div>
-                <!-- <div>
+                <div>
                     <input type="password" required placeholder="Password" name="password" id="">
-                </div> -->
-        </div>
+                </div>
+        </div> -->
         <div class="reg-container" style="width: 100%;">
-                <div style="width: 92% !important;">
+                <div style="width: 45% !important;">
                     <input  class="form-control"   type="text" required placeholder="Name" name="fname" id="">
                 </div>
                 <!-- <div>
                     <input type="text" required placeholder="Lastname" name="lname" id="">
                 </div> -->
-        </div>
-        <div class="reg-container">
+        <!-- </div>
+        <div class="reg-container"> -->
                 <div>
                     <input  class="form-control"   type="text" required placeholder="Godown number " name="gonum" id="">
                 </div>
-                <div>
+                <!-- <div>
                     <input   class="form-control"  type="text" required placeholder="Street" name="street" id="">
-                </div>
+                </div> -->
         </div>
         <div class="reg-container">
                 <div>
@@ -107,15 +102,13 @@
     </form>
 
     {% endif %}
-</div>
     <br><br>
 
-    <h5>View Available Vendors</h5>
-    <table class="table table-striped tbl-new">
+    <h5>View Vendors</h5><br>
+    <table class="table table-striped tbl-new " style="background:white; opacity:0.9;" >
         <tr>
             <th>Name</th>
             <th>Godown Number</th>
-            <th>Street</th>
             <th>City</th>
             <th>District</th>
             <th>Pincode</th>
@@ -129,19 +122,24 @@
         <tr>
             <td>{{ row['vendor_name'] }}</td>
             <td>{{ row['vendor_godown_num'] }}</td>
-            <td>{{ row['vendor_street'] }}</td>
             <td>{{ row['vendor_city'] }}</td>
             <td>{{ row['vendor_dist'] }}</td>
             <td>{{ row['vendor_pincode'] }}</td> 
             <td>{{ row['vendor_phone'] }}</td>
-            <td>{{ row['vendor_status'] }}</td>
-            <td><a class="btn btn-info" href="?action=update&vid={{ row['vendor_id'] }}">Update</a></td>
-            <td><a class="btn btn-success" onclick="return confirm('Are You Sure!')" href="?action=active&vid={{ row['vendor_id'] }}">Active</a></td>
+            
+            {% if row['vendor_status'] == 'active' %}
+
             <td><a class="btn btn-danger" onclick="return confirm('Are You Sure!')" href="?action=inactive&vid={{ row['vendor_id'] }}">Inactive</a></td>
+            {% else %}
+            <td><a class="btn btn-success" onclick="return confirm('Are You Sure!')" href="?action=active&vid={{ row['vendor_id'] }}">Active</a></td>
+            
+            {% endif %}
+            <td><a class="btn btn-info" href="?action=update&vid={{ row['vendor_id'] }}">Update</a></td>
         </tr>
         {% endfor %}
     </table>
 </center>
+</div>
 
 <script src="
 https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">

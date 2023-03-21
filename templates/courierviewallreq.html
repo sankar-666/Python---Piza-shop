@@ -33,7 +33,8 @@
             <td>{{ row['product_name'] }}</td>
             <td>{{ row['quantity'] }}</td>
             <td>{{ row['total_price'] }}</td>
-            <td><a class="btn btn-success" onclick="return confirm('Are you Sure?')" href="?action=accept&omid={{ row['ordermaster_id'] }}">Accept Delivery</a></td>
+            
+            <td><a class="btn btn-success" onclick="return confirm('Are you Sure?')" href="?action=accept&omid={{ row['ordermaster_id'] }}&did={{row['delivery_id']}}">Deliver Now</a></td>
         </tr>
         {% endfor %}
     </table>

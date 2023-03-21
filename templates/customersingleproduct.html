@@ -23,7 +23,7 @@
 	<div class="product__info">
 		<div  class="title">
 			<h1>{{ data['res'][0]['product_name'] }}</h1>
-			<span>Piza hub</span>
+			<span>Pizza Pie</span>
 		</div>
 		<div style="border: 1px solid rgb(255, 255, 255);box-shadow: -4px -4px 4px rgb(255, 255, 255),0px 4px rgb(196, 196, 196);padding-left: .2rem;" class="price">
 			Rs:<span>{{ data['res'][0]['product_price'] }}</span>
@@ -44,7 +44,7 @@
 			</ul>
 		</div>
         
-        <a style="text-decoration: none;" class="buy--btn" href="customeraddtocart?item={{ data['res'][0]['product_name'] }}&amount={{ data['res'][0]['product_price'] }}&pid={{ data['res'][0]['product_id'] }}">Add to Cart</a>
+        <a style="text-decoration: none;" class="buy--btn" href="customeraddtocart?item={{ data['res'][0]['product_name'] }}&amount={{ data['res'][0]['product_price'] }}&pid={{ data['res'][0]['product_id'] }}&category={{ data['res'][0]['category_name'] }}">Add to Cart</a>
 		<!-- <button >ADD TO CART</button> -->
 	</div>
 </section>

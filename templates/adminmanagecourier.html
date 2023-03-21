@@ -80,31 +80,40 @@
     {% else %}
     
     <form id="reg" style="background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" action="" method="post">
-        <h3 class="p-3 text-white">Manage Deliveryboy</h3>
-        <div style="display: flex;position: relative;top: 15px;" >
+        <h3 class="p-3 text-white">Manage Deliveryboy</h3><br>
+        <!-- <div style="display: flex;position: relative;top: 15px;" >
            
             <span style="padding-left: 50px;font-size: .8em;color: rgb(255, 0, 0);" id="unamespan">Incorrect email format!</span>
       
             <span  style="padding-left: 170px;font-size: .8em;color: red;" id="passspan">Password Must contain  8 charactor, 1 lowercase, 1 uppercase, 1 number!</span>
         
-        </div>
-        <div class="reg-container">
+        </div> -->
+        <!-- <div class="reg-container">
                 <div>
                     <input type="text" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required placeholder="Email" name="email" id="email">
                 </div>
                 <div>
                     <input type="password" class="form-control" required placeholder="Password" name="password" id="password">
                 </div>
-        </div>
+        </div> -->
         <div class="reg-container">
                 <div>
-                    <input type="text" class="form-control" required placeholder="Firstname" name="fname" id="">
+                    <input type="text" class="form-control" required placeholder="License Number" name="lic_no" id="">
                 </div>
                 <div>
-                    <input type="text" class="form-control" required placeholder="Lastname" name="lname" id="">
+                    <input type="text" class="form-control" required placeholder="License Expiry" name="lic_exp" id="">
                 </div>
         </div>
+
         <div class="reg-container">
+            <div>
+                <input type="text" class="form-control" required placeholder="Insurance Number" name="insu_no" id="">
+            </div>
+            <div>
+                <input type="text" class="form-control" required placeholder="Insurance Expiry" name="insu_exp" id="">
+            </div>
+        </div>
+        <!--<div class="reg-container">
                 <div>
                     <input type="text" class="form-control" required placeholder="Designation" name="desig" id="">
                 </div>
@@ -142,10 +151,10 @@
                         <option value="other">Other</option>
                       </select>   
                 </div>
-                <div>
+                <div> -->
                     <!-- <label for="">Date of Birth: </label> -->
-                    <input style="height: 20px;border: 1px solid rgb(205, 205, 205);padding: 22px 80px;" type="date" required placeholder="Date of Birth" name="dob" id="">
-                </div>
+                    <!-- <input style="height: 20px;border: 1px solid rgb(205, 205, 205);padding: 22px 80px;" type="date" required placeholder="Date of Birth" name="dob" id="">
+                </div> -->
          </div>
          <div class="reg-container">
             <input id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" value="submit" name="submit">
@@ -158,7 +167,7 @@
 
     <br><br>
 
-    <h5>View Available Delivery boys</h5>
+    <h5>View Delivery boys</h5>
     <table class="table table-striped tbl-new">
         <tr>
             <th>Name</th>
@@ -190,10 +199,13 @@
             <td>{{ row['courier_gender'] }}</td>
             <td>{{ row['courier_dob'] }}</td>
             <td>{{ row['courier_join'] }}</td>
-            <td>{{ row['courier_status'] }}</td>
-            <td><a class="btn btn-info" href="?action=update&corid={{ row['courier_id'] }}&uname={{ row['username'] }}">Update</a></td>
-            <td><a class="btn btn-success" onclick="return confirm('Are You Sure!')" href="?action=active&corid={{ row['courier_id'] }}&uname={{ row['username'] }}">Active</a></td>
+
+            {% if row['courier_status'] == 'active' %}
             <td><a class="btn btn-danger" onclick="return confirm('Are You Sure!')" href="?action=inactive&corid={{ row['courier_id'] }}&uname={{ row['username'] }}">Inactive</a></td>
+            {% else %}
+            <td><a class="btn btn-success" onclick="return confirm('Are You Sure!')" href="?action=active&corid={{ row['courier_id'] }}&uname={{ row['username'] }}">Active</a></td>
+            {% endif %}
+            <td><a class="btn btn-info" href="?action=update&corid={{ row['courier_id'] }}&uname={{ row['username'] }}">Update</a></td>
         </tr>
         {% endfor %}
     </table>

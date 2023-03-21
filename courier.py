@@ -14,7 +14,7 @@ def sweetAlert(c):
 @courier.route("/courierviewallreq")
 def courierviewallreq():
     data={}
-    q="SELECT * FROM `ordermaster`, `orderdetails`, `customer`, `product` WHERE `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` AND `ordermaster`.`customer_id`=`customer`.`customer_id` AND `orderdetails`.`product_id`=`product`.`product_id` and order_status='Dispatched'"
+    q="SELECT * FROM `ordermaster`, `orderdetails`, `customer`, `product`,delivery WHERE `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` AND `ordermaster`.`customer_id`=`customer`.`customer_id` AND `orderdetails`.`product_id`=`product`.`product_id` and ordermaster.ordermaster_id=delivery.ordermaster_id and delivery.courier_id='%s'"%(session['sid'])
     data['res']=select(q)
 
     if 'action' in request.args:
@@ -24,7 +24,7 @@ def courierviewallreq():
         action=None
 
     if action == "accept":
-        q="insert into delivery values(null, '%s','%s',curdate(),'Accepted by Courier')"%(omid,session['cor_id'])
+        q="insert into delivery values(null, '%s','%s',curdate(),'Accepted by Courier')"%(omid,session['sid'])
         insert(q)
         q="update ordermaster set order_status='Accepted by Courier' where ordermaster_id='%s'"%(omid)
         update(q)
@@ -34,10 +34,10 @@ def courierviewallreq():
     return render_template("courierviewallreq.html",data=data)
 
 
-@courier.route("/courierviewmyreq")
-def courierviewmyreq():
+@courier.route("/courierdelivery")
+def courierdelivery():
     data={}
-    q="SELECT * FROM `ordermaster`, `orderdetails`, `customer`, `product`, delivery WHERE `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` AND `ordermaster`.`customer_id`=`customer`.`customer_id` AND `orderdetails`.`product_id`=`product`.`product_id` and `ordermaster`.`ordermaster_id`=delivery.ordermaster_id and courier_id='%s' "%(session['cor_id'])
+    q="SELECT * FROM `ordermaster`, `orderdetails`, `customer`, `product`, delivery WHERE `ordermaster`.`ordermaster_id`=`orderdetails`.`ordermaster_id` AND `ordermaster`.`customer_id`=`customer`.`customer_id` AND `orderdetails`.`product_id`=`product`.`product_id` and `ordermaster`.`ordermaster_id`=delivery.ordermaster_id and courier_id='%s' order by delivery_id desc"%(session['sid'])
 
     data['res']=select(q)
 
@@ -55,6 +55,6 @@ def courierviewmyreq():
         update(q)
         flash("Delivered Successfully")
         return redirect(url_for("courier.courierhome"))
-    return render_template("courierviewmyreq.html",data=data)
+    return render_template("courierdelivery.html",data=data)
 
 

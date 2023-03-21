@@ -17,22 +17,27 @@
         </div>
         <div class="reg-container">
                 <div>
-                    <input type="text" class="form-control" value="{{ data['staff'][0]['staff_desig'] }}" required placeholder="Designation" name="desig" id="">
+                    <select name="desig" id="" class="form-control">
+                        <option value="{{ data['staff'][0]['staff_desig'] }}">{{ data['staff'][0]['staff_desig'] }}</option>
+                        <option value="Worker">Worker</option>
+                        <option value="Delivery Boy">Delivery Boy</option>
+                    </select>
+                    <!-- <input type="text" class="form-control" value="{{ data['staff'][0]['staff_desig'] }}" required placeholder="Designation" name="desig" id=""> -->
                 </div>
                 <div>
                     <input type="text" class="form-control" value="{{ data['staff'][0]['staff_street'] }}" required placeholder="Street" name="street" id="">
                 </div>
         </div>
         <div class="reg-container">
-                <div style="margin-left: 32px;">
+                <div style="margin-left: 13 px;">
                     <input  type="text" class="form-control" value="{{ data['staff'][0]['staff_city'] }}" required placeholder="City" name="city" id="">
                 </div>
                 <div>
                     <input type="text" class="form-control" value="{{ data['staff'][0]['staff_dist'] }}" required placeholder="District" name="district" id="">
                 </div>
-                <div style="margin-right: 32px;">
+                <!-- <div style="margin-right: 32px;">
                     <input type="text" class="form-control" value="{{ data['staff'][0]['staff_state'] }}" required placeholder="State" name="state" id="">
-                </div>
+                </div> -->
         </div>
 
         <div class="reg-container">
@@ -45,7 +50,7 @@
          </div>
         
          <div class="reg-container">
-                <div >
+                <!-- <div style="margin-right: 42px;">
                      <select name="gender" required style="padding: 10px 130px;border: 1px solid lightgrey;color: rgb(120, 120, 120);" class="form-select" aria-label="Default select example">
                        {% if data['staff'][0]['staff_gender']=="male" %}
                         <option value="male">Male</option>
@@ -62,7 +67,7 @@
                         
                         {% endif %}
                       </select>
-                </div>
+                </div> -->
                 <div >
                     <!-- <label for="">Date of Birth: </label> -->
                     <input style="height: 20px;border: 1px solid rgb(205, 205, 205);padding: 22px 80px;" type="date" value="{{ data['staff'][0]['staff_dob'] }}" required placeholder="Date of Birth" name="dob" id="">
@@ -106,22 +111,27 @@
         </div>
         <div class="reg-container">
                 <div>
-                    <input type="text"  class="form-control"required placeholder="Designation" name="desig" id="">
+                    <select name="desig" id="" class="form-control">
+                        <option value="">Select Designation</option>    
+                        <option value="Worker">Worker</option>
+                        <option value="Delivery Boy">Delivery Boy</option>
+                    </select>
+                    <!-- <input type="text"  class="form-control"required placeholder="Designation" name="desig" id=""> -->
                 </div>
                 <div>
                     <input type="text" class="form-control" required placeholder="Street" name="street" id="">
                 </div>
         </div>
         <div class="reg-container">
-                <div style="margin-left: 32px;">
+                <div>
                     <input type="text" class="form-control" required placeholder="City" name="city" id="">
                 </div>
                 <div>
                     <input type="text" class="form-control" required placeholder="District" name="district" id="">
                 </div>
-                <div style="margin-right: 30px;">
+                <!-- <div style="margin-right: 30px;">
                     <input type="text" class="form-control" required placeholder="State" name="state" id="">
-                </div>
+                </div> -->
         </div>
 
         <div class="reg-container">
@@ -137,42 +147,42 @@
                 <div>
                         <select name="gender" required style="padding: 10px 70px;border: 1px solid lightgrey;color: rgb(120, 120, 120);" class="form-select" aria-label="Default select example">
                             <option selected>Click to select gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="other">Other</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
                         </select>   </div>
              
                     <div>
-                        <input style="height: 20px;border: 1px solid rgb(205, 205, 205);padding: 22px 80px;" type="date" required placeholder="Dob" name="dob" id="">
+                        <input style="height: 20px;border: 1px solid rgb(205, 205, 205);padding: 22px 80px;" type="date"  required placeholder="Dob" name="dob" id="">
                     </div>       
          </div>
          <div >
-            <input id="reg-btn" style="color: #fff;margin-bottom: 1rem;border: none;outline: none;" type="submit" value="submit" name="submit">
+            <input id="reg-btn" style="color: #fff;margin-bottom: 1rem;border: none;outline: none;" type="submit" value="Submit" name="submit">
          </div>
         </div>
     </form>
 
     {% endif %}
 
-    </div>
+
 
     <br><br>
 
-    <h5>View Available Staffs</h5>
-    <table class="table table-striped tbl-new">
+    <h5>View Staffs</h5><br>
+    <table class="table table-striped tbl-new" style="background:white; opacity:0.9;">
         <tr>
             <th>Name</th>
             <th>Designation</th>
             <th>Street</th>
             <th>City</th>
             <th>District</th>
-            <th>State</th>
+            <!-- <th>State</th> -->
             <th>Pincode</th>
             <th>Phone</th>
             <th>Gender</th>
             <th>Dob</th>
-            <th>Staff Join</th>
-            <th>Staff Status</th>
+            <th>Join Date</th>
+            <th>Status</th>
             <th></th>
             <th></th>
             <th></th>
@@ -184,21 +194,30 @@
             <td>{{ row['staff_street'] }}</td>
             <td>{{ row['staff_city'] }}</td>
             <td>{{ row['staff_dist'] }}</td>
-            <td>{{ row['staff_state'] }}</td>
+            <!-- <td>{{ row['staff_state'] }}</td> -->
             <td>{{ row['staff_pincode'] }}</td>
             <td>{{ row['staff_phone'] }}</td>
             <td>{{ row['staff_gender'] }}</td>
             <td>{{ row['staff_dob'] }}</td>
             <td>{{ row['staff_join'] }}</td>
-            <td>{{ row['staff_status'] }}</td>
-            <td><a class="btn btn-info" href="?action=update&stid={{ row['staff_id'] }}&uname={{ row['username'] }}">Update</a></td>
-            <td><a class="btn btn-success" onclick="return confirm('Are You Sure!')" href="?action=active&stid={{ row['staff_id'] }}&uname={{ row['username'] }}">Active</a></td>
+            
+            {% if row['staff_status'] == 'active' %}
+            
             <td><a class="btn btn-danger" onclick="return confirm('Are You Sure!')" href="?action=inactive&stid={{ row['staff_id'] }}&uname={{ row['username'] }}">Inactive</a></td>
+            
+            {% else %}
+            
+            <td><a class="btn btn-success" onclick="return confirm('Are You Sure!')" href="?action=active&stid={{ row['staff_id'] }}&uname={{ row['username'] }}">Active</a></td>
+
+            {% endif %}
+
+            <td><a class="btn btn-info" href="?action=update&stid={{ row['staff_id'] }}&uname={{ row['username'] }}">Update</a></td>
+
         </tr>
         {% endfor %}
     </table>
 </center>
-
+</div>
 <script src="
 https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
     </script>

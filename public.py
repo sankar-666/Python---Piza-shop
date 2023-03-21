@@ -31,13 +31,20 @@ def login():
                     flash("This Account is not Active")
                     return redirect(url_for("public.login")) 
             elif utype == "staff":
-                q="select * from login where usertype='staff' and status='active'"
+                q="select * from login inner join staff using(username) where usertype='staff' and status='active' and username='%s'"%(session['email'])
                 staffact=select(q)
                 if staffact:
-                    q="select * from staff where username='%s'"%(session['email'])
-                    session['sid']=select(q)[0]['staff_id']
-                    flash("Login Succeessfully")
-                    return redirect(url_for("staff.staffhome"))
+                    desig=staffact[0]['staff_desig']
+                    if desig == 'Worker':
+                        q="select * from staff where username='%s'"%(session['email'])
+                        session['sid']=select(q)[0]['staff_id']
+                        flash("Login Succeessfully")
+                        return redirect(url_for("staff.staffhome"))
+                    elif desig == "Delivery Boy":
+                        q="select * from staff where username='%s'"%(session['email'])
+                        session['sid']=select(q)[0]['staff_id']
+                        flash("Login Succeessfully")
+                        return redirect(url_for("courier.courierhome"))  
                 else:
                     flash("This Account is not Active")
                     return redirect(url_for("public.login")) 
@@ -93,7 +100,7 @@ def reg():
         q="select * from login where username='%s'"%(email)
         res=select(q)
         if res:
-            flash("This email already exist!, try register with new one.")
+            flash("This email already exist!, try to register with new one.")
         else:
             q="insert into login values('%s','%s','customer','active')"%(email,passw)
             insert(q)
@@ -103,3 +110,6 @@ def reg():
             flash("Registration successfull")
             return redirect(url_for("public.login"))
     return render_template("reg.html")
+
+
+

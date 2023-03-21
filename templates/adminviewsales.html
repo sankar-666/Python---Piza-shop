@@ -1,0 +1,47 @@
+{% include 'adminheader.html' %}
+
+<center>
+    <div class="img-div">
+    <h3>View Sales Details</h3><br>
+
+   <table>
+    <form method="post">
+        <tr>
+            <td><input type="date" name="daily" class="form-control"> Date </td>
+             <td><input type="month" name="monthly" class="form-control"> Month</td>
+             <td><input type="text" name="customer" class="form-control">Customer</td>
+             <td align="center"><input type="submit" name="sale" class="btn btn-success" value="Submit" style="margin-bottom: 25px;margin-left:5px;height: 40px;"></td>
+        </tr>
+    </form>
+    </table>
+
+        <table class="table table-striped tbl-new bg-light shadow">
+        <tr>
+            <th>Sl no</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Date</th>
+        </tr>
+        {% for row in data['salesview'] %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{ row['customer_fname'] }}</td>
+            <td>{{ row['product_name'] }}</td>
+            <td>{{ row['quantity'] }}</td>
+            <td>{{ row['product_price'] }}</td>
+            <td>{{ row['total_price'] }}</td>
+            <td>{{ row['date'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+<br><br><br><br>
+<a href="salesreport?" class="btn btn-danger">Print</a>
+</div>
+
+</center>
+
+
+{% include 'footer.html' %}

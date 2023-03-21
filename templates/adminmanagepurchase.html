@@ -10,7 +10,7 @@
             <div>
               
                 <select class="form-control" required name="vid" id="">
-                        <option value="0">--select vendor--</option>
+                        <option value="0">Select Vendor</option>
                     {% for row in data['ven'] %}
                     <option value="{{ row['vendor_id'] }}">{{ row['vendor_name'] }}</option>
                     {% endfor %}
@@ -22,7 +22,7 @@
             <div>
           
                 <select class="form-control" required name="rid" id="">
-                    <option value="0">--select rawmaterial--</option>
+                    <option value="0">Select Raw material</option>
                     {% for row in data['raw'] %}
                     <option value="{{ row['raw_mat_id'] }}">{{ row['raw_mat'] }}</option>
                     {% endfor %}
@@ -36,30 +36,37 @@
             <input class="form-control" type="text" required placeholder="Amount" name="amount" id="">
         </div>
         
+        <div style="width: 48%;" class="reg-container">
+                
+            <input class="form-control" type="text" required placeholder="Quantity" name="qty" id="">
+        </div>
+        
          
          <div class="reg-container">
             <input  id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" value="submit" name="submit">
          </div>
 
     </form>
-    </div>
+
     <br>
 
-        <h3>Purchased products</h3>
+        <h3>Purchased products</h3><br>
 
     <div>
         <div>
-            <table class="table table-striped tbl-new">
+            <table class="table table-striped tbl-new" style="background:white; opacity:0.9;">
                 <tr>
                     <th>Rawmaterial</th>
+                    <th>Vendor Name</th>
                     <th>Quantity</th>
-                    <th>price</th>
+                    <th>Price</th>
                     <th>Date of Purchase</th>
 
                 </tr>
                 {% for row in data['res'] %}
                 <tr>
                     <td>{{ row['raw_mat'] }}</td>
+                    <td>{{ row['vendor_name'] }}</td>
                     <td>{{ row['quantity'] }}</td>
                     <td>{{ row['price'] }}</td>
                     <td>{{ row['date_added'] }}</td>
@@ -67,18 +74,20 @@
                 {% endfor %}
             </table>
             <div>
+
                 {% if data['res'] %}
                 <form style="width: 100%;display: flex;justify-content: flex-end;align-items: center;padding-right: 5rem;" action="" method="post">
                     
                     <input id="reg-btn" style="color: aliceblue;border:none;outline:none;background: rgb(19, 154, 98);margin-bottom: 1rem;margin-top: 1rem;" type="submit" value="Complete Purchase" name="btn" id="">
                 </form>
                 {% endif %}
+                
             </div>
         
         </div>
     </div>
 
-   
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
     </script>

@@ -40,7 +40,7 @@
         </div>
         <div style="width: 50%;" class="reg-container">
                 
-            <input type="text" class="form-control" required placeholder="price" name="price" id="">
+            <input type="text" class="form-control" required placeholder="Price" name="price" id="">
         </div>
         <div style="width: 50%;" class="reg-container">
                 
@@ -52,17 +52,18 @@
         
          
          <div class="reg-container">
-            <input id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" value="submit" name="submit">
+            <input id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" value="Submit" name="submit">
          </div>
 
     </form>
 
     {% endif %}
-</div>
+
     <br><br>
 
-    <h5>View Available Raw Materials</h5>
-    <table class="table table-striped tbl-new">
+    <h5>View Toppings</h5><br>
+
+    <table class="table table-striped tbl-new" style="background:white; opacity:0.9;">
         <tr>
             <th>index</th>
             <th>Topping</th>
@@ -80,16 +81,23 @@
             <td>{{ row['topping_name'] }}</td>
             <td>{{ row['topping_price'] }}</td>
             <td>{{ row['topping_desc'] }}</td>
-            <td>{{ row['topping_status'] }}</td>
            
-            <td><a class="btn btn-info" href="?action=update&top_id={{ row['topping_id'] }}">Update</a></td>
-            <td><a class="btn btn-success" onclick="return confirm('Are You Sure!')" href="?action=active&top_id={{ row['topping_id'] }}">Active</a></td>
+            {% if row['topping_status'] == 'active' %}
+            
             <td><a class="btn btn-danger" onclick="return confirm('Are You Sure!')" href="?action=inactive&top_id={{ row['topping_id'] }}">Inactive</a></td>
+
+            {% else %}
+            
+            <td><a class="btn btn-success" onclick="return confirm('Are You Sure!')" href="?action=active&top_id={{ row['topping_id'] }}">Active</a></td>
+
+            {% endif%}
+
+            <td><a class="btn btn-info" href="?action=update&top_id={{ row['topping_id'] }}">Update</a></td>
         </tr>
         {% endfor %}
     </table>
 </center>
-
+</div>
 <script src="
 https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
     </script>

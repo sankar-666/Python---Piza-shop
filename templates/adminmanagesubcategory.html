@@ -30,11 +30,12 @@
     <form id="reg" action="" style="padding-top: 2rem;background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" action="" method="post">
         <h3 class="p-3 text-white">Manage Sub Category</h3>
 
-        <div class="reg-container">
-            <div style="width: 354px !important;">
+        <div class="reg-container" style="width: 50%;">
+            <div style="width: 424px !important;">
            
-                <select  class="form-control" required name="catid" id="">
-                    <option value="0">--Select Category--</option>
+                <select  class="form-control" required name="catid" id="" 
+                >
+                    <option value="0">Select Category</option>
                     {% for row in data['cat'] %}
                     <option value="{{ row['category_id'] }}">{{ row['category_name'] }}</option>
                     {% endfor %}
@@ -45,7 +46,7 @@
 
         <div style="width: 50%;" class="reg-container">
                 
-            <input class="form-control" type="text" required placeholder="Sub category Name" name="name" id="">
+            <input class="form-control" type="text" required placeholder="Subcategory Name" name="name" id="">
         </div>
         <div style="width: 50%;" class="reg-container">
                 
@@ -57,21 +58,21 @@
         
          
          <div class="reg-container">
-            <input id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" value="submit" name="submit">
+            <input id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" value="Submit" name="submit">
          </div>
 
     </form>
 
     {% endif %}
 
-</div>
+
 
     <br><br>
 
-    <h5>View Available Raw Materials</h5>
-    <table class="table table-striped tbl-new">
+    <h5>View Subcategory</h5><br>
+    <table class="table table-striped tbl-new" style="background:white; opacity:0.9;">
         <tr>
-            <th>index</th>
+            <th>Sl no</th>
             <th>Sub Category</th>
             <th>Description</th>
             <th>Status</th>
@@ -85,16 +86,18 @@
             <td>{{ loop.index }}</td>
             <td>{{ row['subcategory_name'] }}</td>
             <td>{{ row['subcategory_desc'] }}</td>
-            <td>{{ row['status'] }}</td>
            
-            <td><a class="btn btn-info" href="?action=update&subid={{ row['subcategory_id'] }}">Update</a></td>
-            <td><a class="btn btn-success" onclick="return confirm('Are You Sure!')" href="?action=active&subid={{ row['subcategory_id'] }}">Active</a></td>
+            {% if row['status'] == 'active' %}
             <td><a class="btn btn-danger" onclick="return confirm('Are You Sure!')" href="?action=inactive&subid={{ row['subcategory_id'] }}">Inactive</a></td>
+            {% else %}
+            <td><a class="btn btn-success" onclick="return confirm('Are You Sure!')" href="?action=active&subid={{ row['subcategory_id'] }}">Active</a></td>
+            {% endif %}
+            <td><a class="btn btn-info" href="?action=update&subid={{ row['subcategory_id'] }}">Update</a></td>
         </tr>
         {% endfor %}
     </table>
 </center>
-
+</div>
 <script src="
 https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
     </script>

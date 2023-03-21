@@ -1,0 +1,21 @@
+{% include 'adminheader.html'%}
+
+<center>
+    <div class="img-div">
+
+        <form method="post" id="reg">
+        <br><br><br><br><h2>Delivery Boys</h2><br>
+
+<select  class="form-control" required name="del_boy" style="width:350px">
+                    <option value="0">Select Delivery Boy</option>
+                    {% for row in data['res'] %}
+                    <option value="{{ row['staff_id'] }}">{{ row['staff_fname'] }}</option>
+                    {% endfor %}
+                </select><br>
+                <input type="submit" name="assign_del" class="btn btn-danger">
+</form>
+</div>
+</center>
+{% include 'footer.html' %}
+
+

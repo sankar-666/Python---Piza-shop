@@ -3,7 +3,7 @@
 
 <form  id="fc-cart" action="" method="post">
 <div class="wrap cf">
-    <h1 class="projTitle">Piza<span>-hub</span></h1>
+    <h1 class="projTitle">PizzaPie</h1>
     <div class="heading cf">
       <h1>My Orders</h1>
       <a  href="customerviewitems" class="continue">Continue Shopping</a>
@@ -30,11 +30,18 @@
           </div>  
       
           
-          <div style="padding-left: 300px !important;" class="prodTotal cartSection">
-            <p style="font-size: .8em;" id="singleCost{{ loop.index }}">Status: <span style="color: #82CA9C;">{{ row['order_status'] }}</span></p>
-          
-        </div>
+          <div style="padding-left: 150px !important;" class="prodTotal cartSection">
+            <p style="font-size: .8em;" id="singleCost{{ loop.index }}">Status: <span style="color: #82CA9C;">{{ row['order_status'] }}</span></p>  
+          </div>
 
+          <div style="padding-left:10px;">
+            <a href="bill?oid={{ row['ordermaster_id'] }}" style="color:red;">Invoice</a>
+          </div>
+        <!-- <div>
+          {% if row['order_status'] == 'Delivery Completed'%}
+          <a href="bill">Print Bill</a>
+          {% endif %}
+        </div> -->
         </div>
 
 

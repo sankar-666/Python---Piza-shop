@@ -1,7 +1,7 @@
 {% include 'adminheader.html' %}
 <center>
 <div class="img-div">
-    {% if data['raw'] %}
+    {% if data['upd'] %}
 
     
     <form id="reg" action="" style="padding-top: 2rem;background: rgba(0, 0, 0, .1);box-shadow: 10px 10px 8px lightgrey" action="" method="post" enctype="multipart/form-data">
@@ -9,24 +9,24 @@
 
         <div  style="width: 50%;" class="reg-container">
                 
-            <input class="form-control" type="text" value="{{data['raw'][0]['product_name']}}" required placeholder="Product Name" name="name" id="">
+            <input class="form-control" type="text" value="{{data['upd'][0]['product_name']}}" required placeholder="Product Name" name="name" id="">
         </div>
         <div style="width: 50%;"  class="reg-container">
                 
-            <input class="form-control" type="text" value="{{data['raw'][0]['product_desc']}}" required placeholder="Product description" name="desc" id="">
+            <input class="form-control" type="text" value="{{data['upd'][0]['product_desc']}}" required placeholder="Product description" name="desc" id="">
             
         </div>
 
-        <div class="reg-container">
+        <!-- <div class="reg-container">
             <label for="">Image: </label>
             <img style="border-radius: 6px;" src="/{{data['raw'][0]['product_image']}}" width="70" height="70" alt="">
-        </div>
+        </div> -->
         <div class="reg-container">
-            <input style="margin-left: 18rem;" type="file"   placeholder="Product Name" name="image" id="">
+            <input style="margin-left: 0rem; width:48%" type="file" class="form-control"  placeholder="Product Image" name="image" id="">
 
         </div>
         <div style="width: 50%;"  class="reg-container">
-            <input class="form-control" type="number" value="{{data['raw'][0]['product_price']}}" required placeholder="Product Price" name="price" id="">
+            <input class="form-control" type="number" value="{{data['upd'][0]['labour_cost']}}" required placeholder="Labour Cost" name="lab" id="">
             </div>    
             <div class="reg-container">
                 <input id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" name="update" id="">
@@ -40,10 +40,10 @@
         <h3 class="p-3 text-white">Manage Items</h3>
 
         <div class="reg-container">
-            <div style="width: 354px !important;">
+            <div style="width: 414px !important;">
                 
                 <select class="form-control" required name="subid" id="">
-                    <option value="0">--select sub category--</option>
+                    <option value="0">Select Subcategory</option>
                     {% for row in data['sub'] %}
                     <option value="{{ row['subcategory_id'] }}">{{ row['subcategory_name'] }}</option>
                     {% endfor %}
@@ -51,6 +51,19 @@
             </div>
         
     </div>
+
+    <div class="reg-container">
+        <div style="width: 414px !important;">
+            
+            <select class="form-control" required name="rawid" id="">
+                <option value="0">Select Raw Materials</option>
+                {% for row in data['raw'] %}
+                <option value="{{ row['raw_mat_id'] }}">{{ row['raw_mat'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    
+</div>
 
         <div style="width: 50%;" class="reg-container">
                 
@@ -62,13 +75,13 @@
             
         </div>
 
-        <div style="margin-left: 14rem;" class="reg-container">
-                    <label for="">Image: </label>
-            <input  type="file" required placeholder="Product Name" name="image" id="">
+        <div style="margin-left: 0rem;" class="reg-container">
+                    <!-- <label for="">Image: </label> -->
+            <input  type="file" required placeholder="Product Name"  style="width:47%" class="form-control" name="image" id="">
         </div>
         <div style="width: 50%;" class="reg-container">
                 
-            <input class="form-control" type="number" required placeholder="Product Price" name="price" id="">
+            <input class="form-control" type="text" required placeholder="Labour charge" name="charge" id="">
             
         </div>
               
@@ -76,19 +89,50 @@
         
          
          <div  class="reg-container">
-            <input id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" value="submit" name="submit">
+            <input id="reg-btn" style="color: aliceblue;border:none;outline:none" type="submit" value="Submit" name="submit">
          </div>
 
     </form>
 
     {% endif %}
-    </div>
+
 
     <br><br>
 
-    <h5>View Available Items</h5>
+    <h5>View Items</h5><br>
 
-    <div style="display: block;">
+    <center>
+    <table class="table table-striped tbl-new" style="background:white; opacity:0.9;">
+        <tr>
+            <th>Sl no</th>
+            <th>Product Name</th>
+            <th>Product Description</th>
+            <th>Product Image</th>
+            <th>Product Price</th>
+            <th>Status</th>
+            <th>Update</th>
+            
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ row['product_name'] }}</td>
+            <td>{{ row['product_desc'] }}</td>
+            <td><img src="/{{row['product_image']}}" style="width: 150px;height: 120px;"></td>
+            <td>Rs. {{ row['product_price'] }}</td>
+
+            {% if row['status'] == 'active' %}
+            <td><a class="btn btn-danger" onclick="return confirm('Are You Sure!')" href="?action=inactive&pid={{ row['product_id'] }}">Inactive</a></td>
+            {% else %}
+            <td><a class="btn btn-info" onclick="return confirm('Are You Sure!')" href="?action=active&pid={{ row['product_id'] }}">Active</a></td>
+            {% endif %}
+            <td><a class="btn btn-success" href="?action=update&pid={{ row['product_id'] }}">Update</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    </center>
+</div>
+    <!-- <div style="display: block;">
     <div class="pim-div" style="background: aliceblue !important;box-sizing: border-box;padding-right: 1rem;transform: none;">
         <span></span>
         <span style="position: relative;right:-2rem;">Product</span>
@@ -105,16 +149,18 @@
             <span>{{ row['product_name'] }}</span>
             <span>{{ row['product_desc'] }}</span>
             <span>{{ row['product_price'] }}</span>
-            <span>{{ row['status'] }}</span>
 
-            <a class="btn btn-success" href="?action=update&pid={{ row['product_id'] }}">Update</a>
-            <a class="btn btn-info" onclick="return confirm('Are You Sure!')" href="?action=active&pid={{ row['product_id'] }}">Active</a>
+            {% if row['status'] == 'active' %}
             <a class="btn btn-danger" onclick="return confirm('Are You Sure!')" href="?action=inactive&pid={{ row['product_id'] }}">Inactive</a>
+            {% else %}
+            <a class="btn btn-info" onclick="return confirm('Are You Sure!')" href="?action=active&pid={{ row['product_id'] }}">Active</a>
+            {% endif %}
+            <a class="btn btn-success" href="?action=update&pid={{ row['product_id'] }}">Update</a>
         </div>
       
     </div>
      
-        {% endfor %}
+        {% endfor %} -->
     
 </center>
 

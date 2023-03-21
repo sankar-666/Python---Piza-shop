@@ -1,0 +1,65 @@
+{% include 'adminheader.html' %}
+
+<div class="img-div">
+    <center>
+        <form method="post" style="width: 350px">
+            <h2 style="color: black;">SEARCH CUSTOMER</h2>
+                    <br>
+                    <input type="text"  class="form-control" required="" name="srcust"></td>
+                <br>
+          
+                  <input type="submit" class="btn btn-info" name="searchcust" value="Search"></td>
+          
+            </form>
+       </center>
+<center>
+<h5>View Customer</h5><br>
+    <table class="table table-striped tbl-new" style="background:white; opacity:0.9;">
+        <tr>
+            <th>Slno</th>
+            <th>First Name</th>
+            <th>Last Name</th>                          
+            <th>Date Of Birth</th>
+            <th>Gender</th>                                                 
+            <th>House Name</th>
+            <th>City</th>
+            <th>District</th>
+            <th>Pin</th>
+            <th>Phone</th>
+        </tr>
+        {% for row in data['custview'] %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{row['customer_fname']}}</td>
+            <td>{{row['customer_lname']}}</td>
+            <td>{{row['customer_dob']}}</td>
+            <td>{{row['customer_gender']}}</td>                               
+            <td>{{row['customer_housename']}}</td>
+            <td>{{row['customer_city']}}</td>
+            <td>{{row['customer_dist']}}</td>
+            <td>{{row['customer_pincode']}}</td>
+            <td>{{row['customer_phone']}}</td>
+        </tr>
+        {% endfor %}
+    
+            
+
+    </table>
+    <br><a href="customerreport" class="btn btn-danger">Print</a><br><br><br>
+    <br><br>
+</center>
+</div>
+
+
+{% include 'footer.html' %}
+
+<script> 
+    function printDiv() { 
+        print()
+    //   var divContents = document.getElementById("div_print").innerHTML; 
+    //   var a = window.open('', '', 'height=500, width=500'); 
+    //   a.document.write(divContents); 
+    //   a.document.close(); 
+    //   a.print(); 
+    } 
+</script>
